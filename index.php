@@ -76,7 +76,7 @@
         </div>
       </section>
         <br>
-<p class="lead well well-sm"><a href="iniciarsesion.php">RESERVA TU BICI AHORA</a></p>';
+<p class="lead well well-sm"><a href="iniciarsesion.php">RESERVA TU BICIAMIGA AHORA</a></p>';
 else
   echo '<p class="lead well well-sm">Bienvenido ' . strtoupper($_usuario) . ',  ' . '<a href="cerrarsesion.php">cerrar sesión</a></p>';
     ?>
