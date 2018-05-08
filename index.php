@@ -22,7 +22,7 @@
               ?>
   <div id="wrap">
 
-    <?php include("barraNavegacion.php") ?>
+    <?php include("navBar.php") ?>
 
 <br>
 <?php 
@@ -76,14 +76,20 @@
         </div>
       </section>
         <br>
-<p class="lead well well-sm"><a href="iniciarsesion.php">RESERVA TU BICI AHORA</a></p>';
+
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+<p class="lead well well-sm booking"><a href="startSession.php">RESERVA TU BICI AHORA</a></p>
+</div>
+<div class="col-lg-4"></div>';
+
 else
-  echo '<p class="lead well well-sm">Bienvenido ' . strtoupper($_usuario) . ',  ' . '<a href="cerrarsesion.php">cerrar sesión</a></p>';
+  echo '<p class="lead well well-sm">Bienvenido ' . strtoupper($_usuario) . ',  ' . '<a href="closeSession.php">cerrar sesión</a></p>';
     ?>
     </div><!-- Wrap Div end -->
 </div>
 
-<?php include("pie.php") ?>
+<?php include("footer.php") ?>
 
 		    <script src="jquery-1.10.2.min.js"></script>
 		    <script src="bootstrap.min.js"></script>
