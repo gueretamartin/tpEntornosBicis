@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2018 a las 18:43:39
--- Versión del servidor: 10.1.30-MariaDB
--- Versión de PHP: 7.2.1
+-- Tiempo de generación: 09-05-2018 a las 01:47:55
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `biciamiga`
 --
-CREATE DATABASE IF NOT EXISTS `biciamiga` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `biciamiga`;
 
 -- --------------------------------------------------------
 
@@ -43,6 +41,27 @@ CREATE TABLE `bicicletas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `booking`
+--
+
+CREATE TABLE `booking` (
+  `numberBooking` int(11) NOT NULL,
+  `user` varchar(500) NOT NULL,
+  `date` date NOT NULL,
+  `typeBike` int(11) NOT NULL,
+  `state` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `booking`
+--
+
+INSERT INTO `booking` (`numberBooking`, `user`, `date`, `typeBike`, `state`) VALUES
+(1, 'admin', '2018-05-08', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `reservas`
 --
 
@@ -58,6 +77,34 @@ CREATE TABLE `reservas` (
   `obs` varchar(100) NOT NULL,
   `fecha_cancelacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `dni` int(100) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `type` int(1) NOT NULL,
+  `fullName` varchar(50) NOT NULL,
+  `email` varchar(12290) NOT NULL,
+  `phone` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`dni`, `password`, `type`, `fullName`, `email`, `phone`) VALUES
+(0, 'admin', 1, '', '', ''),
+(12, 'f8e0920f299', 0, 'asdas', '123', 'asd'),
+(42, 'f8e0920f29985ad1a2724161e86faa65', 0, 'e234234234', 'werwer', 'werwerwer'),
+(1235, '827ccb0eea8', 0, 'facu', 'facu@facu.com', '12312'),
+(33333, '61b80f94cdd', 0, 'fggdfdgd', '234', 'q34234234'),
+(123123, 'holis', 0, 'guille', 'asdlhasjd', '823478924'),
+(423424234, 'md5(rwererw', 0, 'wrewerer', 'werwerwer', 'wrewerwer');
 
 -- --------------------------------------------------------
 
@@ -94,12 +141,24 @@ ALTER TABLE `bicicletas`
   ADD KEY `id_bici_5` (`id_bici`);
 
 --
+-- Indices de la tabla `booking`
+--
+ALTER TABLE `booking`
+  ADD PRIMARY KEY (`numberBooking`);
+
+--
 -- Indices de la tabla `reservas`
 --
 ALTER TABLE `reservas`
   ADD PRIMARY KEY (`id_reserva`),
   ADD KEY `id_bici` (`id_bici`),
   ADD KEY `id_usr` (`id_usr`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`dni`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -120,6 +179,12 @@ ALTER TABLE `bicicletas`
   MODIFY `id_bici` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `booking`
+--
+ALTER TABLE `booking`
+  MODIFY `numberBooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
@@ -129,7 +194,7 @@ ALTER TABLE `reservas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
