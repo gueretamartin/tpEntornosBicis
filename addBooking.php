@@ -24,7 +24,7 @@
 
 
         if (isset($_POST['submit'])) {
-          $cuit = $_POST['cuit'];
+          $cuit = $_POST[ $_usuario];
           $calle = $_POST['calle'];
           $numero = $_POST['numero'];
 
@@ -34,7 +34,7 @@
             $_errorValidacion = 1;
           else {
               include ("connection.inc");
-              $resultado = $link->query('select * from edificio where cuit =' . $cuit );
+              $resultado = $link->query('select * from booking where number =' . $cuit );
               $numrows = mysqli_num_rows($resultado);
               if ($numrows > 0) {
                 $fila = $resultado->fetch_assoc();

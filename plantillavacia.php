@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <meta charset="utf-8">
-	    <title>Giordaneta - Propiedad Horizontal</title>
+	    <title>Calvagna - Propiedad Horizontal</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <link rel="stylesheet" href="bootstrap.css" media="screen">

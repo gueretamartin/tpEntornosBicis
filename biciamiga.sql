@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2018 a las 01:47:55
+-- Tiempo de generación: 09-05-2018 a las 16:02:07
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -98,12 +98,14 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`dni`, `password`, `type`, `fullName`, `email`, `phone`) VALUES
-(0, 'admin', 1, '', '', ''),
 (12, 'f8e0920f299', 0, 'asdas', '123', 'asd'),
 (42, 'f8e0920f29985ad1a2724161e86faa65', 0, 'e234234234', 'werwer', 'werwerwer'),
+(123, '21232f297a57a5a743894a0e4a801fc3', 0, 'admin', 'admin@admin.com', '421196'),
 (1235, '827ccb0eea8', 0, 'facu', 'facu@facu.com', '12312'),
+(8888, 'b6d767d2f8ed5d21a44b0e5886680cb9', 0, 'martin', 'admin@admin.com', '429912'),
 (33333, '61b80f94cdd', 0, 'fggdfdgd', '234', 'q34234234'),
 (123123, 'holis', 0, 'guille', 'asdlhasjd', '823478924'),
+(39953038, 'c4ca4238a0b923820dcc509a6f75849b', 0, 'martin', 'tinchin77@tinchin.com', '421196'),
 (423424234, 'md5(rwererw', 0, 'wrewerer', 'werwerwer', 'wrewerwer');
 
 -- --------------------------------------------------------
@@ -194,7 +196,7 @@ ALTER TABLE `reservas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

@@ -57,12 +57,52 @@
     ?>
 
        <div id="wrap">
-        <?php include("navBar.php") ?>
-        <br>
-        <br>
+        <?php include("navBar.php") ?><br>
+        <!-- new -->
+        <div class="container-fluid ">
+      <div class= "col-lg-12 text-center"> <h3>Nuevo Usuario</h3></div>
+      <div class = "col-lg-4"></div>
+      <div class = "col-lg-4">
+         <form action="newUser.php" method="POST">
+          <div class="form-group row">
+               <label class="control-label">Nombre completo</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName" required >
+  <label  class="control-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" required >
+   <label  class="control-label">Teléfono</label>
+                        <input type="text" class="form-control" id="phone" name="phone" >
+   <label  class="control-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" required >
+     <label  class="control-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" required
+            </div>
+
+            <div class="form-group">
+              <div id="mensajes">
+                         <?php
+                         if (isset($_errorValidacion))
+                         {
+                           if ($_errorValidacion == 1)
+                             echo '<h4 class="alert alert-danger text-center">Ya existe un usuario con ese DNI</h1>';
+                           if ($_errorValidacion == 0)
+                             echo '<h4 class="alert alert-success text-center">Usuario creado con éxito</h4>';
+                         }
+                         ?>
+                       </div>
+                       <button type="reset" class="btn btn-warning col-lg-4 col-xs-5" onclick="clearFields();">Resetear</button>
+
+                       <button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 pull-right">Registrarse</button>
 
 
-        <!-- Begin page content -->
+                       <div class="clearfix"></div>
+              </div>  
+            </form>
+          </div>
+          <div class="col-lg-4"></div>
+        </div>
+
+
+        <!-- 
         <div class="container">
           <div class="container">
             <div class="row">
@@ -71,7 +111,7 @@
                   <div class="row">
                     <div class="col-md-4 col-md-offset-4 col-xs-10   col-xs-offset-1 well" id="forminises">
                       <?php 
-                        echo '<h1 class="text-center">Nuevo usuario</h1>';
+                       // echo '<h1 class="text-center">Nuevo usuario</h1>';
                       ?>
                       <div class="form-group">
                         <label class="control-label">Nombre completo</label>
@@ -99,12 +139,12 @@
 
                        <div id="mensajes">
                          <?php
-                         if (isset($_errorValidacion))
+                     //   if (isset($_errorValidacion))
                          {
-                           if ($_errorValidacion == 1)
-                             echo '<h4 class="alert alert-danger text-center">Ya existe un usuario con ese DNI</h1>';
-                           if ($_errorValidacion == 0)
-                             echo '<h4 class="alert alert-success text-center">Usuario creado con éxito</h4>';
+                       //    if ($_errorValidacion == 1)
+                         //    echo '<h4 class="alert alert-danger text-center">Ya existe un usuario con ese DNI</h1>';
+                        //   if ($_errorValidacion == 0)
+                          //   echo '<h4 class="alert alert-success text-center">Usuario creado con éxito</h4>';
                          }
                          ?>
                        </div>
@@ -122,13 +162,9 @@
 
              </div>
            </div>
-
+ -->
          </div>
-       </div><!-- Wrap Div end -->
-
-
-
-     </div>
+      
      <?php include("footer.php") ?>
 
      <script src="jquery-1.10.2.min.js"></script>
