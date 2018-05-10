@@ -59,7 +59,8 @@
             <thead>
               <tr class="success">
                 <th class="text-center"><p>Número de Reserva</p></th>
-                <th class="text-center"><p>Fecha</p></th>
+                <th class="text-center"><p>Fecha Desde</p></th>
+                <th class="text-center"><p>Fecha Hasta</p></th>
                 <th class="text-center"><p>Tipo de Bicicleta</p></th>
                 <th class="text-center"><p>Estado</p></th>
                 <th class="text-center"><p>Modificar</p></th>
@@ -94,11 +95,12 @@ include ("connection.inc");
                     echo '
                     <tr class="active">
                       <td><p>' . $fila['numberBooking'] . '</p></td>
-                      <td><p>' . $fila['date'] . '</p></td>
+                      <td><p>' . $fila['dateFrom'] . '</p></td>
+                      <td><p>' . $fila['dateTo'] . '</p></td>
                       <td><p>' . $fila['typeBike'] . '</p></td>
                       <td><p>' . $fila['state'] . '</p></td>
-                      <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modificarEdificio(' . $fila['numberBooking'] .  ')" /></td>
-                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="eliminarEdificio.php?numberBooking=' . $fila["numberBooking"] . "&date=" . $fila["date"] . "&typeBike=" . $fila["typeBike"] . '" data-toggle="modal" data-target="#confirm-delete")"/></td>
+                      <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedBooking(' . $fila['numberBooking'] .  ')" /></td>
+                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?numberBooking=' . $fila["numberBooking"] . "&dateFrom=" . $fila["dateFrom"] . "&dateTo=" . $fila["dateTo"] . "&typeBike=" . $fila["typeBike"] . '" data-toggle="modal" data-target="#confirm-delete")"/></td>
                     </tr>
                     ';
                   $contador++;
@@ -178,8 +180,8 @@ include ("connection.inc");
 
 
         <script type="text/javascript">
-        function modificarEdificio(numberBooking) {
-            window.location.href = "addEdificio.php?numberBooking=" + numberBooking;
+        function modifiedBooking(numberBooking) {
+            window.location.href = "addBooking.php?numberBooking=" + numberBooking;
         }
         </script>
 

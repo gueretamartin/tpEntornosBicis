@@ -11,6 +11,15 @@
   <link rel="stylesheet" type="text/css" href="footer.css">
 </head>
 <body>
+   <?php
+    session_start();
+    if (isset($_COOKIE['recordar'])){
+      $_SESSION['usuario']=$_COOKIE['recordar'];
+    }
+    if(isset($_SESSION['usuario']))
+      $_usuario = (string)$_SESSION['usuario'];
+    ?>
+
   <?php include("navBar.php") ?>
   <div class="container text-center">
     <div class="row">

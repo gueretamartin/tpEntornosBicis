@@ -7108,3 +7108,15 @@ a.list-group-item-danger.active:focus {
 .bike {
       border-radius: 50px;
 }
+.buttonAddBooking {
+  background-color: #D29F45;
+}
+.buttonCloseSession {
+  background-color: red;
+}
+.signUp{
+  color:red;
+  text-decoration: underline;
+  font-size: 15px;  
+  margin-top:20px;
+}

@@ -19,25 +19,25 @@ echo '
 
 // only admin
     if (isset($_usuario) && $_usuario=="123")
-    echo  '<li><a href="">Empty Admin</a></li>';
+    echo  '<li class ="buttonAddBooking"><a href="addBooking.php">Reservar</a></li>';
 
       elseif (isset($_usuario)){
-        echo '<li><a href="">Empty User</a></li>'
-    
-// other user (no admin)
-     ;
+        echo 
+        '<li class="buttonAddBooking"><a href="addBooking.php">Reservar</a></li>';
       }
 // all users
     echo ' 
-        <li><a href="newUser.php">Registrarse</a></li>   
+      
         <li><a href="gallery.php">Galería</a></li>
         <li><a href="contact.php">Contacto</a></li>
        <!-- <li><a href="about.php">¿Quienes somos?</a></li>-->';
 
          if(isset($_usuario))
-           echo '<li><a href="closeSession.php" >Cerrar Sesión</a></li>';
+           echo '<li class="buttonCloseSession"><a href="closeSession.php" >Cerrar Sesión</a></li>';
          else
-           echo '<li><a href="startSession.php" class="session">Iniciar Sesion</a></li>';
+           echo '<li><a href="newUser.php">Registrarse</a></li>   
+         <li><a href="startSession.php" class="session">Iniciar Sesion</a></li>'
+           ;
 echo'
         </ul>
       </div>

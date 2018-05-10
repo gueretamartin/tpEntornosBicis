@@ -48,7 +48,7 @@
 				setcookie("recordar", $_usuario, time() + 30*24*60*60);
 
 			session_write_close();
-			header("Location:index.php");
+			header("Location:addBooking.php");
 
 		}
 		mysqli_close($link);
@@ -62,16 +62,21 @@
 			<div class = "col-lg-4"></div>
 			<div class = "col-lg-4">
 				<form name="startSession" method="POST">
-						<div class="form-group row">
-							<label for="example-text-input" class="col-2 col-form-label">Usuario</label>
-							<div class="col-10">
-								<input class="form-control" name = "usuario" type="number" id="usuario" placeholder="Ingrese su DNI">
-							</div>
-					
-							<label for="example-password-input" class="col-2 col-form-label">Password</label>
-							<div class="col-10">
-								<input class="form-control" type="password" name = "contraseña" id="contraseña" placeholder="Ingrese su contraseña">
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label">Usuario</label>
+						<div class="col-10">
+							<input class="form-control" name = "usuario" type="number" id="usuario" placeholder="Ingrese su DNI">
 						</div>
+
+						<label for="example-password-input" class="col-2 col-form-label">Password</label>
+						<div class="col-10">
+							<input class="form-control" type="password" name = "contraseña" id="contraseña" placeholder="Ingrese su contraseña">
+						</div>
+						<label>
+						    <input type="checkbox" name="recordar"> Recordar
+						</label>
+
+						<br><a class ="signUp" href="newUser.php"> Aún no estoy registrado<a>
 
 						<div class="form-group">
 							<?php
@@ -79,13 +84,13 @@
 								if ($_errorAutenticacion == 1)
 									echo '<br><h4 class="text-danger">Usuario y/o contraseña  incorrecta.</h4>'; 
 								?>
-							<button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 text-center ">Entrar</button>
-						</div>	
-				</form>
+								<button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 text-center ">Entrar</button>
+							</div>	
+						</form>
 					</div>
 					<div class="col-lg-4"></div>
 				</div>
-		   </div>
+			</div>
 		</div><!-- Wrap Div end -->
 		<?php include("footer.php") ?>
 		<script src="jquery-1.10.2.min.js"></script>

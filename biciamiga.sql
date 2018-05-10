@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2018 a las 16:02:07
+-- Tiempo de generación: 10-05-2018 a las 22:34:51
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -47,7 +47,8 @@ CREATE TABLE `bicicletas` (
 CREATE TABLE `booking` (
   `numberBooking` int(11) NOT NULL,
   `user` varchar(500) NOT NULL,
-  `date` date NOT NULL,
+  `dateFrom` date NOT NULL,
+  `dateTo` date NOT NULL,
   `typeBike` int(11) NOT NULL,
   `state` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -56,8 +57,19 @@ CREATE TABLE `booking` (
 -- Volcado de datos para la tabla `booking`
 --
 
-INSERT INTO `booking` (`numberBooking`, `user`, `date`, `typeBike`, `state`) VALUES
-(1, 'admin', '2018-05-08', 1, 1);
+INSERT INTO `booking` (`numberBooking`, `user`, `dateFrom`, `dateTo`, `typeBike`, `state`) VALUES
+(1, 'admin', '2018-05-08', '0000-00-00', 1, 1),
+(4, '123', '2018-05-19', '2018-05-11', 1, 1),
+(5, '123', '2018-05-04', '2018-05-10', 2, 1),
+(6, '123', '2018-05-19', '2018-05-11', 0, 1),
+(7, '123', '2018-05-04', '2018-05-10', 0, 1),
+(8, '123', '2018-05-04', '2018-05-10', 2, 1),
+(9, '123', '2018-05-19', '2018-05-11', 2, 1),
+(10, '123', '2018-05-19', '2018-05-11', 2, 1),
+(11, '123', '2018-05-19', '2018-05-11', 2, 1),
+(12, '123', '2018-05-19', '2018-05-11', 2, 1),
+(13, '123', '2018-05-19', '2018-05-12', 2, 1),
+(15, '123', '2018-05-19', '2018-05-12', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -101,7 +113,9 @@ INSERT INTO `usuario` (`dni`, `password`, `type`, `fullName`, `email`, `phone`) 
 (12, 'f8e0920f299', 0, 'asdas', '123', 'asd'),
 (42, 'f8e0920f29985ad1a2724161e86faa65', 0, 'e234234234', 'werwer', 'werwerwer'),
 (123, '21232f297a57a5a743894a0e4a801fc3', 0, 'admin', 'admin@admin.com', '421196'),
+(999, 'f5bb0c8de146c67b44babbf4e6584cc0', 0, 'martin', 'martin@martin.com', '1239'),
 (1235, '827ccb0eea8', 0, 'facu', 'facu@facu.com', '12312'),
+(3234, '108a51ab7848e734dda43115cf3e7d5c', 0, 'MartÃ­n', 'martin@martin.com', 'kaka1231'),
 (8888, 'b6d767d2f8ed5d21a44b0e5886680cb9', 0, 'martin', 'admin@admin.com', '429912'),
 (33333, '61b80f94cdd', 0, 'fggdfdgd', '234', 'q34234234'),
 (123123, 'holis', 0, 'guille', 'asdlhasjd', '823478924'),
@@ -184,7 +198,7 @@ ALTER TABLE `bicicletas`
 -- AUTO_INCREMENT de la tabla `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `numberBooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `numberBooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
