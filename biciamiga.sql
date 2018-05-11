@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2018 a las 22:34:51
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Tiempo de generación: 11-05-2018 a las 02:46:27
+-- Versión del servidor: 10.1.30-MariaDB
+-- Versión de PHP: 7.0.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -74,34 +74,15 @@ INSERT INTO `booking` (`numberBooking`, `user`, `dateFrom`, `dateTo`, `typeBike`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reservas`
---
-
-CREATE TABLE `reservas` (
-  `id_reserva` int(11) NOT NULL,
-  `id_usr` int(11) NOT NULL,
-  `id_bici` int(11) NOT NULL,
-  `estado` int(11) NOT NULL COMMENT 'EN CURSO / CANCELADO / FINALIZADO / PENDIENTE',
-  `importe` decimal(10,0) NOT NULL COMMENT '(cant_hrs * precio_hr de la bici) o (precio x dia de la bicicleta)',
-  `fecha_solicitud` date NOT NULL,
-  `fecha_reserva` date NOT NULL,
-  `cant_hrs` int(11) NOT NULL,
-  `obs` varchar(100) NOT NULL,
-  `fecha_cancelacion` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
-  `dni` int(100) NOT NULL,
+  `dni` int(12) NOT NULL,
   `password` varchar(32) NOT NULL,
   `type` int(1) NOT NULL,
-  `fullName` varchar(50) NOT NULL,
-  `email` varchar(12290) NOT NULL,
+  `fullName` varchar(80) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `phone` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -119,27 +100,9 @@ INSERT INTO `usuario` (`dni`, `password`, `type`, `fullName`, `email`, `phone`) 
 (8888, 'b6d767d2f8ed5d21a44b0e5886680cb9', 0, 'martin', 'admin@admin.com', '429912'),
 (33333, '61b80f94cdd', 0, 'fggdfdgd', '234', 'q34234234'),
 (123123, 'holis', 0, 'guille', 'asdlhasjd', '823478924'),
+(37450910, '827ccb0eea8a706c4c34a16891f84e7b', 0, 'Facundo Alvarez', 'dgas@aa.com', 'adsgasdgadsadsga'),
 (39953038, 'c4ca4238a0b923820dcc509a6f75849b', 0, 'martin', 'tinchin77@tinchin.com', '421196'),
 (423424234, 'md5(rwererw', 0, 'wrewerer', 'werwerwer', 'wrewerwer');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id_usr` int(11) NOT NULL,
-  `apenom` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `pass` varchar(250) NOT NULL,
-  `dni` varchar(10) NOT NULL,
-  `habilitado` tinyint(1) NOT NULL,
-  `fec_alta` date NOT NULL,
-  `fec_ult_log` date NOT NULL,
-  `es_administrador` tinyint(1) NOT NULL,
-  `nro_contacto` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Índices para tablas volcadas
@@ -163,26 +126,10 @@ ALTER TABLE `booking`
   ADD PRIMARY KEY (`numberBooking`);
 
 --
--- Indices de la tabla `reservas`
---
-ALTER TABLE `reservas`
-  ADD PRIMARY KEY (`id_reserva`),
-  ADD KEY `id_bici` (`id_bici`),
-  ADD KEY `id_usr` (`id_usr`);
-
---
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`dni`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usr`),
-  ADD UNIQUE KEY `id_usr` (`id_usr`),
-  ADD KEY `id_usr_2` (`id_usr`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -199,29 +146,6 @@ ALTER TABLE `bicicletas`
 --
 ALTER TABLE `booking`
   MODIFY `numberBooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT de la tabla `reservas`
---
-ALTER TABLE `reservas`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `reservas`
---
-ALTER TABLE `reservas`
-  ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`id_bici`) REFERENCES `bicicletas` (`id_bici`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservas_ibfk_2` FOREIGN KEY (`id_usr`) REFERENCES `usuarios` (`id_usr`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

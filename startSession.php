@@ -7,13 +7,7 @@
 	<link rel="stylesheet" href="bootstrap.css" media="screen">
 	<link rel="stylesheet" href="bootswatch.min.css">
 	<script type="text/javascript">
-		onload = function(){
-			field = document.getElementById('body')
-			field.onkeydown = keyhit
-			field.focus()
-		}
-
-		function keyhit(e)
+	function keyhit(e)
 		{
 			thisKey = e ? e.which : window.event.keyCode
 			switch (thisKey) {
@@ -58,38 +52,40 @@
 		<br>
 		<br>
 		<div class="container-fluid ">
-			<div class= "col-lg-12 text-center"> <h3>Ingresar</h3></div>
-			<div class = "col-lg-4"></div>
-			<div class = "col-lg-4">
+			<div class= "col-lg-12 text-center"><h3>Ingresar</h3></div>
+			<div class = "col-lg-3"></div>
+			<div class = "col-lg-6">
 				<form name="startSession" method="POST">
 					<div class="form-group row">
-						<label for="example-text-input" class="col-2 col-form-label">Usuario</label>
-						<div class="col-10">
-							<input class="form-control" name = "usuario" type="number" id="usuario" placeholder="Ingrese su DNI">
-						</div>
-
-						<label for="example-password-input" class="col-2 col-form-label">Password</label>
-						<div class="col-10">
-							<input class="form-control" type="password" name = "contraseña" id="contraseña" placeholder="Ingrese su contraseña">
-						</div>
-						<label>
-						    <input type="checkbox" name="recordar"> Recordar
-						</label>
-
-						<br><a class ="signUp" href="newUser.php"> Aún no estoy registrado<a>
-
-						<div class="form-group">
-							<?php
+						<?php
 							if (isset($_errorAutenticacion))
 								if ($_errorAutenticacion == 1)
-									echo '<br><h4 class="text-danger">Usuario y/o contraseña  incorrecta.</h4>'; 
-								?>
-								<button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 text-center ">Entrar</button>
-							</div>	
-						</form>
-					</div>
-					<div class="col-lg-4"></div>
+									echo '<div align="center"><h4 class="text-danger">¡Usuario y/o contraseña incorrecta!</h4></div>'; 
+						?>
+						<label for="example-text-input" class="col-2 col-form-label">D.N.I.</label>
+						<div class="col-10">
+							<input class="form-control" name = "usuario" type="number" min="1" max="999999999999" id="usuario" required>
+						</div>
+						<label for="example-password-input" class="col-2 col-form-label">Contraseña</label>
+						<div class="col-10">
+							<input class="form-control" type="password" name = "contraseña" id="contraseña" required>
+						</div>
+						<div align="right">
+							<label>
+								<input type="checkbox" name="recordar">&nbsp;&nbsp;Recordar mi sesión
+							</label>		
+						</div>
+						<div class="form-group">
+							<button type="submit" name="submit" class="btn btn-primary col-lg-12 col-xs-12 text-center" style="margin-top:0;">Entrar</button>
+						</div>						
+					</form>
+					<br>
+					<div align="center" style="margin-top:2rem;">							
+						<a class="signUp" href="newUser.php">Aún no estoy registrado</a>
+					</div>	
 				</div>
+					<div class="col-lg-3"></div>
+			</div>
 			</div>
 		</div><!-- Wrap Div end -->
 		<?php include("footer.php") ?>

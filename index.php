@@ -54,7 +54,7 @@
                 <i class="fa fa-mouse-pointer fa-stack-1x fa-inverse"></i>
               </span> 
               <h4 class="service-heading">PASO 1</h4>
-              <p class="text-muted">Hace click sobre el Botón "RESERVA TU BICI AHORA".</p>
+              <p class="text-muted">Hace click sobre el Botón<br><b>RESERVA TU BICI AHORA</b>.</p>
             </div>
             <div class="col-md-4">
               <span class="fa-stack fa-4x">
