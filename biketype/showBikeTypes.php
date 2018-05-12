@@ -2,8 +2,8 @@
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="bootstrap.css" media="screen">
-    <link rel="stylesheet" href="bootswatch.min.css">
+    <link rel="stylesheet" href="../bootstrap.css" media="screen">
+    <link rel="stylesheet" href="../bootswatch.min.css">
    <!-- <link rel="stylesheet" type="text/css" href="footer.css">-->
 
     <style type="text/css">
@@ -47,7 +47,7 @@
 
 
   <div id="wrap">
-			    <?php include("navBar.php") ?>
+			    <?php include("../navBar.php") ?>
 <br>
 
 
@@ -58,19 +58,17 @@
           <table class="table table-striped table-hover text-center">
             <thead>
               <tr class="success">
-                <th class="text-center"><p>Número de Reserva</p></th>
-                <th class="text-center"><p>Fecha Desde</p></th>
-                <th class="text-center"><p>Fecha Hasta</p></th>
-                <th class="text-center"><p>Tipo de Bicicleta</p></th>
-                <th class="text-center"><p>Estado</p></th>
+                <th class="text-center"><p>Codigo</p></th>
+                <th class="text-center"><p>Tipo de Bici</p></th>
+                <th class="text-center"><p>Precio</p></th>
+                <th class="text-center"><p>Imagen</p></th>
                 <th class="text-center"><p>Modificar</p></th>
-                <th class="text-center"><p>Eliminar</p></th>
               </tr>
             </thead>
               <tbody>
 
-              <?php 
-include ("connection.inc");
+              <?php
+include ("../connection.inc");
               $registros = 6;
               $contador = 1;
 
@@ -82,9 +80,9 @@ include ("connection.inc");
               $inicio = ($pagina - 1) * $registros;
               }
 
-              $resultados = mysqli_query($link,"select * from booking");
+              $resultados = mysqli_query($link,"select * from biketype");
               $total_registros = mysqli_num_rows($resultados);
-              $resultados = mysqli_query($link,"select * from booking LIMIT $inicio , $registros");
+              $resultados = mysqli_query($link,"select * from biketype LIMIT $inicio , $registros");
               $total_paginas = ceil($total_registros / $registros);
 
 
@@ -94,13 +92,11 @@ include ("connection.inc");
                     while ($fila = $resultados->fetch_assoc()) {
                     echo '
                     <tr class="active">
-                      <td><p>' . $fila['numberBooking'] . '</p></td>
-                      <td><p>' . $fila['dateFrom'] . '</p></td>
-                      <td><p>' . $fila['dateTo'] . '</p></td>
-                      <td><p>' . $fila['typeBike'] . '</p></td>
-                      <td><p>' . $fila['state'] . '</p></td>
-                      <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedBooking(' . $fila['numberBooking'] .  ')" /></td>
-                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?numberBooking=' . $fila["numberBooking"] . "&dateFrom=" . $fila["dateFrom"] . "&dateTo=" . $fila["dateTo"] . "&typeBike=" . $fila["typeBike"] . '" data-toggle="modal" data-target="#confirm-delete")"/></td>
+                      <td><p>' . $fila['id'] . '</p></td>
+                      <td><p>' . $fila['description'] . '</p></td>
+                      <td><p>' . $fila['price'] . '</p></td>
+                      <td><img src=../'. $fila['image1'] .' alt="image" title="image"  " /></td>
+                      <td><img src="../img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
                     </tr>
                     ';
                   $contador++;
@@ -108,19 +104,12 @@ include ("connection.inc");
 
                   mysqli_close($link);
                 }
-                  echo '</tbody></table>';
-
-
-
-                  echo '<div class="container col-lg-12 text-center">
-                            <a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a>
-                  </div>
-
+                  echo '</tbody></table>
                   <div class="col-lg-10 col-lg-offset-5 col-md-10 col-md-offset-5 col-xs-10 col-xs-offset-2">
                   <ul class="pagination col-xs-10 col-md-10 col-lg-10">';
 
                   if (($pagina - 1) > 0) {
-                      echo "<li><a href='showBooking.php?pagina=".($pagina-1)."'>«</a></li>";
+                      echo "<li><a href='showBikeTypes.php?pagina=".($pagina-1)."'>«</a></li>";
                 	} else {
                 	echo "<li><a>«</a></li>";
                 	}
@@ -129,11 +118,11 @@ include ("connection.inc");
                   if ($pagina == $i) {
                   echo '<li class="active"><a href="#">' . $pagina .'</a></li>';
                   } else {
-                  echo '<li><a href="showBooking.php?pagina=' . $i . '">'.$i.'</a></li>';
+                  echo '<li><a href="showBikeTypes.php?pagina=' . $i . '">'.$i.'</a></li>';
                   }
                   }
                   if (($pagina + 1)<=$total_paginas) {
-                  echo "<li><a href='showBooking.php?pagina=" .($pagina+1)."'>»</a></li>";
+                  echo "<li><a href='showBikeTypes.php?pagina=" .($pagina+1)."'>»</a></li>";
                   } else {
                   echo '<li><a>»</a></li>';
                   }
@@ -180,8 +169,8 @@ include ("connection.inc");
 
 
         <script type="text/javascript">
-        function modifiedBooking(numberBooking) {
-            window.location.href = "addBooking.php?numberBooking=" + numberBooking;
+        function modifiedRow(id) {
+            window.location.href = "modifyBykeType.php?id=" + id;
         }
         </script>
 
@@ -200,7 +189,7 @@ include ("connection.inc");
         });
         </script>
 
-<?php include("footer.php") ?>
+<?php include("../footer.php") ?>
 		</body>
 
 	</html>
