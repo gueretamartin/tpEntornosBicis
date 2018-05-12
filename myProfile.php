@@ -39,7 +39,7 @@
 					$_errorValidacion = 1;
 				else {
 					include ("connection.inc");
-					$resultado = mysqli_query($link, 'select * from usuario where dni ='.$dni.';');
+					$resultado = mysqli_query($link, 'select * from user where dni ='.$dni.';');
 					if (mysqli_num_rows($resultado) == 0) {
 						$_errorValidacion = 1;
 					}
@@ -47,12 +47,12 @@
 						if($cambia){
 							$vPass=md5($password);
 							// los strings tienen que ir entre comillas -sidaaa
-							$query = "UPDATE usuario SET fullName='$fullName', email='$email', phone='$phone', password='$vPass' WHERE dni=$dni";
+							$query = "UPDATE user SET fullName='$fullName', email='$email', phone='$phone', password='$vPass' WHERE dni=$dni";
 							mysqli_query($link, $query) or die (mysqli_error($link));
 							$_errorValidacion = 0;
 						}
 						else{
-							$query = "UPDATE usuario SET fullName='$fullName', email='$email', phone='$phone' WHERE dni=$dni";
+							$query = "UPDATE user SET fullName='$fullName', email='$email', phone='$phone' WHERE dni=$dni";
 							mysqli_query($link, $query) or die (mysqli_error($link));
 							$_errorValidacion = 0;
 						}

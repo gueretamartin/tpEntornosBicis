@@ -27,6 +27,8 @@
 
 <br>
 <?php 
+
+	echo '<div><img src="img\BiciAmigaPortada.jpg" alt="BiciAmigaRosario"></div>';
   if (!isset($_usuario)) echo '
   <!-- Begin page content -->
       <div class="container text-center">
@@ -35,9 +37,6 @@
           <h1>BICIAMIGA</h1>
         </div>
         -->
-        <div>
-          <img src="img\BiciAmigaPortada.jpg" alt="BiciAmigaRosario">
-        </div>
 
         <!-- Services -->
       <section id="services">
@@ -86,6 +85,7 @@
 
 else
   echo '<p class="lead well well-sm">Bienvenido <a href="myProfile.php">' . strtoupper($_usuario) . '</a>,  ' . '<a href="closeSession.php">cerrar sesión</a></p>';
+
     ?>
     </div><!-- Wrap Div end -->
 </div>
