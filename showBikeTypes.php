@@ -2,8 +2,8 @@
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../bootstrap.css" media="screen">
-    <link rel="stylesheet" href="../bootswatch.min.css">
+    <link rel="stylesheet" href="bootstrap.css" media="screen">
+    <link rel="stylesheet" href="bootswatch.min.css">
    <!-- <link rel="stylesheet" type="text/css" href="footer.css">-->
 
     <style type="text/css">
@@ -36,10 +36,10 @@
               <?php
               session_start();
               if (isset($_COOKIE['recordar'])){
-                $_SESSION['fullName']=$_COOKIE['recordar'];
+                $_SESSION['usuario']=$_COOKIE['recordar'];
               }
-              if(isset($_SESSION['fullName']))
-                $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['usuario']))
+                $_usuario = (string)$_SESSION['usuario'];
               ?>
 
 
@@ -47,7 +47,7 @@
 
 
   <div id="wrap">
-			    <?php include("../navBar.php") ?>
+			    <?php include("navBar.php") ?>
 <br>
 
 
@@ -68,7 +68,7 @@
               <tbody>
 
               <?php
-include ("../connection.inc");
+include ("connection.inc");
               $registros = 6;
               $contador = 1;
 
@@ -87,7 +87,7 @@ include ("../connection.inc");
 
 
 
-                if (isset($_fullName)){
+                if (isset($_usuario)){
 
                     while ($fila = $resultados->fetch_assoc()) {
                     echo '
@@ -95,8 +95,14 @@ include ("../connection.inc");
                       <td><p>' . $fila['id'] . '</p></td>
                       <td><p>' . $fila['description'] . '</p></td>
                       <td><p>' . $fila['price'] . '</p></td>
-                      <td><img src=../'. $fila['image1'] .' alt="image" title="image"  " /></td>
-                      <td><img src="../img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
+                      <td>
+                        <img src='. $fila['image1'] .' alt="" title="image"/>
+                        <img src='. $fila['image2'] .' alt="" title="image"/>
+                        <img src='. $fila['image3'] .' alt="" title="image"/>
+                        <img src='. $fila['image4'] .' alt="" title="image"/>
+                        <img src='. $fila['image5'] .' alt="" title="image"/>
+                      </td>
+                      <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
                     </tr>
                     ';
                   $contador++;
@@ -189,7 +195,7 @@ include ("../connection.inc");
         });
         </script>
 
-<?php include("../footer.php") ?>
+<?php include("footer.php") ?>
 		</body>
 
 	</html>
