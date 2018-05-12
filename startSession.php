@@ -28,7 +28,7 @@
 	if (isset($_POST['submit'])) {
 		$vUsu = $_POST['usuario'];
 		$vPass = md5($_POST['contraseña']);
-		$vSql = "SELECT * FROM usuario WHERE dni ='$vUsu' AND password ='$vPass' ";
+		$vSql = "SELECT * FROM user WHERE dni ='$vUsu' AND password ='$vPass' ";
 		$vResultado = mysqli_query($link, $vSql) or die (mysqli_error($link));;
 		$fila = mysqli_fetch_array($vResultado);
 		if(mysqli_num_rows($vResultado) == 0) {

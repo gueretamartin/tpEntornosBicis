@@ -31,14 +31,14 @@
 					$_errorValidacion = 1;
 				else {
 					include ("connection.inc");
-					$resultado = mysqli_query($link, 'select * from usuario where dni ='.$dni.';');
+					$resultado = mysqli_query($link, 'select * from user where dni ='.$dni.';');
 					if (mysqli_num_rows($resultado) > 0) {
 						$_errorValidacion = 1;
 					}
 					else {
 						$vPass=md5($password);
 						// los strings tienen que ir entre comillas -sidaaa
-						$query = "INSERT INTO usuario (fullName, dni, email, phone, password, type) VALUES ('$fullName', $dni, '$email', '$phone','$vPass', 0);";
+						$query = "INSERT INTO user (fullName, dni, email, phone, password, type) VALUES ('$fullName', $dni, '$email', '$phone','$vPass', 0);";
 						mysqli_query($link, $query) or die (mysqli_error($link));
 						$_errorValidacion = 0;
 						header("location:index.php");
