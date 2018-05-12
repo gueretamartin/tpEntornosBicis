@@ -22,13 +22,14 @@ echo '
     echo  '<li class="buttonAddBooking"><a class="session" href="addBooking.php">Reservar</a></li>';
 
       elseif (isset($_usuario)){
-        echo 
+        echo
         '<li><a class="session" href="addBooking.php">Reservar</a></li>';
       }
 // all users
-    echo ' 
-      
+    echo '
+
         <li><a href="gallery.php" class="gallery">Galería</a></li>
+        <li><a href="biketype/showBikeTypes.php" class="gallery">Tipos de Bici</a></li>
         <li><a href="contact.php" class="contact">Contacto</a></li>
        <!-- <li><a href="about.php">¿Quienes somos?</a></li>-->';
 
@@ -36,7 +37,7 @@ echo '
            echo '<li><a class="profile" href="myProfile.php">Mi Cuenta</a></li>
 								 <li><a class="out" href="closeSession.php" >Cerrar Sesión</a></li>';
          else
-           echo '<li><a href="newUser.php" class="profile">Registrarse</a></li>   
+           echo '<li><a href="newUser.php" class="profile">Registrarse</a></li>
          <li><a href="startSession.php" class="session">Iniciar Sesion</a></li>'
            ;
 echo'
