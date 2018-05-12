@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-	<title>BiciAmiga</title>
+	<title>BiciAmiga Rosario - Iniciar Sesión</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="stylesheet" href="bootstrap.css" media="screen">
 	<link rel="stylesheet" href="bootswatch.min.css">
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<script type="text/javascript">
 	function keyhit(e)
 		{
@@ -33,16 +35,22 @@
 			$_errorAutenticacion = 1;
 		}
 		else {
-			$_usuario = $fila['dni'];
+			$_usuario = $fila['fullName'];
+			$_dni = $fila['dni'];
+			$_phone = $fila['phone'];
+			$_email = $fila['email'];			
 
 			session_start();
-			$_SESSION['usuario'] =$_usuario;
+			$_SESSION['usuario'] = $_usuario;
+			$_SESSION['dni'] = $_dni;
+			$_SESSION['phone'] = $_phone;
+			$_SESSION['email'] = $_email;			
 
 			if ($_POST['recordar'])
 				setcookie("recordar", $_usuario, time() + 30*24*60*60);
 
 			session_write_close();
-			header("Location:addBooking.php");
+			header("Location:index.php");
 
 		}
 		mysqli_close($link);

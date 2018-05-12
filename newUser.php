@@ -2,11 +2,14 @@
   <html lang="es">
 		<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			<meta charset="utf-8">
+			<title>BiciAmiga Rosario - Registrarse</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<link rel="stylesheet" href="bootstrap.css" media="screen">
 			<link rel="stylesheet" href="bootswatch.min.css">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+			<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 			<!-- <link rel="stylesheet" type="text/css" href="footer.css">-->
 		</head>
 		<body>
@@ -29,7 +32,6 @@
 				else {
 					include ("connection.inc");
 					$resultado = mysqli_query($link, 'select * from usuario where dni ='.$dni.';');
-					echo "hola!".mysqli_num_rows($resultado);
 					if (mysqli_num_rows($resultado) > 0) {
 						$_errorValidacion = 1;
 					}
@@ -68,10 +70,10 @@
 								 }
 								 ?>
 								</div>
+								<label class="control-label">DNI</label>
+								<input type="number" max="999999999999" min="1" class="form-control" id="dni" name="dni" required>
 								<label class="control-label">Apellido y Nombre</label>
 								<input type="text" class="form-control" id="fullName" name="fullName" maxlength="80" required >
-								<label class="control-label">DNI</label>
-								<input type="number" max="999999999999" min="1" class="form-control" id="dni" name="dni" required >
 								<label class="control-label">Teléfono</label>
 								<input type="text" maxlength="40" class="form-control" id="phone" name="phone" >
 								<label class="control-label">Email</label>
@@ -82,8 +84,8 @@
 								<input type="password" class="form-control" id="repass" name="repass" required >
 							</div>
 							<div class="form-group row" style="margin-top: 0;">
-								<button type="reset" class="btn btn-warning col-lg-5 col-xs-5 pull" onclick="clearFields();">Limpiar campos</button>
-								<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-xs-5 pull-right">Registrarse</button>
+								<button type="reset" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="clearFields();">Limpiar campos</button>
+								<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right">Registrarse</button>
 							</div>
 							<div class="clearfix"></div> 
 						</form>
