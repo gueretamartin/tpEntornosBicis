@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
@@ -81,7 +81,8 @@ CREATE TABLE `user` (
   `type` int(1) NOT NULL,
   `fullName` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `phone` varchar(40) NOT NULL
+  `phone` varchar(40) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'	
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
