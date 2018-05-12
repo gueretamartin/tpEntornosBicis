@@ -27,7 +27,9 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `bike`
 --
-
+DROP DATABASE IF EXISTS `biciamiga`;
+CREATE DATABASE IF NOT EXISTS `biciamiga`;
+USE `biciamiga`;
 CREATE TABLE `bike` (
   `id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
