@@ -18,10 +18,10 @@ echo '
        <ul class="nav navbar-nav navbar-right">';
 
 // only admin
-    if (isset($_usuario) && $_usuario=="123")
+    if (isset($_fullName) && $_fullName=="123")
     echo  '<li class="buttonAddBooking"><a class="session" href="addBooking.php">Reservar</a></li>';
 
-      elseif (isset($_usuario)){
+      elseif (isset($_fullName)){
         echo
         '<li><a class="session" href="addBooking.php">Reservar</a></li>';
       }
@@ -33,7 +33,7 @@ echo '
         <li><a href="contact.php" class="contact">Contacto</a></li>
        <!-- <li><a href="about.php">¿Quienes somos?</a></li>-->';
 
-         if(isset($_usuario))
+         if(isset($_fullName))
            echo '<li><a class="profile" href="myProfile.php">Mi Cuenta</a></li>
 								 <li><a class="out" href="closeSession.php" >Cerrar Sesión</a></li>';
          else

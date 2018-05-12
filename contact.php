@@ -23,26 +23,26 @@
 	 		 <?php
     session_start();
     if (isset($_COOKIE['recordar'])){
-      $_SESSION['usuario']=$_COOKIE['recordar'];
+      $_SESSION['fullName']=$_COOKIE['recordar'];
     }
-    if(isset($_SESSION['usuario']))
-      $_usuario = (string)$_SESSION['usuario'];
+    if(isset($_SESSION['fullName']))
+      $_fullName = (string)$_SESSION['fullName'];
     ?>
-		
+
 		<?php include("navBar.php") ?>
 		<div id="wrap">
-			<br>			
+			<br>
 			<h2 align="center">¡Acercate a nuestro local!</h2>
 			<br>
-			<div class="container-fluid text-center">								 	
+			<div class="container-fluid text-center">
 				<div class="container">
 					<div id="map"></div>
 				</div>
 			</div>
 		</div>
-		<?php include("footer.php") ?>		
-		
+		<?php include("footer.php") ?>
+
 		<script src="initmap.js"></script>
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBy52O248NVTAreNPSQnH_Khbt7pYI-go&callback=initMap"></script>  
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBy52O248NVTAreNPSQnH_Khbt7pYI-go&callback=initMap"></script>
 	 	</body>
 </html>

@@ -16,18 +16,18 @@
 			<?php
 			session_start();
 			if (isset($_COOKIE['recordar'])){
-				$_SESSION['usuario']=$_COOKIE['recordar'];
+				$_SESSION['fullName']=$_COOKIE['recordar'];
 			}
-			if(isset($_SESSION['usuario']))
-				$_usuario = (string)$_SESSION['usuario'];
-	 
+			if(isset($_SESSION['fullName']))
+				$_fullName = (string)$_SESSION['fullName'];
+
 			if (isset($_POST['submit'])) {
 				$fullName = $_POST['fullName'];
 				$dni = $_POST['dni'];
 				$email = $_POST['email'];
 				$phone = $_POST['phone'];
 				$password = $_POST['password'];
-				if (empty($fullName) || empty($email) || empty($password) || empty($dni)) 
+				if (empty($fullName) || empty($email) || empty($password) || empty($dni))
 					$_errorValidacion = 1;
 				else {
 					include ("connection.inc");
@@ -87,7 +87,7 @@
 								<button type="reset" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="clearFields();">Limpiar campos</button>
 								<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right">Registrarse</button>
 							</div>
-							<div class="clearfix"></div> 
+							<div class="clearfix"></div>
 						</form>
 					</div>
 					<div class="col-lg-3"></div>
