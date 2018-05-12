@@ -18,8 +18,11 @@ echo '
        <ul class="nav navbar-nav navbar-right">';
 
 // only admin
-    if (isset($_usuario) && $_usuario=="123")
-    echo  '<li class="buttonAddBooking"><a class="session" href="addBooking.php">Reservar</a></li>';
+    if (isset($_fullName) && $_fullName=="Administrador"){
+        echo  '<li class="buttonAddBooking"><a class="session" href="addBooking.php">Reservar</a></li>
+              <li><a href="showBikeTypes.php" class="gallery">Tipos de Bici</a></li>';
+    }
+
 
       elseif (isset($_usuario)){
         echo
@@ -28,12 +31,12 @@ echo '
 // all users
     echo '
 
-        <li><a href="./gallery.php" class="gallery">Galería</a></li>
-        <li><a href="./showBikeTypes.php" class="contact">BICI</a></li>
-        <li><a href="./contact.php" class="contact">Contacto</a></li>
-       <!-- <li><a href="/about.php">¿Quienes somos?</a></li>-->';
+        <li><a href="gallery.php" class="gallery">Galería</a></li>
 
-         if(isset($_usuario))
+        <li><a href="contact.php" class="contact">Contacto</a></li>
+       <!-- <li><a href="about.php">¿Quienes somos?</a></li>-->';
+
+         if(isset($_fullName))
            echo '<li><a class="profile" href="myProfile.php">Mi Cuenta</a></li>
 								 <li><a class="out" href="closeSession.php" >Cerrar Sesión</a></li>';
          else
