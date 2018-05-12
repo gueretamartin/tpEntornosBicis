@@ -16,17 +16,17 @@
 			<?php
 			session_start();
 			if (isset($_COOKIE['recordar'])){
-				$_SESSION['usuario']=$_COOKIE['recordar'];
+				$_SESSION['fullName']=$_COOKIE['recordar'];
 			}
-			if(isset($_SESSION['usuario']))
-				$_usuario = (string)$_SESSION['usuario'];
-			
+			if(isset($_SESSION['fullName']))
+				$_fullName = (string)$_SESSION['fullName'];
+
 			if (isset($_POST['submit'])) {
 				$fullName = $_POST['fullName'];
 				$dni = $_SESSION['dni'];
 				$email = $_POST['email'];
 				$phone = $_POST['phone'];
-				
+
 				if(isset($_POST['chk']))
 				{
 					$password = $_POST['password'];
@@ -34,8 +34,8 @@
 				}
 				else
 					$cambia = false;
-				
-				if (empty($fullName) || empty($email) || empty($dni)) 
+
+				if (empty($fullName) || empty($email) || empty($dni))
 					$_errorValidacion = 1;
 				else {
 					include ("connection.inc");
@@ -43,7 +43,7 @@
 					if (mysqli_num_rows($resultado) == 0) {
 						$_errorValidacion = 1;
 					}
-					else {						
+					else {
 						if($cambia){
 							$vPass=md5($password);
 							// los strings tienen que ir entre comillas -sidaaa
@@ -58,14 +58,14 @@
 						}
 					}
 					mysqli_close($link);
-					
+
 					$_SESSION['usuario'] = $fullName;
 					$_SESSION['phone'] = $phone;
 					$_SESSION['email'] = $email;
 				}
 			}
 
-			
+
 			?>
 			<div id="wrap">
 				<?php include("navBar.php") ?>
@@ -101,14 +101,14 @@
 										<label class="control-label">Nueva contraseña</label>
 										<input type="password" class="form-control" disabled="true" id="password"  name="password">
 										<label class="control-label">Repita nueva contraseña</label>
-										<input type="password" class="form-control" disabled="true" id="repass" name="repass">	
+										<input type="password" class="form-control" disabled="true" id="repass" name="repass">
 								</fieldset>
 							</div>
 							<div class="form-group row" style="margin-top: 0;">
 								<button type="button" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="window.open('index.php','_self')">Volver al Inicio</button>
 								<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right">Modificar datos</button>
 							</div>
-							<div class="clearfix"></div> 
+							<div class="clearfix"></div>
 						</form>
 					</div>
 					<div class="col-lg-3"></div>

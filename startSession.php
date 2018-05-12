@@ -35,19 +35,22 @@
 			$_errorAutenticacion = 1;
 		}
 		else {
-			$_usuario = $fila['fullName'];
+			$_fullName = $fila['fullName'];
+			$_type = $fila['type'];
 			$_dni = $fila['dni'];
 			$_phone = $fila['phone'];
-			$_email = $fila['email'];			
+			$_email = $fila['email'];
 
 			session_start();
-			$_SESSION['usuario'] = $_usuario;
+
+			$_SESSION['fullName'] = $_fullName;
+			$_SESSION['type'] = $_type;
 			$_SESSION['dni'] = $_dni;
 			$_SESSION['phone'] = $_phone;
-			$_SESSION['email'] = $_email;			
+			$_SESSION['email'] = $_email;
 
 			if ($_POST['recordar'])
-				setcookie("recordar", $_usuario, time() + 30*24*60*60);
+				setcookie("recordar", $_fullName, time() + 30*24*60*60);
 
 			session_write_close();
 			header("Location:index.php");
@@ -68,7 +71,7 @@
 						<?php
 							if (isset($_errorAutenticacion))
 								if ($_errorAutenticacion == 1)
-									echo '<div align="center"><h4 class="text-danger">¡Usuario y/o contraseña incorrecta!</h4></div>'; 
+									echo '<div align="center"><h4 class="text-danger">¡Usuario y/o contraseña incorrecta!</h4></div>';
 						?>
 						<label for="example-text-input" class="col-2 col-form-label">D.N.I.</label>
 						<div class="col-10">
@@ -81,16 +84,16 @@
 						<div align="right">
 							<label>
 								<input type="checkbox" name="recordar">&nbsp;&nbsp;Recordar mi sesión
-							</label>		
+							</label>
 						</div>
 						<div class="form-group">
 							<button type="submit" name="submit" class="btn btn-primary col-lg-12 col-xs-12 text-center" style="margin-top:0;">Entrar</button>
-						</div>						
+						</div>
 					</form>
 					<br>
-					<div align="center" style="margin-top:2rem;">							
+					<div align="center" style="margin-top:2rem;">
 						<a class="signUp" href="newUser.php">Aún no estoy registrado</a>
-					</div>	
+					</div>
 				</div>
 					<div class="col-lg-3"></div>
 			</div>

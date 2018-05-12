@@ -11,10 +11,10 @@
               <?php
               session_start();
               if (isset($_COOKIE['recordar'])){
-                $_SESSION['usuario']=$_COOKIE['recordar'];
+                $_SESSION['fullName']=$_COOKIE['recordar'];
               }
-              if(isset($_SESSION['usuario']))
-                $_usuario = (string)$_SESSION['usuario'];
+              if(isset($_SESSION['fullName']))
+                $_fullName = (string)$_SESSION['fullName'];
               ?>
 
               <?php
@@ -23,7 +23,7 @@
       //Save the values of the post.
 
         if (isset($_POST['submit'])) {
-          //$user = $_SESSION[$_usuario];
+          //$user = $_SESSION[$_fullName];
         //  $numberBooking = $_POST['numberBooking'];
           $dateFrom = $_POST['dateFrom'];
           $dateTo = $_POST['dateTo'];
@@ -34,7 +34,7 @@
           //validate the fields
           if (empty($state) || empty($dateFrom) || empty($dateTo) || empty($typeBike))
             $_errorValidacion = 1;
-          else {  
+          else {
             if(isset($_GET['numberBooking'])) {
               include ("connection.inc");
 
@@ -45,7 +45,7 @@
               }
               else {
                 include ("connection.inc");
-                $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status) VALUES ('$_usuario', '$dateFrom', '$dateTo', '$typeBike',1);";
+                $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status) VALUES ('$_dni', '$dateFrom', '$dateTo', '$typeBike',1);";
                 mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
               }
@@ -91,13 +91,13 @@
 
             <label class="control-label">Número de Reserva</label>
                     <input type="text" class="form-control" id="numberBooking" name="numberBooking" readonly="readonly" <?php if (isset($modifica)) { if ($modifica == 1) echo ' value="' . $numberBooking . '"';} ?>>
-                
+
                     <label  class="control-label">Fecha Desde</label>
                     <input type="date" class="form-control" id="dateFrom" name="dateFrom" <?php if (isset($modifica)) {if ($modifica == 1) echo 'value="' . $dateFrom . '"';} ?>>
-               
+
                     <label  class="control-label">Fecha Hasta</label>
                     <input type="date" class="form-control" id="dateTo" name="dateTo" <?php if (isset($modifica)) {if ($modifica == 1) echo 'value="' . $dateTo . '"';} ?>>
-                    
+
                     <label  class="control-label">Tipo de Bicicleta</label>
                     <div class="custom-select" >
                         <select id="typeBike" class="selection" name="typeBike">
@@ -105,8 +105,8 @@
                           <option  <?php if (isset($modifica)) {if ($typeBike == 1) echo 'selected="selected"' ;}?> value="1">Doble</option>
                           <option <?php if (isset($modifica)) {if ($typeBike == 2) echo 'selected="selected"' ;}?>  value="2">MountainBike</option>
                         </select>
-                      </div>                
-              
+                      </div>
+
                     <label  class="control-label">Estado</label>
                       <div class="custom-select" >
                         <select id="state" class="selection" name="state"  readonly="readonly">

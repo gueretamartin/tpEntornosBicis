@@ -36,10 +36,10 @@
               <?php
               session_start();
               if (isset($_COOKIE['recordar'])){
-                $_SESSION['usuario']=$_COOKIE['recordar'];
+                $_SESSION['fullName']=$_COOKIE['recordar'];
               }
-              if(isset($_SESSION['usuario']))
-                $_usuario = (string)$_SESSION['usuario'];
+              if(isset($_SESSION['fullName']))
+                $_fullName = (string)$_SESSION['fullName'];
               ?>
 
 
@@ -69,7 +69,7 @@
             </thead>
               <tbody>
 
-              <?php 
+              <?php
 include ("connection.inc");
               $registros = 6;
               $contador = 1;
@@ -89,7 +89,7 @@ include ("connection.inc");
 
 
 
-                if (isset($_usuario)){
+                if (isset($_fullName)){
 
                     while ($fila = $resultados->fetch_assoc()) {
                     echo '

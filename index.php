@@ -16,20 +16,20 @@
               <?php
               session_start();
               if (isset($_COOKIE['recordar'])){
-                $_SESSION['usuario']=$_COOKIE['recordar'];
+                $_SESSION['fullName']=$_COOKIE['recordar'];
               }
-              if(isset($_SESSION['usuario']))
-                $_usuario = (string)$_SESSION['usuario'];
+              if(isset($_SESSION['fullName']))
+                $_fullName = (string)$_SESSION['fullName'];
               ?>
   <div id="wrap">
 
     <?php include("navBar.php") ?>
 
 <br>
-<?php 
+<?php
 
 	echo '<div><img src="img\BiciAmigaPortada.jpg" alt="BiciAmigaRosario"></div>';
-  if (!isset($_usuario)) echo '
+  if (!isset($_fullName)) echo '
   <!-- Begin page content -->
       <div class="container text-center">
 
@@ -52,7 +52,7 @@
              <span class="fa-stack fa-4x">
                 <i class="fa fa-circle fa-stack-2x text-primary"></i>
                 <i class="fa fa-mouse-pointer fa-stack-1x fa-inverse"></i>
-              </span> 
+              </span>
               <h4 class="service-heading">PASO 1</h4>
               <p class="text-muted">Hace click sobre el Botón<br><b>RESERVA TU BICI AHORA</b>.</p>
             </div>
@@ -84,7 +84,7 @@
 <div class="col-lg-4"></div>';
 
 else
-  echo '<p class="lead well well-sm">Bienvenido <a href="myProfile.php">' . strtoupper($_usuario) . '</a>,  ' . '<a href="closeSession.php">cerrar sesión</a></p>';
+  echo '<p class="lead well well-sm">Bienvenido <a href="myProfile.php">' . strtoupper($_fullName) . '</a>,  ' . '<a href="closeSession.php">cerrar sesión</a></p>';
 
     ?>
     </div><!-- Wrap Div end -->
