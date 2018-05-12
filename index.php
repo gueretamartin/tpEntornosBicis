@@ -10,6 +10,7 @@
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/biciamiga.css"/>
 
   </head>
 		<body>
@@ -26,7 +27,7 @@
     <?php include("navBar.php") ?>
 
 <br>
-<?php 
+<?php
 
 	echo '<div><img src="img\BiciAmigaPortada.jpg" alt="BiciAmigaRosario"></div>';
   if (!isset($_usuario)) echo '
@@ -52,7 +53,7 @@
              <span class="fa-stack fa-4x">
                 <i class="fa fa-circle fa-stack-2x text-primary"></i>
                 <i class="fa fa-mouse-pointer fa-stack-1x fa-inverse"></i>
-              </span> 
+              </span>
               <h4 class="service-heading">PASO 1</h4>
               <p class="text-muted">Hace click sobre el Botón<br><b>RESERVA TU BICI AHORA</b>.</p>
             </div>
