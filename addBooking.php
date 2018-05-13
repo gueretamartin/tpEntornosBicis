@@ -13,7 +13,10 @@
               session_start();
               if(isset($_SESSION['type']))
                 $_type = (string)$_SESSION['type'];
+                if(isset($_SESSION['fullName']))
+                  $_fullName = (string)$_SESSION['fullName'];
               ?>
+
               <?php
 
 
@@ -25,18 +28,18 @@
           $dateFrom = $_POST['dateFrom'];
           $dateTo = $_POST['dateTo'];
           $typeBike = $_POST['typeBike'];
-          $state = 1;
+          if(isset($_type) && $_type == 1) //only admin can change the status of a booking
+          $status = $_POST['status'];
 
 
           //validate the fields
-          echo 'dateFrom: '.$dateFrom.', dateTo: '.$dateTo.', type: '.$typeBike;
           if (empty($dateFrom) || empty($dateTo) || empty($typeBike))
             $_errorValidacion = 1;
           else {
             if(isset($_GET['id'])) {
               include ("connection.inc");
 
-                 $query = "UPDATE booking SET dateFrom='" . $dateFrom . "', dateTo='" . $dateTo . "', idTypeBike=" . $typeBike . ", status=" . $state. " where id=" . $_GET['id'];
+                 $query = "UPDATE booking SET dateFrom='" . $dateFrom . "', dateTo='" . $dateTo . "', idTypeBike=" . $typeBike . ", status=" . $status. " where id=" . $_GET['id'];
 
                 mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
@@ -65,6 +68,11 @@
 
         ?>
 
+
+        <div id="wrap">
+      			<?php include("navBar.php") ?>
+      <br>
+      <br>
         <?php
   if (isset($_GET['id'])) {
     include ("connection.inc");
@@ -75,24 +83,28 @@
        $dateFrom = $fila['dateFrom'];
        $dateTo = $fila['dateTo'];
        $typeBike = $fila['idTypeBike'];
-       $state = $fila['status'];
+       $status = $fila['status'];
 
-    $modifica=1;
-}}
+       $modifica=1;
+
+       if($status == 1){
+         echo 'Confirmar reserva';
+       }
+       elseif ($status == 2){
+         echo 'Finalizar reserva';
+       }
+    }
+}
+elseif (!isset($_POST['id'])){
+  echo '<div class= "col-lg-12 text-center"><h3>Nueva Reserva</h3></div>';
+  $dateFrom = date('Y-m-d');
+  $dateTo = date('Y-m-d');
+  $status = 1;
+}
   ?>
 
-  <div id="wrap">
-			<?php include("navBar.php") ?>
-<br>
-<br>
+
  <div class="container-fluid ">
-   <div class= "col-lg-12 text-center"><h3> <?php if (isset($modifica)) {
-                                if ($modifica == 1)
-                                  echo 'Modificar Reserva';
-                                  }
-                                  else
-                                    echo 'Nueva Reserva';
-                               ?></h3></div>
   <div class = "col-lg-3"></div>
   <div class = "col-lg-6">
     <form name="submit" method="POST">
@@ -101,10 +113,10 @@
                     <input type="text" class="form-control" id="id" name="id" readonly   <?php  echo ' value="' . $id . '"'; ?>>
 
                     <label  class="control-label">Fecha Desde</label>
-                    <input type="date" class="form-control" id="dateFrom" name="dateFrom" <?php if (isset($modifica)) {if ($modifica == 1) echo 'value="' . $dateFrom . '"';} ?>>
+                    <input type="date" class="form-control" id="dateFrom" name="dateFrom" <?php  echo 'value="' . $dateFrom . '"'; ?>>
 
                     <label  class="control-label">Fecha Hasta</label>
-                    <input type="date" class="form-control" id="dateTo" name="dateTo" <?php if (isset($modifica)) {if ($modifica == 1) echo 'value="' . $dateTo . '"';} ?>>
+                    <input type="date" class="form-control" id="dateTo" name="dateTo" <?php  echo 'value="' . $dateTo . '"'; ?>>
 
                     <label  class="control-label">Tipo de Bicicleta</label>
                     <div class="custom-select" >
@@ -113,11 +125,23 @@
                           include ("connection.inc");
                           $resultado = mysqli_query($link,"select * from biketype");
                           while ($row = mysqli_fetch_array($resultado)) {
-                            echo '<option  value="'.$row['id'].'">'.$row['description'].' ($'.$row['price'].')</option>';
+                            echo '<option  value="'.$row['id'].'">'.$row['name'].' ($'.$row['price'].')</option>';
                           }
                                     ?>
                         </select>
-                      </div>
+                    </div>
+
+                    <label  class="control-label">Estado de la reserva</label>
+                    <div class="custom-select" >
+                        <select id="status" class="selection" name="status" <?php echo 'value="'.$status.'"'; if(! isset($_type) || $_type == 0) echo 'readonly'; ?> >
+                            <?php
+                            if(isset($status) && $status != 2)
+                            echo'<option  value="1">Solicitada</option>'
+                            ?>
+                            <option  value="2">En curso</option>
+                            <option  value="3">Finalizada</option>
+                        </select>
+                    </div>
 
 
 <?php
@@ -128,12 +152,11 @@
                        if ($_errorValidacion == 2)
                        echo '<h4 class="alert alert-danger text-center">El Número de Reserva ingresado no es valido</h1>';
                        if ($_errorValidacion == 0)
-                       echo '<h4 class="alert alert-success text-center">La reserva se ah almacenado correctamente</h4>';
+                       echo '<h4 class="alert alert-success text-center">La reserva se almacenó correctamente</h4>';
                     }
                      ?>
- <button type="reset" class="btn btn-warning col-lg-4 col-xs-5">Resetear</button>
-
-                          <button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 pull-right">Agregar</button>
+                          <button type="reset" class="btn btn-warning col-lg-4 col-xs-5">Resetear</button>
+                          <button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 pull-right">Guardar</button>
 
 
     </form> <!-- End Form -->
