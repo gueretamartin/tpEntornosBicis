@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="es"><head><meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,28 +25,29 @@
             $id = $_POST['id'];
             $description = $_POST['description'];
             $price = $_POST['price'];
-            $image1 = $_POST['image1'];
-            $image2 = $_POST['image2'];
-            $image3 = $_POST['image3'];
-            $image4 = $_POST['image4'];
-            $image5 = $_POST['image5'];
+            // $image1 = $_POST['image1'];
+            // $image2 = $_POST['image2'];
+            // $image3 = $_POST['image3'];
+            // $image4 = $_POST['image4'];
+            // $image5 = $_POST['image5'];
 
             if (empty($price)) {
                 $_errorValidacion = 3;
             } else {
                 include ("connection.inc");
+                $preparedStatement = $link->prepare("UPDATE bikeType SET description = ?, price = ?  WHERE id = ?");
+                $preparedStatement->bind_param('sdi', $description, $price, $id);
+                // $preparedStatement->bind_param('sdbbbbb', $description, $price, $image1, $image2, $image3, $image4, $image5);
+                $preparedStatement->execute();
+                $preparedStatement->close();
 
-                $query = "UPDATE bikeType SET description='" . $description . "', price='" . $price . "', image1=" . $image1 . ", image2='".$image2."', image3='".$image3."', image4='".$image4."', image5='".$image5."', status=" . $state. " where id=" . $_GET['id'];
-
-                mysqli_query($link, $query) or die (mysqli_error($link));
+                // mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
 
                 mysqli_close($link);
-                header("location:showBikeTypes.php");
             }
         } else {
             if(isset($_GET['id'])) {
-                echo $_GET['id'];
                 include ("connection.inc");
 
                 $query = "select * from bikeType where id = ".$_GET["id"];
@@ -59,11 +60,11 @@
                     $id = $fila['id'];
                     $description = $fila['description'];
                     $price = $fila['price'];
-                    $image1 = $fila['image1'];
-                    $image2 = $fila['image2'];
-                    $image3 = $fila['image3'];
-                    $image4 = $fila['image4'];
-                    $image5 = $fila['image5'];
+                    // $image1 = $fila['image1'];
+                    // $image2 = $fila['image2'];
+                    // $image3 = $fila['image3'];
+                    // $image4 = $fila['image4'];
+                    // $image5 = $fila['image5'];
 
                 }
                 mysqli_close($link);
@@ -84,7 +85,7 @@
                 </div>
                 <div class = "col-lg-3"></div>
                 <div class = "col-lg-6">
-                    <form action="modifyBikeType.php" method="POST">
+                    <form action="modifyBikeType.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group row">
                             <div id="mensajes">
                                 <?php
@@ -93,7 +94,9 @@
                                     if ($_errorValidacion == 2)
                                     echo '<h4 class="alert alert-danger text-center">No está autorizado para realizar esta acción.</h1>';
                                     if ($_errorValidacion == 1)
-                                    '<script type="text/javascript"> window.location = "/startSession.php" </script>';
+                                    echo '<h4 class="alert alert-danger text-center">No está autorizado para realizar esta acción.</h1>';
+
+                                    // '<script type="text/javascript"> window.location = "/startSession.php" </script>';
                                     if ($_errorValidacion == 3)
                                     echo '<h4 class="alert alert-success text-center">El precio no puede estar vacío.</h4>';
                                     if ($_errorValidacion == 4)
@@ -102,11 +105,19 @@
                                 ?>
                             </div>
                             <label class="control-label">Identificador</label>
-                            <input type="text" class="form-control" id="id" name="id" disabled value="<?php if(isset($_GET['id'])) {echo (string)$id ;} else {echo '';}?>" >
+                            <input type="text" class="form-control" id="id" name="id" readonly value="<?php echo (string)$id ?>" >
                             <label class="control-label">Descripción</label>
-                            <input type="text" class="form-control" id="description" name="description" required value="<?php if(isset($_GET['id'])) {echo (string)$description ;} else {echo '';}?>" >
+                            <input type="text" class="form-control" id="description" name="description" required value="<?php echo $description ;?>" >
                             <label class="control-label">Precio</label>
-                            <input type="number" max="999999999999" min="1" class="form-control" id="price" name="price" value="<?php if(isset($_GET['id'])) {echo (string)$price ;} else {echo '';}?>"  required>
+                            <input type="number" max="999999999999" min="1" class="form-control" id="price" name="price" value="<?php echo $price ;?>" required>
+                            <!-- <label class="control-label">Imagen 1</label>
+                            <input type="file" name="image1" id="fileToUpload">
+
+                            <label class="control-label">Imagen 2</label>
+                            <label class="control-label">Imagen 3</label>
+                            <label class="control-label">Imagen 4</label>
+                            <label class="control-label">Imagen 5</label> -->
+
                         </div>
                         <div class="form-group row" style="margin-top: 0;">
                             <button type="reset" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="goBack();">Descartar cambios</button>
