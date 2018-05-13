@@ -33,14 +33,14 @@
 
   </head>
 		<body>
-              <?php
-              session_start();
-              if (isset($_COOKIE['recordar'])){
-                $_SESSION['usuario']=$_COOKIE['recordar'];
-              }
-              if(isset($_SESSION['usuario']))
-                $_usuario = (string)$_SESSION['usuario'];
-              ?>
+		<?php
+    session_start();
+    if (isset($_COOKIE['recordar'])){
+      $_SESSION['fullName']=$_COOKIE['recordar'];
+    }
+    if(isset($_SESSION['fullName']))
+      $_fullName = (string)$_SESSION['fullName'];
+    ?>
 
 
 
@@ -68,7 +68,7 @@
               <tbody>
 
               <?php
-include ("connection.inc");
+							include ("connection.inc");
               $registros = 6;
               $contador = 1;
 
@@ -87,7 +87,7 @@ include ("connection.inc");
 
 
 
-                if (isset($_usuario)){
+                if (isset($_fullName)){
 
                     while ($fila = $resultados->fetch_assoc()) {
                     echo '
@@ -99,7 +99,7 @@ include ("connection.inc");
                         <img src='. $fila['image1'] .' alt="" title="image"/>
                         <img src='. $fila['image2'] .' alt="" title="image"/>
                         <img src='. $fila['image3'] .' alt="" title="image"/>
-                        <img src='. $fila['image4'] .' alt="" title="image"/>
+                        <img src='. $fila['image4'] .' alt="" title=""/>
                         <img src='. $fila['image5'] .' alt="" title="image"/>
                       </td>
                       <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>

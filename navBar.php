@@ -20,13 +20,15 @@ echo '
 // only admin
     if (isset($_fullName) && $_fullName=="Administrador"){
         echo  '<li class="buttonAddBooking"><a class="session" href="addBooking.php">Reservar</a></li>
-              <li><a href="showBikeTypes.php" class="gallery">Tipos de Bici</a></li>';
+              <li><a href="showBikeTypes.php" class="gallery">Tipos de Bici</a></li>
+							<li><a href="showUsers.php" class="profile">Usuarios</a></li>';
     }
 
 
       elseif (isset($_usuario)){
         echo
-        '<li><a class="session" href="addBooking.php">Reservar</a></li>';
+        '<li><a class="session" href="addBooking.php">Reservar</a></li>
+				 <li><a href="showBikeTypes.php" class="gallery">Tipos de Bici</a></li>';
       }
 // all users
     echo '
