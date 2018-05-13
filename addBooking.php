@@ -5,18 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="bootstrap.css" media="screen">
     <link rel="stylesheet" href="bootswatch.min.css">
+    <link rel="stylesheet" href="css/biciamiga.css" >
   </head>
 		<body>
 
               <?php
               session_start();
-              if (isset($_COOKIE['recordar'])){
-                $_SESSION['fullName']=$_COOKIE['recordar'];
-              }
-              if(isset($_SESSION['fullName']))
-                $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['type']))
+                $_type = (string)$_SESSION['type'];
               ?>
-
               <?php
 
 
@@ -24,7 +21,7 @@
 
         if (isset($_POST['submit'])) {
           //$user = $_SESSION[$_fullName];
-        //  $numberBooking = $_POST['numberBooking'];
+          $id = $_POST['id'];
           $dateFrom = $_POST['dateFrom'];
           $dateTo = $_POST['dateTo'];
           $typeBike = $_POST['typeBike'];
@@ -32,13 +29,14 @@
 
 
           //validate the fields
-          if (empty($state) || empty($dateFrom) || empty($dateTo) || empty($typeBike))
+          echo 'dateFrom: '.$dateFrom.', dateTo: '.$dateTo.', type: '.$typeBike;
+          if (empty($dateFrom) || empty($dateTo) || empty($typeBike))
             $_errorValidacion = 1;
           else {
-            if(isset($_GET['numberBooking'])) {
+            if(isset($_GET['id'])) {
               include ("connection.inc");
 
-                 $query = "UPDATE booking SET dateFrom='" . $dateFrom . "', dateTo='" . $dateTo . "', idTypeBike=" . $typeBike . ", status=" . $state. " where id=" . $_GET['numberBooking'];
+                 $query = "UPDATE booking SET dateFrom='" . $dateFrom . "', dateTo='" . $dateTo . "', idTypeBike=" . $typeBike . ", status=" . $state. " where id=" . $_GET['id'];
 
                 mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
@@ -54,14 +52,24 @@
 
            }
         }
+        else{
+          include ("connection.inc");
+          $resultado = mysqli_query($link,"select MAX(id) as max from booking");
+          $fila = $resultado->fetch_assoc();
+          if(isset($fila['max']))
+          $id =$fila['max'] +1;
+          else {
+            $id = 1;
+          }
+        }
 
         ?>
 
         <?php
-  if (isset($_GET['numberBooking'])) {
+  if (isset($_GET['id'])) {
     include ("connection.inc");
-    $numberBooking = $_GET['numberBooking'];
-    if ($resultado = $link->query('select * from booking where id =' . $numberBooking )) {
+    $id = $_GET['id'];
+    if ($resultado = $link->query('select * from booking where id =' . $id )) {
       $fila = $resultado->fetch_assoc();
 
        $dateFrom = $fila['dateFrom'];
@@ -90,7 +98,7 @@
     <form name="submit" method="POST">
 
             <label class="control-label">Número de Reserva</label>
-                    <input type="text" class="form-control" id="numberBooking" name="numberBooking" readonly="readonly" <?php if (isset($modifica)) { if ($modifica == 1) echo ' value="' . $numberBooking . '"';} ?>>
+                    <input type="text" class="form-control" id="id" name="id" readonly   <?php  echo ' value="' . $id . '"'; ?>>
 
                     <label  class="control-label">Fecha Desde</label>
                     <input type="date" class="form-control" id="dateFrom" name="dateFrom" <?php if (isset($modifica)) {if ($modifica == 1) echo 'value="' . $dateFrom . '"';} ?>>
@@ -100,20 +108,17 @@
 
                     <label  class="control-label">Tipo de Bicicleta</label>
                     <div class="custom-select" >
-                        <select id="typeBike" class="selection" name="typeBike">
-                          <option  <?php if (isset($modifica)) {if ($typeBike == 0) echo 'selected="selected"' ;}?> value="0">Playera</option>
-                          <option  <?php if (isset($modifica)) {if ($typeBike == 1) echo 'selected="selected"' ;}?> value="1">Doble</option>
-                          <option <?php if (isset($modifica)) {if ($typeBike == 2) echo 'selected="selected"' ;}?>  value="2">MountainBike</option>
+                        <select id="typeBike" class="selection" name="typeBike" <?php if (isset($modifica) && $modifica == 1) echo 'value="'.$typeBike.'"' ?> >
+                          <?php
+                          include ("connection.inc");
+                          $resultado = mysqli_query($link,"select * from biketype");
+                          while ($row = mysqli_fetch_array($resultado)) {
+                            echo '<option  value="'.$row['id'].'">'.$row['description'].' ($'.$row['price'].')</option>';
+                          }
+                                    ?>
                         </select>
                       </div>
 
-                    <label  class="control-label">Estado</label>
-                      <div class="custom-select" >
-                        <select id="state" class="selection" name="state"  readonly="readonly">
-                          <option  <?php if (isset($modifica)) {if ($state == 1) echo 'selected="selected" ';}?> value="1"> Activa</option>
-                           <option  <?php if (isset($modifica)) {if ($state == 0) echo 'selected="selected"';}?> value="0"> Inactiva</option>
-                         </select>
-                      </div>
 
 <?php
                      if (isset($_errorValidacion))
