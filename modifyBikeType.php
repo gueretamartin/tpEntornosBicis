@@ -101,6 +101,8 @@
                                 }
                                 ?>
                             </div>
+                            <label class="control-label">Identificador</label>
+                            <input type="text" class="form-control" id="id" name="id" disabled value="<?php if(isset($_GET['id'])) {echo (string)$id ;} else {echo '';}?>" >
                             <label class="control-label">Descripción</label>
                             <input type="text" class="form-control" id="description" name="description" required value="<?php if(isset($_GET['id'])) {echo (string)$description ;} else {echo '';}?>" >
                             <label class="control-label">Precio</label>

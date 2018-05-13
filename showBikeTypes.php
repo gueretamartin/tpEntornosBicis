@@ -36,10 +36,10 @@
               <?php
               session_start();
               if (isset($_COOKIE['recordar'])){
-                $_SESSION['usuario']=$_COOKIE['recordar'];
+                $_SESSION['fullName']=$_COOKIE['recordar'];
               }
-              if(isset($_SESSION['usuario']))
-                $_usuario = (string)$_SESSION['usuario'];
+              if(isset($_SESSION['fullName']))
+                $_fullName = (string)$_SESSION['fullName'];
               ?>
 
 
@@ -87,7 +87,7 @@ include ("connection.inc");
 
 
 
-                if (isset($_usuario)){
+                if (isset($_fullName)){
 
                     while ($fila = $resultados->fetch_assoc()) {
                     echo '
@@ -176,7 +176,7 @@ include ("connection.inc");
 
         <script type="text/javascript">
         function modifiedRow(id) {
-            window.location.href = "modifyBykeType.php?id=" + id;
+            window.location.href = "modifyBikeType.php?id=" + id;
         }
         </script>
 
