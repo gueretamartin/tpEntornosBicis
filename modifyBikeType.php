@@ -23,6 +23,7 @@
         if (isset($_POST['submit'])) {
 
             $id = $_POST['id'];
+            $name = $_POST['name'];
             $description = $_POST['description'];
             $price = $_POST['price'];
             // $image1 = $_POST['image1'];
@@ -35,8 +36,8 @@
                 $_errorValidacion = 3;
             } else {
                 include ("connection.inc");
-                $preparedStatement = $link->prepare("UPDATE bikeType SET description = ?, price = ?  WHERE id = ?");
-                $preparedStatement->bind_param('sdi', $description, $price, $id);
+                $preparedStatement = $link->prepare("UPDATE bikeType SET name = ?, description = ?, price = ?  WHERE id = ?");
+                $preparedStatement->bind_param('ssdi', $name, $description, $price, $id);
                 // $preparedStatement->bind_param('sdbbbbb', $description, $price, $image1, $image2, $image3, $image4, $image5);
                 $preparedStatement->execute();
                 $preparedStatement->close();
@@ -58,6 +59,7 @@
                     $_errorAutenticacion = 4;
                 } else {
                     $id = $fila['id'];
+                    $name = $fila['name'];
                     $description = $fila['description'];
                     $price = $fila['price'];
                     // $image1 = $fila['image1'];
@@ -89,23 +91,24 @@
                         <div class="form-group row">
                             <div id="mensajes">
                                 <?php
-                                if (isset($_errorValidacion))
-                                {
-                                    if ($_errorValidacion == 2)
-                                    echo '<h4 class="alert alert-danger text-center">No está autorizado para realizar esta acción.</h1>';
-                                    if ($_errorValidacion == 1)
-                                    echo '<h4 class="alert alert-danger text-center">No está autorizado para realizar esta acción.</h1>';
-
-                                    // '<script type="text/javascript"> window.location = "/startSession.php" </script>';
-                                    if ($_errorValidacion == 3)
-                                    echo '<h4 class="alert alert-success text-center">El precio no puede estar vacío.</h4>';
-                                    if ($_errorValidacion == 4)
-                                    echo '<h4 class="alert alert-success text-center">No se ha encontrado ese tipo de bicicleta.</h4>';
-                                }
+                                    if (isset($_errorValidacion)) {
+                                        if ($_errorValidacion == 0)
+                                            echo '<h4 class="alert alert-success text-center">¡Modificación exitosa!</h4>';
+                                        if ($_errorValidacion == 2)
+                                            echo '<h4 class="alert alert-danger text-center">No está autorizado para realizar esta acción.</h1>';
+                                        if ($_errorValidacion == 1)
+                                            '<script type="text/javascript"> window.location = "/startSession.php" </script>';
+                                        if ($_errorValidacion == 3)
+                                            echo '<h4 class="alert alert-success text-center">El precio no puede estar vacío.</h4>';
+                                        if ($_errorValidacion == 4)
+                                            echo '<h4 class="alert alert-success text-center">No se ha encontrado ese tipo de bicicleta.</h4>';
+                                    }
                                 ?>
                             </div>
                             <label class="control-label">Identificador</label>
                             <input type="text" class="form-control" id="id" name="id" readonly value="<?php echo (string)$id ?>" >
+                            <label class="control-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" required value="<?php echo $name ;?>" >
                             <label class="control-label">Descripción</label>
                             <input type="text" class="form-control" id="description" name="description" required value="<?php echo $description ;?>" >
                             <label class="control-label">Precio</label>
@@ -120,7 +123,7 @@
 
                         </div>
                         <div class="form-group row" style="margin-top: 0;">
-                            <button type="reset" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="goBack();">Descartar cambios</button>
+                            <button type="reset" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="goBack();">Volver</button>
                             <button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right">Actualizar</button>
                         </div>
                         <div class="clearfix"></div>
