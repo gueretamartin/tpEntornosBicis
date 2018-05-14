@@ -26,18 +26,37 @@
             $name = $_POST['name'];
             $description = $_POST['description'];
             $price = $_POST['price'];
-            // $image1 = $_POST['image1'];
             // $image2 = $_POST['image2'];
             // $image3 = $_POST['image3'];
             // $image4 = $_POST['image4'];
             // $image5 = $_POST['image5'];
 
+            $target_dir = "img/";
+            $target_file = $target_dir . basename($_FILES["image1"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            // Check if image file is a actual image or fake image
+            $check = getimagesize($_FILES["image1"]["tmp_name"]);
+            if($check !== false) {
+                // echo "File is an image - " . $check["mime"] . ".";
+                $image1 = $_FILES["image1"]["tmp_name"] ;
+                echo "la imagen es", $image1;
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+            echo "huehuehue";
+            echo 'Here is some more debugging info:';
+            print_r($_FILES);
+
+
             if (empty($price)) {
                 $_errorValidacion = 3;
             } else {
                 include ("connection.inc");
-                $preparedStatement = $link->prepare("UPDATE bikeType SET name = ?, description = ?, price = ?  WHERE id = ?");
-                $preparedStatement->bind_param('ssdi', $name, $description, $price, $id);
+                $preparedStatement = $link->prepare("UPDATE bikeType SET name = ?, description = ?, price = ?, image1 = ?  WHERE id = ?");
+                $preparedStatement->bind_param('ssdsi', $name, $description, $price, $image1, $id);
                 // $preparedStatement->bind_param('sdbbbbb', $description, $price, $image1, $image2, $image3, $image4, $image5);
                 $preparedStatement->execute();
                 $preparedStatement->close();
@@ -62,7 +81,7 @@
                     $name = $fila['name'];
                     $description = $fila['description'];
                     $price = $fila['price'];
-                    // $image1 = $fila['image1'];
+                    $image1 = $fila['image1'];
                     // $image2 = $fila['image2'];
                     // $image3 = $fila['image3'];
                     // $image4 = $fila['image4'];
@@ -113,13 +132,10 @@
                             <input type="text" class="form-control" id="description" name="description" required value="<?php echo $description ;?>" >
                             <label class="control-label">Precio</label>
                             <input type="number" max="999999999999" min="1" class="form-control" id="price" name="price" value="<?php echo $price ;?>" required>
-                            <!-- <label class="control-label">Imagen 1</label>
-                            <input type="file" name="image1" id="fileToUpload">
+                            <label class="control-label">Imagen 1</label>
+                            <input type="file" name="image1" id="image1">
 
-                            <label class="control-label">Imagen 2</label>
-                            <label class="control-label">Imagen 3</label>
-                            <label class="control-label">Imagen 4</label>
-                            <label class="control-label">Imagen 5</label> -->
+
 
                         </div>
                         <div class="form-group row" style="margin-top: 0;">
