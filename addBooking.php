@@ -13,8 +13,10 @@
               session_start();
               if(isset($_SESSION['type']))
                 $_type = (string)$_SESSION['type'];
-                if(isset($_SESSION['fullName']))
-                  $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['fullName']))
+                $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['dni']))
+                $_dni  = (int)$_SESSION['dni'];
               ?>
 
               <?php
@@ -32,6 +34,7 @@
           $status = $_POST['status'];
 
 
+
           //validate the fields
           if (empty($dateFrom) || empty($dateTo) || empty($typeBike))
             $_errorValidacion = 1;
@@ -46,7 +49,17 @@
               }
               else {
                 include ("connection.inc");
-                $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status) VALUES ('$_dni', '$dateFrom', '$dateTo', '$typeBike',1);";
+                $resultado = mysqli_query($link,"select price FROM biketype WHERE id = ".$typeBike);
+                $fila = $resultado->fetch_assoc();
+                if(isset($fila['price'])){
+                  $bikePrice = $fila['price'];
+                  $diff=date_diff(date_create($dateFrom),date_create($dateTo));
+                    $totalPrice = ($diff->format("%a")+1) * $bikePrice;
+                }
+                else {
+                  $totalPrice = 0;
+                }
+                $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status,totalPrice) VALUES ($_dni, '$dateFrom', '$dateTo', '$typeBike',1,$totalPrice);";
                 mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
               }

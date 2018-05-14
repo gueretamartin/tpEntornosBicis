@@ -62,9 +62,15 @@
                 <th class="text-center"><p>Fecha Desde</p></th>
                 <th class="text-center"><p>Fecha Hasta</p></th>
                 <th class="text-center"><p>Tipo de Bicicleta</p></th>
+                <th class="text-center"><p>Precio</p></th>
                 <th class="text-center"><p>Estado</p></th>
-                <th class="text-center"><p>Modificar</p></th>
-                <th class="text-center"><p>Eliminar</p></th>
+                <?php
+                if(isset($_type) && $_type == 1){
+                echo '<th class="text-center"><p>Modificar</p></th>
+                <th class="text-center"><p>Eliminar</p></th>';
+                }
+
+                ?>
               </tr>
             </thead>
               <tbody>
@@ -97,15 +103,18 @@ include ("connection.inc");
                       <td><p>' . $fila['id'] . '</p></td>
                       <td><p>' . $fila['dateFrom'] . '</p></td>
                       <td><p>' . $fila['dateTo'] . '</p></td>
-                      <td><p>' . $fila['name'] . '</p></td>';
+                      <td><p>' . $fila['name'] . '</p></td>
+                      <td><p>' . $fila['totalPrice'] . '</p></td>';
+
                       if($fila['status'] == 1)
                         echo '<td><p>Solicitada</p></td>';
                       elseif($fila['status'] == 2)
                         echo '<td><p>En curso</p></td>';
                       elseif($fila['status'] == 3)
                         echo '<td><p>Finalizada</p></td>';
+                            if(isset($_type) && $_type == 1)
                       echo '<td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedBooking(' . $fila['id'] .  ')" /></td>
-                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?id=' . $fila["id"] . "&dateFrom=" . $fila["dateFrom"] . "&dateTo=" . $fila["dateTo"] . "&idTypeBike=" . $fila["idTypeBike"] . '" data-toggle="modal" data-target="#confirm-delete")"/></td>
+                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?id=' . $fila["id"]. '" data-toggle="modal" data-target="#confirm-delete")"/></td>
                     </tr>
                     ';
                   $contador++;
