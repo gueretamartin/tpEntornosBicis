@@ -62,7 +62,7 @@
                 <i class="fa fa-pencil-square-o fa-stack-1x fa-inverse"></i>
               </span>
               <h4 class="service-heading">PASO 2</h4>
-              <p class="text-muted">Completa con tus datos. Elegí el tipo de bicicleta, la fecha y la cantidad de horas que vas a usarla.</p>
+              <p class="text-muted">Elegí el tipo de bicicleta y el rango de fechas que vas a usarla.</p>
             </div>
             <div class="col-md-4">
               <span class="fa-stack fa-4x">
@@ -70,7 +70,7 @@
                 <i class="fa fa-bicycle fa-stack-1x fa-inverse"></i>
               </span>
               <h4 class="service-heading">PASO 3</h4>
-              <p class="text-muted">Confirma tu reserva, imprimí tu ticket y estarás listo para usar tu Bici el día elegido!</p>
+              <p class="text-muted">Confirma tu reserva, imprimí tu ticket y acercate el dia acordado con tu ticket.</p>
             </div>
           </div>
         </div>
@@ -79,7 +79,10 @@
 
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-<p class="lead well well-sm booking"><a href="startSession.php">RESERVA TU BICI AHORA</a></p>
+        <p class="lead well well-sm booking"><a href="addBooking.php">RESERVA TU BICI AHORA</a></p>
+        o
+<p  class="lead well well-sm booking"><a href="newUser.php"> REGISTRATE</a></>
+
 </div>
 <div class="col-lg-4"></div>';
 

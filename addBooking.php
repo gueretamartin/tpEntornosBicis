@@ -143,7 +143,7 @@ elseif (!isset($_POST['id'])){
                                     ?>
                         </select>
                     </div>
-
+                        <?php if(! isset($_type) || $_type == 1) { ?>
                     <label  class="control-label">Estado de la reserva</label>
                     <div class="custom-select" >
                         <select id="status" class="selection" name="status" <?php echo 'value="'.$status.'"'; if(! isset($_type) || $_type == 0) echo 'readonly'; ?> >
@@ -155,9 +155,8 @@ elseif (!isset($_POST['id'])){
                             <option  value="3">Finalizada</option>
                         </select>
                     </div>
-
-
-<?php
+                  <?php } 
+                  
                      if (isset($_errorValidacion))
                     {
                        if ($_errorValidacion == 1)
@@ -168,8 +167,8 @@ elseif (!isset($_POST['id'])){
                        echo '<h4 class="alert alert-success text-center">La reserva se almacenó correctamente</h4>';
                     }
                      ?>
-                          <button type="reset" class="btn btn-warning col-lg-4 col-xs-5">Resetear</button>
-                          <button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 pull-right">Guardar</button>
+                         
+                          <button type="submit" name="submit" class="btn btn-primary col-lg-12 col-xs-12">Guardar</button>
 
 
     </form> <!-- End Form -->

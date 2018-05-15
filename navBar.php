@@ -25,7 +25,8 @@ echo '
     }
       elseif (isset($_fullName)){
         echo
-        '<li><a class="session" href="addBooking.php">Reservar</a></li>';
+        '<li><a href="showBooking.php">Ver reservas</a></li>
+        <li><a class="session" href="addBooking.php">Reservar</a></li>';
       }
 // all users
     echo '
