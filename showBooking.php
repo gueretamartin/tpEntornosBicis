@@ -40,6 +40,9 @@
               }
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['type']))
+                $_type = $_SESSION['type'];
+              
               ?>
 
 

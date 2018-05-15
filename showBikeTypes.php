@@ -97,10 +97,10 @@ include ("connection.inc");
                       <td><p>$' . $fila['price'] . '</p></td>
                       <td>
                         <img src='. $fila['image1'] .' onclick="viewImage('.$fila['image1'].')" />
-                        <img src='. $fila['image2'] .' onclick="viewImage('.$fila['image1'].')" />
-                        <img src='. $fila['image3'] .' onclick="viewImage('.$fila['image1'].')" />
-                        <img src='. $fila['image4'] .' onclick="viewImage('.$fila['image1'].')" />
-                        <img src='. $fila['image5'] .' onclick="viewImage('.$fila['image1'].')"   />
+                        <img src='. $fila['image2'] .' onclick="viewImage('.$fila['image2'].')" />
+                        <img src='. $fila['image3'] .' onclick="viewImage('.$fila['image3'].')" />
+                        <img src='. $fila['image4'] .' onclick="viewImage('.$fila['image4'].')" />
+                        <img src='. $fila['image5'] .' onclick="viewImage('.$fila['image5'].')"   />
                       </td>
                       <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
                     </tr>
