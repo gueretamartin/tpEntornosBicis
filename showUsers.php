@@ -109,9 +109,9 @@
 												}
 												
 												echo '<td>
-																<img src="img/nuevo.gif" alt="Consultar" title="Consultar"  onclick="consultUser(' . $fila['dni'] .  ')" />
+																<img src="img/nuevo.gif" alt="Consultar" title="Consultar"  onclick="showUser(' . $fila['dni'] .  ')" />
 																<img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedUser(' . $fila['dni'] .  ')" />
-																<img src="img/eliminar.gif" alt="Eliminar" title="Eliminar"  onclick="deleteUser(' . $fila['dni'] .  ')" />
+																<img src="img/eliminar.gif" alt="Eliminar" title="Eliminar"  onclick="deleteUser(' . $fila['dni'] .  ',\'' . $fila['fullName'] .'\')"/>
 															</td>
 														</tr>';
 										$contador++;
@@ -179,32 +179,37 @@
 
 			<script type="text/javascript">
 			function modifiedUser(idUser) {
-					window.location.href = "consultUser.php?mode=0&idUser=" + idUser;
+					window.location.href = "showUser.php?mode=0&idUser=" + idUser;
 			}
 			
-			function deleteUser(idUser) {
-					window.location.href = "deleteUser.php?idUser=" + idUser;
+			function deleteUser(idUser,fullN) {
+					
+					var r = confirm("¿Confirmar la eliminación del usuario: "+fullN+" (D.N.I.: "+idUser+")?");
+					if (r == true) {
+						var htmlString="<?php echo '$dni' ?>";
+						alert(htmlString);
+					}
+					
 			}
 			
-			function consultUser(idUser) {
-					window.location.href = "consultUser.php?idUser=" + idUser;
+			function showUser(idUser) {
+					window.location.href = "showUser.php?idUser=" + idUser;
 			}
 			
 			function newUser() {
 					window.location.href = "newUser.php";
 			}
 			
-			$('#confirm-delete').on('show.bs.modal', function(e) {
-					$(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-					$cadena =  $(this).find('.btn-ok').attr('href') + "*";
-
-					$numberBooking = $cadena.substring($cadena.indexOf("numberBooking=")+5, $cadena.indexOf("&date"));
-					$date = $cadena.substring($cadena.indexOf("date=")+6, $cadena.indexOf("&typeBike"));
-					$typeBike = $cadena.substring($cadena.indexOf("&typeBike=")+8, $cadena.indexOf("*"));
-
-					$('.numberBooking').html($numberBooking);
-					$('.date').html('¿Desea eliminar el edificio ' + $date + ' ' + $typeBike + '?');
-			});
+			function myFunction() {
+					var txt;
+					var r = confirm("Press a button!");
+					if (r == true) {
+							txt = "You pressed OK!";
+					} else {
+							txt = "You pressed Cancel!";
+					}
+					document.getElementById("demo").innerHTML = txt;
+			}
 			</script>	
 			
 		</body>
