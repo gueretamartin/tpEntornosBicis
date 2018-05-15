@@ -23,8 +23,6 @@
       //Save the values of the post.
 
         if (isset($_POST['submit'])) {
-          //$user = $_SESSION[$_fullName];
-        //  $numberBooking = $_POST['numberBooking'];
           $dateFrom = $_POST['dateFrom'];
           $dateTo = $_POST['dateTo'];
           $typeBike = $_POST['typeBike'];
@@ -139,25 +137,9 @@
   </div> <!-- End Container Fluid -->
  </div> <!-- End id Wrap -->
 
-<?php include("footer.php") ?>
-
-		    <script src="jquery-1.10.2.min.js"></script>
-		    <script src="bootstrap.min.js"></script>
-		    <script src="bootswatch.js"></script>
-
-
-       <!-- <script>
-
-        function validaCampos(){
-
-          if ((document.getElementById("calle").value.length == 0) || (document.getElementById("numero").value.length == 0)){
-              document.getElementById("mensajes").innerHTML = '<h4 class="alert alert-danger text-center">Complete todos los campos</h1>';
-              return false;}
-          else {
-              return true;
-          }
-
-        }
-        </script>-->
-		</body>
-	</html>
+      <?php include("footer.php") ?>
+		   <script src="jquery-1.10.2.min.js"></script>
+       <script src="bootstrap.min.js"></script>
+       <script src="bootswatch.js"></script>
+    </body>
+  </html>

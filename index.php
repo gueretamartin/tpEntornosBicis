@@ -89,9 +89,7 @@ else
     ?>
     </div><!-- Wrap Div end -->
 </div>
-
-<?php include("footer.php") ?>
-
+        <?php include("footer.php") ?>
 		    <script src="jquery-1.10.2.min.js"></script>
 		    <script src="bootstrap.min.js"></script>
 		    <script src="bootswatch.js"></script>

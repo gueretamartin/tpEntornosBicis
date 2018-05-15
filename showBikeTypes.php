@@ -41,18 +41,9 @@
               if(isset($_SESSION['usuario']))
                 $_usuario = (string)$_SESSION['usuario'];
               ?>
-
-
-
-
-
-  <div id="wrap">
+ <div id="wrap">
 			    <?php include("navBar.php") ?>
 <br>
-
-
-
-
   <!-- Begin page content -->
 <div class="col-md-8 col-md-offset-2">
           <table class="table table-striped table-hover text-center">
@@ -161,14 +152,7 @@ include ("connection.inc");
         </div>
     </div>
 </div>
-
-
-
-
     </div><!-- Wrap Div end -->
-
-
-
 		    <script src="jquery-1.10.2.min.js"></script>
 		    <script src="bootstrap.min.js"></script>
 		    <script src="bootswatch.js"></script>
@@ -195,7 +179,9 @@ include ("connection.inc");
         });
         </script>
 
-<?php include("footer.php") ?>
-		</body>
-
+      <?php include("footer.php") ?>
+		 <script src="jquery-1.10.2.min.js"></script>
+     <script src="bootstrap.min.js"></script>
+     <script src="bootswatch.js"></script>
+    </body>
 	</html>

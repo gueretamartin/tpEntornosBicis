@@ -59,7 +59,7 @@
 					}
 					mysqli_close($link);
 
-					$_SESSION['usuario'] = $fullName;
+					$_SESSION['fullName'] = $fullName;
 					$_SESSION['phone'] = $phone;
 					$_SESSION['email'] = $email;
 				}
@@ -91,7 +91,7 @@
 								<label class="control-label">DNI</label>
 								<input type="number" max="999999999999" min="1" value="<?php echo $_SESSION['dni']?>" class="form-control" id="dniAux" name="dniAux" disabled>
 								<label class="control-label">Apellido y Nombre</label>
-								<input type="text" class="form-control" id="fullName" name="fullName" maxlength="80" value="<?php echo (string)$_SESSION['usuario']?>" required>
+								<input type="text" class="form-control" id="fullName" name="fullName" maxlength="80" value="<?php echo (string)$_SESSION['fullName']?>" required>
 								<label class="control-label">Teléfono</label>
 								<input type="text" maxlength="40" class="form-control" id="phone" name="phone" required value="<?php echo $_SESSION['phone']?>">
 								<label class="control-label">Email</label>
