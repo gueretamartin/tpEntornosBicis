@@ -5,16 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="bootstrap.css" media="screen">
     <link rel="stylesheet" href="bootswatch.min.css">
+    <link rel="stylesheet" href="css/biciamiga.css" >
   </head>
 		<body>
 
               <?php
               session_start();
-              if (isset($_COOKIE['recordar'])){
-                $_SESSION['fullName']=$_COOKIE['recordar'];
-              }
+              if(isset($_SESSION['type']))
+                $_type = (string)$_SESSION['type'];
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['dni']))
+                $_dni  = (int)$_SESSION['dni'];
               ?>
 
               <?php
@@ -24,28 +26,40 @@
 
         if (isset($_POST['submit'])) {
           //$user = $_SESSION[$_fullName];
-        //  $numberBooking = $_POST['numberBooking'];
+          $id = $_POST['id'];
           $dateFrom = $_POST['dateFrom'];
           $dateTo = $_POST['dateTo'];
           $typeBike = $_POST['typeBike'];
-          $state = 1;
+          if(isset($_type) && $_type == 1) //only admin can change the status of a booking
+          $status = $_POST['status'];
+
 
 
           //validate the fields
-          if (empty($state) || empty($dateFrom) || empty($dateTo) || empty($typeBike))
+          if (empty($dateFrom) || empty($dateTo) || empty($typeBike))
             $_errorValidacion = 1;
           else {
-            if(isset($_GET['numberBooking'])) {
+            if(isset($_GET['id'])) {
               include ("connection.inc");
 
-                 $query = "UPDATE booking SET dateFrom='" . $dateFrom . "', dateTo='" . $dateTo . "', idTypeBike=" . $typeBike . ", status=" . $state. " where id=" . $_GET['numberBooking'];
+                 $query = "UPDATE booking SET dateFrom='" . $dateFrom . "', dateTo='" . $dateTo . "', idTypeBike=" . $typeBike . ", status=" . $status. " where id=" . $_GET['id'];
 
                 mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
               }
               else {
                 include ("connection.inc");
-                $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status) VALUES ('$_dni', '$dateFrom', '$dateTo', '$typeBike',1);";
+                $resultado = mysqli_query($link,"select price FROM biketype WHERE id = ".$typeBike);
+                $fila = $resultado->fetch_assoc();
+                if(isset($fila['price'])){
+                  $bikePrice = $fila['price'];
+                  $diff=date_diff(date_create($dateFrom),date_create($dateTo));
+                    $totalPrice = ($diff->format("%a")+1) * $bikePrice;
+                }
+                else {
+                  $totalPrice = 0;
+                }
+                $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status,totalPrice) VALUES ($_dni, '$dateFrom', '$dateTo', '$typeBike',1,$totalPrice);";
                 mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
               }
@@ -54,66 +68,94 @@
 
            }
         }
+        else{
+          include ("connection.inc");
+          $resultado = mysqli_query($link,"select MAX(id) as max from booking");
+          $fila = $resultado->fetch_assoc();
+          if(isset($fila['max']))
+          $id =$fila['max'] +1;
+          else {
+            $id = 1;
+          }
+        }
 
         ?>
 
+
+        <div id="wrap">
+      			<?php include("navBar.php") ?>
+      <br>
+      <br>
         <?php
-  if (isset($_GET['numberBooking'])) {
+  if (isset($_GET['id'])) {
     include ("connection.inc");
-    $numberBooking = $_GET['numberBooking'];
-    if ($resultado = $link->query('select * from booking where id =' . $numberBooking )) {
+    $id = $_GET['id'];
+    if ($resultado = $link->query('select * from booking where id =' . $id )) {
       $fila = $resultado->fetch_assoc();
 
        $dateFrom = $fila['dateFrom'];
        $dateTo = $fila['dateTo'];
        $typeBike = $fila['idTypeBike'];
-       $state = $fila['status'];
+       $status = $fila['status'];
 
-    $modifica=1;
-}}
+       $modifica=1;
+
+       if($status == 1){
+         echo 'Confirmar reserva';
+       }
+       elseif ($status == 2){
+         echo 'Finalizar reserva';
+       }
+    }
+}
+elseif (!isset($_POST['id'])){
+  echo '<div class= "col-lg-12 text-center"><h3>Nueva Reserva</h3></div>';
+  $dateFrom = date('Y-m-d');
+  $dateTo = date('Y-m-d');
+  $status = 1;
+}
   ?>
 
-  <div id="wrap">
-			<?php include("navBar.php") ?>
-<br>
-<br>
+
  <div class="container-fluid ">
-   <div class= "col-lg-12 text-center"><h3> <?php if (isset($modifica)) {
-                                if ($modifica == 1)
-                                  echo 'Modificar Reserva';
-                                  }
-                                  else
-                                    echo 'Nueva Reserva';
-                               ?></h3></div>
   <div class = "col-lg-3"></div>
   <div class = "col-lg-6">
     <form name="submit" method="POST">
 
             <label class="control-label">Número de Reserva</label>
-                    <input type="text" class="form-control" id="numberBooking" name="numberBooking" readonly="readonly" <?php if (isset($modifica)) { if ($modifica == 1) echo ' value="' . $numberBooking . '"';} ?>>
+                    <input type="text" class="form-control" id="id" name="id" readonly   <?php  echo ' value="' . $id . '"'; ?>>
 
                     <label  class="control-label">Fecha Desde</label>
-                    <input type="date" class="form-control" id="dateFrom" name="dateFrom" <?php if (isset($modifica)) {if ($modifica == 1) echo 'value="' . $dateFrom . '"';} ?>>
+                    <input type="date" class="form-control" id="dateFrom" name="dateFrom" <?php  echo 'value="' . $dateFrom . '"'; ?>>
 
                     <label  class="control-label">Fecha Hasta</label>
-                    <input type="date" class="form-control" id="dateTo" name="dateTo" <?php if (isset($modifica)) {if ($modifica == 1) echo 'value="' . $dateTo . '"';} ?>>
+                    <input type="date" class="form-control" id="dateTo" name="dateTo" <?php  echo 'value="' . $dateTo . '"'; ?>>
 
                     <label  class="control-label">Tipo de Bicicleta</label>
                     <div class="custom-select" >
-                        <select id="typeBike" class="selection" name="typeBike">
-                          <option  <?php if (isset($modifica)) {if ($typeBike == 0) echo 'selected="selected"' ;}?> value="0">Playera</option>
-                          <option  <?php if (isset($modifica)) {if ($typeBike == 1) echo 'selected="selected"' ;}?> value="1">Doble</option>
-                          <option <?php if (isset($modifica)) {if ($typeBike == 2) echo 'selected="selected"' ;}?>  value="2">MountainBike</option>
+                        <select id="typeBike" class="selection" name="typeBike" <?php if (isset($modifica) && $modifica == 1) echo 'value="'.$typeBike.'"' ?> >
+                          <?php
+                          include ("connection.inc");
+                          $resultado = mysqli_query($link,"select * from biketype");
+                          while ($row = mysqli_fetch_array($resultado)) {
+                            echo '<option  value="'.$row['id'].'">'.$row['name'].' ($'.$row['price'].')</option>';
+                          }
+                                    ?>
                         </select>
-                      </div>
+                    </div>
 
-                    <label  class="control-label">Estado</label>
-                      <div class="custom-select" >
-                        <select id="state" class="selection" name="state"  readonly="readonly">
-                          <option  <?php if (isset($modifica)) {if ($state == 1) echo 'selected="selected" ';}?> value="1"> Activa</option>
-                           <option  <?php if (isset($modifica)) {if ($state == 0) echo 'selected="selected"';}?> value="0"> Inactiva</option>
-                         </select>
-                      </div>
+                    <label  class="control-label">Estado de la reserva</label>
+                    <div class="custom-select" >
+                        <select id="status" class="selection" name="status" <?php echo 'value="'.$status.'"'; if(! isset($_type) || $_type == 0) echo 'readonly'; ?> >
+                            <?php
+                            if(isset($status) && $status != 2)
+                            echo'<option  value="1">Solicitada</option>'
+                            ?>
+                            <option  value="2">En curso</option>
+                            <option  value="3">Finalizada</option>
+                        </select>
+                    </div>
+
 
 <?php
                      if (isset($_errorValidacion))
@@ -123,12 +165,11 @@
                        if ($_errorValidacion == 2)
                        echo '<h4 class="alert alert-danger text-center">El Número de Reserva ingresado no es valido</h1>';
                        if ($_errorValidacion == 0)
-                       echo '<h4 class="alert alert-success text-center">La reserva se ah almacenado correctamente</h4>';
+                       echo '<h4 class="alert alert-success text-center">La reserva se almacenó correctamente</h4>';
                     }
                      ?>
- <button type="reset" class="btn btn-warning col-lg-4 col-xs-5">Resetear</button>
-
-                          <button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 pull-right">Agregar</button>
+                          <button type="reset" class="btn btn-warning col-lg-4 col-xs-5">Resetear</button>
+                          <button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 pull-right">Guardar</button>
 
 
     </form> <!-- End Form -->
