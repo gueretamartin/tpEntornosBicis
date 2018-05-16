@@ -40,31 +40,32 @@
               }
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['type']))
+                $_type = $_SESSION['type'];
+              
               ?>
-
-
-
-
-
   <div id="wrap">
 			    <?php include("navBar.php") ?>
 <br>
-
-
-
-
   <!-- Begin page content -->
 <div class="col-md-8 col-md-offset-2">
           <table class="table table-striped table-hover text-center">
             <thead>
               <tr class="success">
                 <th class="text-center"><p>Número de Reserva</p></th>
+                <th class="text-center"><p>Usuario</p></th>
                 <th class="text-center"><p>Fecha Desde</p></th>
                 <th class="text-center"><p>Fecha Hasta</p></th>
                 <th class="text-center"><p>Tipo de Bicicleta</p></th>
+                <th class="text-center"><p>Precio</p></th>
                 <th class="text-center"><p>Estado</p></th>
-                <th class="text-center"><p>Modificar</p></th>
-                <th class="text-center"><p>Eliminar</p></th>
+                <?php
+                if(isset($_type) && $_type == 1){
+                echo '<th class="text-center"><p>Modificar</p></th>
+                <th class="text-center"><p>Eliminar</p></th>';
+                }
+
+                ?>
               </tr>
             </thead>
               <tbody>
@@ -84,7 +85,10 @@ include ("connection.inc");
 
               $resultados = mysqli_query($link,"select * from booking");
               $total_registros = mysqli_num_rows($resultados);
-              $resultados = mysqli_query($link,"select * from booking LIMIT $inicio , $registros");
+              $where = '';
+              if($_type==0){$where=" where u.dni = " . $_SESSION['dni'] . " ";}
+              $query = "select booking.*,biketype.name,u.fullName from booking inner join biketype on booking.idTypeBike = biketype.id inner join user as u on u.dni = booking.idUser " . $where . " LIMIT $inicio , $registros";
+              $resultados = mysqli_query($link,$query);
               $total_paginas = ceil($total_registros / $registros);
 
 
@@ -94,13 +98,22 @@ include ("connection.inc");
                     while ($fila = $resultados->fetch_assoc()) {
                     echo '
                     <tr class="active">
-                      <td><p>' . $fila['numberBooking'] . '</p></td>
+                      <td><p>' . $fila['id'] . '</p></td>
+                      <td><p>' . $fila['fullName'] . '</p></td>
                       <td><p>' . $fila['dateFrom'] . '</p></td>
                       <td><p>' . $fila['dateTo'] . '</p></td>
-                      <td><p>' . $fila['typeBike'] . '</p></td>
-                      <td><p>' . $fila['state'] . '</p></td>
-                      <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedBooking(' . $fila['numberBooking'] .  ')" /></td>
-                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?numberBooking=' . $fila["numberBooking"] . "&dateFrom=" . $fila["dateFrom"] . "&dateTo=" . $fila["dateTo"] . "&typeBike=" . $fila["typeBike"] . '" data-toggle="modal" data-target="#confirm-delete")"/></td>
+                      <td><p>' . $fila['name'] . '</p></td>
+                      <td><p>' . $fila['totalPrice'] . '</p></td>';
+
+                      if($fila['status'] == 1)
+                        echo '<td><p>Solicitada</p></td>';
+                      elseif($fila['status'] == 2)
+                        echo '<td><p>En curso</p></td>';
+                      elseif($fila['status'] == 3)
+                        echo '<td><p>Finalizada</p></td>';
+                            if(isset($_type) && $_type == 1)
+                      echo '<td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedBooking(' . $fila['id'] .  ')" /></td>
+                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?id=' . $fila["id"]. '" data-toggle="modal" data-target="#confirm-delete")"/></td>
                     </tr>
                     ';
                   $contador++;
@@ -166,22 +179,13 @@ include ("connection.inc");
         </div>
     </div>
 </div>
-
-
-
-
     </div><!-- Wrap Div end -->
-
-
-
-		    <script src="jquery-1.10.2.min.js"></script>
-		    <script src="bootstrap.min.js"></script>
-		    <script src="bootswatch.js"></script>
+		   
 
 
         <script type="text/javascript">
-        function modifiedBooking(numberBooking) {
-            window.location.href = "addBooking.php?numberBooking=" + numberBooking;
+        function modifiedBooking(id) {
+            window.location.href = "addBooking.php?id=" + id;
         }
         </script>
 
@@ -190,17 +194,19 @@ include ("connection.inc");
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
             $cadena =  $(this).find('.btn-ok').attr('href') + "*";
 
-            $numberBooking = $cadena.substring($cadena.indexOf("numberBooking=")+5, $cadena.indexOf("&date"));
-            $date = $cadena.substring($cadena.indexOf("date=")+6, $cadena.indexOf("&typeBike"));
-            $typeBike = $cadena.substring($cadena.indexOf("&typeBike=")+8, $cadena.indexOf("*"));
+            $id = $cadena.substring($cadena.indexOf("id=")+5, $cadena.indexOf("&date"));
+            $date = $cadena.substring($cadena.indexOf("date=")+6, $cadena.indexOf("&idTypeBike"));
+            $idTypeBike = $cadena.substring($cadena.indexOf("&idTypeBike=")+8, $cadena.indexOf("*"));
 
-            $('.numberBooking').html($numberBooking);
-            $('.date').html('¿Desea eliminar el edificio ' + $date + ' ' + $typeBike + '?');
+            $('.id').html($id);
+            $('.date').html('¿Desea eliminar el edificio ' + $date + ' ' + $idTypeBike + '?');
 
         });
         </script>
 
-<?php include("footer.php") ?>
-		</body>
-
-	</html>
+      <?php include("footer.php") ?>
+		    <script src="jquery-1.10.2.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script src="bootswatch.js"></script>
+    </body>
+</html>

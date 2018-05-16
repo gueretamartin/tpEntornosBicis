@@ -17,16 +17,20 @@ echo '
 
        <ul class="nav navbar-nav navbar-right">';
 
+
 // only admin
     if (isset($_fullName) && $_fullName=="Administrador"){
-        echo  '<li class="buttonAddBooking"><a class="session" href="addBooking.php">Reservar</a></li>
-              <li><a href="showBikeTypes.php" class="gallery">Tipos de Bici</a></li>';
+
+        echo  '<li class="buttonAddBooking"><a class="session" href="showBooking.php">Reservar</a></li>
+              <li><a href="showBikeTypes.php" class="gallery">Tipos de Bici</a></li>
+							<li><a href="showUsers.php" class="profile">Usuarios</a></li>';
+
     }
-
-
-      elseif (isset($_usuario)){
+      elseif (isset($_fullName)){
         echo
-        '<li><a class="session" href="addBooking.php">Reservar</a></li>';
+        '<li><a href="showBooking.php">Ver reservas</a></li>
+        <li><a class="session" href="addBooking.php">Reservar</a></li>';
+
       }
 // all users
     echo '
@@ -37,12 +41,13 @@ echo '
        <!-- <li><a href="about.php">¿Quienes somos?</a></li>-->';
 
          if(isset($_fullName))
-           echo '<li><a class="profile" href="myProfile.php">Mi Cuenta</a></li>
+           echo '<li><a class="profile" href="myProfile.php">Usuario:'.$_fullName.'</a></li>
 								 <li><a class="out" href="closeSession.php" >Cerrar Sesión</a></li>';
-         else
+         else{
            echo '<li><a href="newUser.php" class="profile">Registrarse</a></li>
-         <li><a href="startSession.php" class="session">Iniciar Sesion</a></li>'
-           ;
+         <li><a href="startSession.php" class="session">Iniciar Sesion</a></li>';
+         }
+
 echo'
         </ul>
       </div>

@@ -41,34 +41,26 @@
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
               ?>
+ <div id="wrap">
 
-
-
-
-
-  <div id="wrap">
 			    <?php include("navBar.php") ?>
 <br>
-
-
-
-
   <!-- Begin page content -->
 <div class="col-md-8 col-md-offset-2">
           <table class="table table-striped table-hover text-center">
             <thead>
               <tr class="success">
                 <th class="text-center"><p>Codigo</p></th>
-                <th class="text-center"><p>Tipo de Bici</p></th>
+                <th class="text-center"><p>Descripcion</p></th>
                 <th class="text-center"><p>Precio</p></th>
-                <th class="text-center"><p>Imagen</p></th>
+                <th class="text-center"><p>Imagenes</p></th>
                 <th class="text-center"><p>Modificar</p></th>
               </tr>
             </thead>
               <tbody>
 
               <?php
-include ("connection.inc");
+							include ("connection.inc");
               $registros = 6;
               $contador = 1;
 
@@ -94,13 +86,13 @@ include ("connection.inc");
                     <tr class="active">
                       <td><p>' . $fila['id'] . '</p></td>
                       <td><p>' . $fila['description'] . '</p></td>
-                      <td><p>' . $fila['price'] . '</p></td>
+                      <td><p>$' . $fila['price'] . '</p></td>
                       <td>
-                        <img src='. $fila['image1'] .' alt="" title="image"/>
-                        <img src='. $fila['image2'] .' alt="" title="image"/>
-                        <img src='. $fila['image3'] .' alt="" title="image"/>
-                        <img src='. $fila['image4'] .' alt="" title="image"/>
-                        <img src='. $fila['image5'] .' alt="" title="image"/>
+                        <img src='. $fila['image1'] .' onclick="viewImage('.$fila['image1'].')" />
+                        <img src='. $fila['image2'] .' onclick="viewImage('.$fila['image2'].')" />
+                        <img src='. $fila['image3'] .' onclick="viewImage('.$fila['image3'].')" />
+                        <img src='. $fila['image4'] .' onclick="viewImage('.$fila['image4'].')" />
+                        <img src='. $fila['image5'] .' onclick="viewImage('.$fila['image5'].')"   />
                       </td>
                       <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
                     </tr>
@@ -161,14 +153,7 @@ include ("connection.inc");
         </div>
     </div>
 </div>
-
-
-
-
     </div><!-- Wrap Div end -->
-
-
-
 		    <script src="jquery-1.10.2.min.js"></script>
 		    <script src="bootstrap.min.js"></script>
 		    <script src="bootswatch.js"></script>
@@ -177,6 +162,11 @@ include ("connection.inc");
         <script type="text/javascript">
         function modifiedRow(id) {
             window.location.href = "modifyBikeType.php?id=" + id;
+
+        }
+        function viewImage(dir){
+          window.location.href =dir;
+
         }
         </script>
 
@@ -195,7 +185,9 @@ include ("connection.inc");
         });
         </script>
 
-<?php include("footer.php") ?>
-		</body>
-
+      <?php include("footer.php") ?>
+		 <script src="jquery-1.10.2.min.js"></script>
+     <script src="bootstrap.min.js"></script>
+     <script src="bootswatch.js"></script>
+    </body>
 	</html>

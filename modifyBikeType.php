@@ -20,6 +20,7 @@
 
 <?php
     if ($_type == 1) {
+
         if (isset($_POST['submit'])) {
 
             $id = $_POST['id'];
@@ -149,9 +150,6 @@
             </div>
         </div>
 
-
-
-
     </form> <!-- End Form -->
     <div class="col-lg-3"></div>
 
@@ -162,6 +160,7 @@
 
 <?php include("footer.php") ?>
 
+
 <script src="jquery-1.10.2.min.js"></script>
 <script src="bootstrap.min.js"></script>
 <script src="bootswatch.js"></script>
@@ -171,18 +170,6 @@
         window.location = "./showBikeTypes.php"
     }
 </script>
-<!-- <script>
 
-function validaCampos(){
-
-if ((document.getElementById("calle").value.length == 0) || (document.getElementById("numero").value.length == 0)){
-document.getElementById("mensajes").innerHTML = '<h4 class="alert alert-danger text-center">Complete todos los campos</h1>';
-return false;}
-else {
-return true;
-}
-
-}
-</script>-->
 </body>
 </html>
