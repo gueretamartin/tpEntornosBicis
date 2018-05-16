@@ -1,6 +1,13 @@
 <?php
-include("conexion.inc");
-$cuit = $_GET['cuit'];
-$link->query("Delete From edificio where Cuit=" . $cuit);
-header("location:consulta_edificios.php");
+<<<<<<< HEAD
+	include("connection.inc");
+	$numberBooking = $_GET['numberBooking'];
+	$link->query("delete from booking where numberBooking=" . $numberBooking);
+	header("location:showBooking.php");
+=======
+include("connection.inc");
+$numberBooking = $_GET['id'];
+$link->query("delete from booking where id=" . $numberBooking);
+header("location:showBooking.php");
+>>>>>>> development
  ?>

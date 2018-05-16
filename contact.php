@@ -3,26 +3,49 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <meta charset="utf-8">
-	   
+			<title>BiciAmiga Rosario - Contacto</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <link rel="stylesheet" href="bootstrap.css" media="screen">
 	    <link rel="stylesheet" href="bootswatch.min.css">
-	    <link rel="stylesheet" type="text/css" href="footer.css">
+			<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+			<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+			<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+			<style>
+			#map {
+				height: 350px;
+				width: 100%;
+			}
+			</style>
 	</head>
 	 	<body>
-	 		 <div id="wrap">
-	 		 		<div class="container-fluid text-center">
-					      <?php include("navBar.php") ?>					 	
-					      	  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4735.670587846699!2d-60.654502579016615!3d-32.93451027979441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab493a26ffd3%3A0x814b773c175dd5be!2sRodr%C3%ADguez+86%2C+S2000LJB+Rosario%2C+Santa+Fe!5e0!3m2!1ses!2sar!4v1525873051834" frameborder="0" style="border:0; margin-top:50px;" allowfullscreen></iframe>
-					               <address>
-					                  <br>Rodriguez 86
-					                  <br>Rosario, Santa Fe, Argentina
-					                  <br> Telefono: (341) 456-7890
-					                  <br>Email: estudiantesfrro@gmail.com
-					               </address>
-   						   <?php include("footer.php") ?>
-      				</div>
-      		 </div>
+	 		 <?php
+    session_start();
+    if (isset($_COOKIE['recordar'])){
+      $_SESSION['fullName']=$_COOKIE['recordar'];
+    }
+    if(isset($_SESSION['fullName']))
+      $_fullName = (string)$_SESSION['fullName'];
+    ?>
+
+		<?php include("navBar.php") ?>
+		<div id="wrap">
+			<br>
+			<h2 align="center">¡Acercate a nuestro local!</h2>
+			<br>
+			<div class="container-fluid text-center">
+				<div class="container">
+					<div id="map"></div>
+				</div>
+			</div>
+		</div>
+		<?php include("footer.php") ?>
+		<script src="jquery-1.10.2.min.js"></script>
+		<script src="bootstrap.min.js"></script>
+		 <script src="bootswatch.js"></script>
+		<script src="initmap.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBy52O248NVTAreNPSQnH_Khbt7pYI-go&callback=initMap"></script>
 	 	</body>
+	 		
 </html>

@@ -179,7 +179,7 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 fieldset {
-  border: 1px solid #c0c0c0;
+  border: 1px solid white;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em;
 }
@@ -2504,12 +2504,12 @@ fieldset {
   margin: 0;
   border: 0;
   min-width: 0;
+	border: 1px solid white; 
+	padding:1rem;
 }
 legend {
   display: block;
-  width: 100%;
   padding: 0;
-  margin-bottom: 21px;
   font-size: 22.5px;
   line-height: inherit;
   color: #ffffff;
@@ -4574,6 +4574,23 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > li > a.session {
  background-color: green;
 }
+
+.navbar-default .navbar-nav > li > a.profile {
+ background-color: blue;
+}
+
+.navbar-default .navbar-nav > li > a.out {
+ background-color: red;
+}
+
+.navbar-default .navbar-nav > li > a.gallery {
+ background-color: #f442a7;
+}
+
+.navbar-default .navbar-nav > li > a.contact {
+ background-color: #f4cd41;
+}
+
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -7107,4 +7124,16 @@ a.list-group-item-danger.active:focus {
 }
 .bike {
       border-radius: 50px;
+}
+.buttonAddBooking {
+  background-color: #008000;
+}
+.buttonCloseSession {
+  background-color: red;
+}
+.signUp{
+  color:red;
+  text-decoration: underline;
+  font-size: 15px;  
+  margin-top:20px;
 }

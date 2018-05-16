@@ -2,10 +2,10 @@
 -- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2018 a las 16:02:07
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Host: localhost
+-- Generation Time: May 13, 2018 at 11:45 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,195 +19,158 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `biciamiga`
+-- Database: `biciamiga`
 --
+CREATE DATABASE IF NOT EXISTS `biciamiga` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `biciamiga`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `bicicletas`
+-- Table structure for table `bike`
 --
 
-CREATE TABLE `bicicletas` (
-  `id_bici` int(11) NOT NULL,
-  `nombre` varchar(20) NOT NULL,
-  `descripcion` varchar(300) NOT NULL,
-  `foto` varchar(100) NOT NULL,
-  `precio_hr` decimal(10,0) NOT NULL,
-  `precio_dia` decimal(10,0) NOT NULL,
-  `disponibilidad` tinyint(1) NOT NULL
+DROP TABLE IF EXISTS `bike`;
+CREATE TABLE `bike` (
+  `id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `IdBikeType` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `booking`
+-- Table structure for table `biketype`
 --
 
+DROP TABLE IF EXISTS `biketype`;
+CREATE TABLE `biketype` (
+  `id` int(11) NOT NULL,
+  `name` varchar(120) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `price` float NOT NULL,
+  `image1` varchar(255) NOT NULL,
+  `image2` varchar(255) NOT NULL,
+  `image3` varchar(255) NOT NULL,
+  `image4` varchar(255) NOT NULL,
+  `image5` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `biketype`
+--
+
+INSERT INTO `biketype` (`id`, `name`, `description`, `price`, `image1`, `image2`, `image3`, `image4`, `image5`) VALUES
+(1, 'Playera', 'una bici re copada', 125, 'img/bike.jpg', 'img/bike2.jpg', 'img/bike3.jpg', 'img/bike4.jpg', 'img/bike5.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `booking`
+--
+
+DROP TABLE IF EXISTS `booking`;
 CREATE TABLE `booking` (
-  `numberBooking` int(11) NOT NULL,
-  `user` varchar(500) NOT NULL,
-  `date` date NOT NULL,
-  `typeBike` int(11) NOT NULL,
-  `state` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `dateFrom` date NOT NULL,
+  `dateTo` date NOT NULL,
+  `idTypeBike` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `totalPrice` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `booking`
+-- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`numberBooking`, `user`, `date`, `typeBike`, `state`) VALUES
-(1, 'admin', '2018-05-08', 1, 1);
+INSERT INTO `booking` (`id`, `idUser`, `dateFrom`, `dateTo`, `idTypeBike`, `status`, `totalPrice`) VALUES
+(1, 0, '2018-12-05', '2018-12-06', 1, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reservas`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `reservas` (
-  `id_reserva` int(11) NOT NULL,
-  `id_usr` int(11) NOT NULL,
-  `id_bici` int(11) NOT NULL,
-  `estado` int(11) NOT NULL COMMENT 'EN CURSO / CANCELADO / FINALIZADO / PENDIENTE',
-  `importe` decimal(10,0) NOT NULL COMMENT '(cant_hrs * precio_hr de la bici) o (precio x dia de la bicicleta)',
-  `fecha_solicitud` date NOT NULL,
-  `fecha_reserva` date NOT NULL,
-  `cant_hrs` int(11) NOT NULL,
-  `obs` varchar(100) NOT NULL,
-  `fecha_cancelacion` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario`
---
-
-CREATE TABLE `usuario` (
-  `dni` int(100) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `dni` int(12) NOT NULL,
   `password` varchar(32) NOT NULL,
   `type` int(1) NOT NULL,
-  `fullName` varchar(50) NOT NULL,
-  `email` varchar(12290) NOT NULL,
+  `fullName` varchar(80) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `phone` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `usuario` (`dni`, `password`, `type`, `fullName`, `email`, `phone`) VALUES
-(12, 'f8e0920f299', 0, 'asdas', '123', 'asd'),
-(42, 'f8e0920f29985ad1a2724161e86faa65', 0, 'e234234234', 'werwer', 'werwerwer'),
-(123, '21232f297a57a5a743894a0e4a801fc3', 0, 'admin', 'admin@admin.com', '421196'),
-(1235, '827ccb0eea8', 0, 'facu', 'facu@facu.com', '12312'),
-(8888, 'b6d767d2f8ed5d21a44b0e5886680cb9', 0, 'martin', 'admin@admin.com', '429912'),
-(33333, '61b80f94cdd', 0, 'fggdfdgd', '234', 'q34234234'),
-(123123, 'holis', 0, 'guille', 'asdlhasjd', '823478924'),
-(39953038, 'c4ca4238a0b923820dcc509a6f75849b', 0, 'martin', 'tinchin77@tinchin.com', '421196'),
-(423424234, 'md5(rwererw', 0, 'wrewerer', 'werwerwer', 'wrewerwer');
-
--- --------------------------------------------------------
+INSERT INTO `user` (`dni`, `password`, `type`, `fullName`, `email`, `phone`) VALUES
+(123, '202cb962ac59075b964b07152d234b70', 1, 'Administrador', 'admin@admin.com.ar', '123456789'),
+(40467, '202cb962ac59075b964b07152d234b70', 0, 'Giordano, NicolÃ¡s', 'nicocda09@gmail.com', '3416678');
 
 --
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id_usr` int(11) NOT NULL,
-  `apenom` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `pass` varchar(250) NOT NULL,
-  `dni` varchar(10) NOT NULL,
-  `habilitado` tinyint(1) NOT NULL,
-  `fec_alta` date NOT NULL,
-  `fec_ult_log` date NOT NULL,
-  `es_administrador` tinyint(1) NOT NULL,
-  `nro_contacto` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `bicicletas`
+-- Indexes for table `bike`
 --
-ALTER TABLE `bicicletas`
-  ADD PRIMARY KEY (`id_bici`),
-  ADD UNIQUE KEY `id_bici` (`id_bici`),
-  ADD UNIQUE KEY `id_bici_3` (`id_bici`),
-  ADD KEY `id_bici_2` (`id_bici`),
-  ADD KEY `id_bici_4` (`id_bici`),
-  ADD KEY `id_bici_5` (`id_bici`);
+ALTER TABLE `bike`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_bike_bikeType` (`IdBikeType`);
 
 --
--- Indices de la tabla `booking`
+-- Indexes for table `biketype`
+--
+ALTER TABLE `biketype`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `booking`
 --
 ALTER TABLE `booking`
-  ADD PRIMARY KEY (`numberBooking`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `reservas`
+-- Indexes for table `user`
 --
-ALTER TABLE `reservas`
-  ADD PRIMARY KEY (`id_reserva`),
-  ADD KEY `id_bici` (`id_bici`),
-  ADD KEY `id_usr` (`id_usr`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`dni`);
 
 --
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usr`),
-  ADD UNIQUE KEY `id_usr` (`id_usr`),
-  ADD KEY `id_usr_2` (`id_usr`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `bicicletas`
+-- AUTO_INCREMENT for table `bike`
 --
-ALTER TABLE `bicicletas`
-  MODIFY `id_bici` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `bike`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `booking`
+-- AUTO_INCREMENT for table `biketype`
+--
+ALTER TABLE `biketype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `numberBooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `reservas`
---
-ALTER TABLE `reservas`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usr` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `reservas`
+-- Constraints for table `bike`
 --
-ALTER TABLE `reservas`
-  ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`id_bici`) REFERENCES `bicicletas` (`id_bici`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservas_ibfk_2` FOREIGN KEY (`id_usr`) REFERENCES `usuarios` (`id_usr`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `bike`
+  ADD CONSTRAINT `fk_bike_bikeType` FOREIGN KEY (`IdBikeType`) REFERENCES `biketype` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

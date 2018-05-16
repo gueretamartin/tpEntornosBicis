@@ -1,10 +1,9 @@
 <?php
 echo '
-<footer >
+<footer style="clear:both;">
 	 <div class="text-center">
-       Reserva de Bicicletas, Rodriguez 86, Rosario, Santa Fe, Argentina, 2018.
+       BiciAmiga Rosario - Reserva de Bicicletas<br>Zeballos 1341, Rosario, Santa Fe, Argentina, 2018
     </div>
 </footer>'
 
 ?>
-

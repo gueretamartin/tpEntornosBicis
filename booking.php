@@ -11,21 +11,15 @@
     <?php
     session_start();
     if (isset($_COOKIE['recordar'])){
-      $_SESSION['usuario'] = $_COOKIE['recordar'];
+      $_SESSION['fullName'] = $_COOKIE['recordar'];
     }
-    if(isset($_SESSION['usuario']))
-      $_usuario = (string)$_SESSION['usuario'];
+    if(isset($_SESSION['fullName']))
+      $_fullName = (string)$_SESSION['fullName'];
     ?>
   </head>
   <body>
     <div id="wrap">
       <?php include("navBar.php") ?>
- 
-
-
-
-
-
       <?php include("footer.php") ?>
         <script src="jquery-1.10.2.min.js"></script>
         <script src="bootstrap.min.js"></script>
