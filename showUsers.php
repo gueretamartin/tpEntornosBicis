@@ -111,7 +111,7 @@
 												echo '<td>
 																<img src="img/nuevo.gif" alt="Consultar" title="Consultar"  onclick="showUser(' . $fila['dni'] .  ')" />
 																<img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedUser(' . $fila['dni'] .  ')" />
-																<img src="img/eliminar.gif" alt="Eliminar" title="Eliminar"  onclick="deleteUser(' . $fila['dni'] .  ',\'' . $fila['fullName'] .'\')"/>
+																<img src="img/eliminar.gif" alt="Eliminar" title="Eliminar"  onclick="deleteUser(' . $fila['dni'] .  ',)"/>
 															</td>
 														</tr>';
 										$contador++;
@@ -147,25 +147,7 @@
               ?>
 						
 				</div>
-				<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">Confirmar eliminación</h4>
-							</div>
-							<div class="modal-body">
-								<div class="date"></div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-								<a class="btn btn-danger btn-ok">Borrar</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!-- Wrap Div end -->
-						
+										
 			<?php 
 					} else {
 						header("Location:index.php");
@@ -183,13 +165,7 @@
 			}
 			
 			function deleteUser(idUser,fullN) {
-					
-					var r = confirm("¿Confirmar la eliminación del usuario: "+fullN+" (D.N.I.: "+idUser+")?");
-					if (r == true) {
-						var htmlString="<?php echo '$dni' ?>";
-						alert(htmlString);
-					}
-					
+				window.location.href = "deleteUser.php?idUser=" + idUser;
 			}
 			
 			function showUser(idUser) {

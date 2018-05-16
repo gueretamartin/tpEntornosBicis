@@ -2,7 +2,7 @@
   <html lang="es">
 		<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			<meta charset="utf-8">
-			<title>BiciAmiga Rosario - Consulta Usuario</title>
+			<title>BiciAmiga Rosario - Eliminar Usuario</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<link rel="stylesheet" href="bootstrap.css" media="screen">
@@ -21,21 +21,15 @@
 			if(isset($_SESSION['fullName']))
 				$_fullName = (string)$_SESSION['fullName'];
 
-			if(isset($_POST['submit'])){				
+			if(isset($_POST['submit'])){											
 				include ("connection.inc");
-				$_dni = $_POST['dniAux'];
-				$fullName = $_POST['fullName'];
-				$email = $_POST['email'];
-				$phone = $_POST['phone'];
-				$type = $_POST['type'];
-				$status = $_POST['status'];
-				
-				// los strings tienen que ir entre comillas -sidaaa
-				$query = "UPDATE user SET fullName='$fullName', email='$email', phone='$phone', type=$type, status=$status  WHERE dni=$_dni";
+				$vDni = $_POST['idUser'];	
+				$query = "DELETE FROM user where dni=".$vDni."";
 				mysqli_query($link, $query) or die (mysqli_error($link));
 				mysqli_close($link);
 				header("Location:showUsers.php");
-			} else{
+			} 
+			else{
 				if (isset($_GET['idUser'])) {
 					include ("connection.inc");
 					$vDni = $_GET['idUser'];
@@ -53,14 +47,9 @@
 						$_email = $vFila['email'];
 						$_status = $vFila['status'];
 					}
-					
-					$edit = false;
-					if(isset($_GET["mode"])){
-						$edit = true;
-					}
 				}
 				else{
-					header('Location:index.php');
+					header('Location:showUsers.php');
 				}				
 			}
 			?>
@@ -71,54 +60,23 @@
 				<div class="container-fluid ">
 					<div class= "col-lg-12 text-center">
 						<h3>
-						<?php 
-						if($edit)
-						{ echo 'Modifica'; } 
-						else { echo 'Consulta'; }
-						?> Usuario - D.N.I. <?php echo $_dni?></h3>
+						Eliminar Usuario - D.N.I. <?php echo $_dni?></h3>
 					</div>
 					<div class = "col-lg-3"></div>
 					<div class = "col-lg-6">
-						<form action="showUser.php" method="POST">
+						<form action="deleteUser.php" method="POST">
 							<div class="form-group row">
 								<label class="control-label">DNI</label>
+								<input type="hidden" value="<?php echo $_dni?>" id="idUser" name="idUser">
 								<input type="number" max="999999999999" min="1" value="<?php echo $_dni?>" class="form-control" id="dniAux" name="dniAux" readonly>
 								<label class="control-label">Apellido y Nombre</label>
-								<input type="text" class="form-control" id="fullName" name="fullName" maxlength="80" value="<?php echo (string)$_fullName?>" 
-								<?php
-									if($edit){
-										echo 'required';
-									} else {
-										echo 'readonly';
-									}
-								?>>
+								<input type="text" class="form-control" id="fullName" name="fullName" maxlength="80" value="<?php echo (string)$_fullName?>" readonly>
 								<label class="control-label">Teléfono</label>
-								<input type="text" maxlength="40" class="form-control" id="phone" name="phone" value="<?php echo $_phone?>"
-								<?php
-									if($edit){
-										echo 'required';
-									} else {
-										echo 'readonly';
-									}
-								?>>
+								<input type="text" maxlength="40" class="form-control" id="phone" name="phone" value="<?php echo $_phone?>" readonly>
 								<label class="control-label">Email</label>
-								<input type="email" maxlength="100" class="form-control" id="email" name="email" value="<?php echo $_email?>"
-								<?php
-									if($edit){
-										echo 'required';
-									} else {
-										echo 'readonly';
-									}
-								?>>
+								<input type="email" maxlength="100" class="form-control" id="email" name="email" value="<?php echo $_email?>" readonly>
 								<label class="control-label">Tipo de Usuario:</label>
-								<select id="type" name="type" class="col-lg-12" style="color:red;margin-bottom:1rem;"
-								<?php
-									if($edit){
-										echo 'required';
-									} else {
-										echo 'disabled';
-									}
-								?>>
+								<select id="type" name="type" class="col-lg-12" style="color:red;margin-bottom:1rem;" disabled>
 									<option value="1" 
 									<?php 
 										if($_type=='1')
@@ -131,14 +89,7 @@
 									?>>CLIENTE</option>
 								</select><br>																
 								<label class="control-label">Estado:</label>
-								<select id="status" name="status" class="col-lg-12" style="color:red;margin-bottom:1rem;"
-								<?php
-									if($edit){
-										echo 'required';
-									} else {
-										echo 'disabled';
-									}
-								?>>
+								<select id="status" name="status" class="col-lg-12" style="color:red;margin-bottom:1rem;" disabled>
 									<option value="1" 
 									<?php 
 										if($_status=='1')
@@ -153,14 +104,7 @@
 							</div>
 							<div class="form-group row" style="margin-top: 0;">
 								<button type="button" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="window.open('showUsers.php','_self')">Volver</button>
-								<?php
-									if($edit){
-										echo '<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right">Modificar</button>';
-									} else {
-										echo '<button type="button" name="button" id="button" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right" onclick="volver()">Aceptar</button>';
-									}
-								?>
-								
+								<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right">Eliminar</button>								
 							</div>
 							<div class="clearfix"></div>
 						</form>
