@@ -162,10 +162,11 @@
         <script type="text/javascript">
         function modifiedRow(id) {
             window.location.href = "modifyBikeType.php?id=" + id;
+
         }
         function viewImage(dir){
-          alert(dir);
           window.location.href =dir;
+
         }
         </script>
 
