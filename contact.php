@@ -41,8 +41,11 @@
 			</div>
 		</div>
 		<?php include("footer.php") ?>
-
+		<script src="jquery-1.10.2.min.js"></script>
+		<script src="bootstrap.min.js"></script>
+		 <script src="bootswatch.js"></script>
 		<script src="initmap.js"></script>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBy52O248NVTAreNPSQnH_Khbt7pYI-go&callback=initMap"></script>
 	 	</body>
+	 		
 </html>

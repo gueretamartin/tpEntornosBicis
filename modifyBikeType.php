@@ -18,10 +18,7 @@
               ?>
 
               <?php
-
-
       //Save the values of the post.
-
         if (isset($_POST['submit'])) {
           //$user = $_SESSION[$_fullName];
         //  $numberBooking = $_POST['numberBooking'];
@@ -129,8 +126,6 @@
  <button type="reset" class="btn btn-warning col-lg-4 col-xs-5">Resetear</button>
 
                           <button type="submit" name="submit" class="btn btn-primary col-lg-6 col-xs-6 pull-right">Agregar</button>
-
-
     </form> <!-- End Form -->
  <div class="col-lg-3"></div>
 
@@ -140,24 +135,8 @@
  </div> <!-- End id Wrap -->
 
 <?php include("footer.php") ?>
-
 		    <script src="jquery-1.10.2.min.js"></script>
 		    <script src="bootstrap.min.js"></script>
 		    <script src="bootswatch.js"></script>
-
-
-       <!-- <script>
-
-        function validaCampos(){
-
-          if ((document.getElementById("calle").value.length == 0) || (document.getElementById("numero").value.length == 0)){
-              document.getElementById("mensajes").innerHTML = '<h4 class="alert alert-danger text-center">Complete todos los campos</h1>';
-              return false;}
-          else {
-              return true;
-          }
-
-        }
-        </script>-->
 		</body>
 	</html>

@@ -44,24 +44,16 @@
                 $_type = $_SESSION['type'];
               
               ?>
-
-
-
-
-
   <div id="wrap">
 			    <?php include("navBar.php") ?>
 <br>
-
-
-
-
   <!-- Begin page content -->
 <div class="col-md-8 col-md-offset-2">
           <table class="table table-striped table-hover text-center">
             <thead>
               <tr class="success">
                 <th class="text-center"><p>Número de Reserva</p></th>
+                <th class="text-center"><p>Usuario</p></th>
                 <th class="text-center"><p>Fecha Desde</p></th>
                 <th class="text-center"><p>Fecha Hasta</p></th>
                 <th class="text-center"><p>Tipo de Bicicleta</p></th>
@@ -93,7 +85,10 @@ include ("connection.inc");
 
               $resultados = mysqli_query($link,"select * from booking");
               $total_registros = mysqli_num_rows($resultados);
-              $resultados = mysqli_query($link,"select booking.*,biketype.name from booking inner join biketype on booking.idTypeBike = biketype.id LIMIT $inicio , $registros");
+              $where = '';
+              if($_type==0){$where=" where u.dni = " . $_SESSION['dni'] . " ";}
+              $query = "select booking.*,biketype.name,u.fullName from booking inner join biketype on booking.idTypeBike = biketype.id inner join user as u on u.dni = booking.idUser " . $where . " LIMIT $inicio , $registros";
+              $resultados = mysqli_query($link,$query);
               $total_paginas = ceil($total_registros / $registros);
 
 
@@ -104,6 +99,7 @@ include ("connection.inc");
                     echo '
                     <tr class="active">
                       <td><p>' . $fila['id'] . '</p></td>
+                      <td><p>' . $fila['fullName'] . '</p></td>
                       <td><p>' . $fila['dateFrom'] . '</p></td>
                       <td><p>' . $fila['dateTo'] . '</p></td>
                       <td><p>' . $fila['name'] . '</p></td>
@@ -183,17 +179,8 @@ include ("connection.inc");
         </div>
     </div>
 </div>
-
-
-
-
     </div><!-- Wrap Div end -->
-
-
-
-		    <script src="jquery-1.10.2.min.js"></script>
-		    <script src="bootstrap.min.js"></script>
-		    <script src="bootswatch.js"></script>
+		   
 
 
         <script type="text/javascript">
@@ -217,7 +204,9 @@ include ("connection.inc");
         });
         </script>
 
-<?php include("footer.php") ?>
-		</body>
-
-	</html>
+      <?php include("footer.php") ?>
+		    <script src="jquery-1.10.2.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script src="bootswatch.js"></script>
+    </body>
+</html>

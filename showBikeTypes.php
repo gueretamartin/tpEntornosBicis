@@ -33,25 +33,18 @@
 
   </head>
 		<body>
-		<?php
-    session_start();
-    if (isset($_COOKIE['recordar'])){
-      $_SESSION['fullName']=$_COOKIE['recordar'];
-    }
-    if(isset($_SESSION['fullName']))
-      $_fullName = (string)$_SESSION['fullName'];
-    ?>
+              <?php
+              session_start();
+              if (isset($_COOKIE['recordar'])){
+                $_SESSION['fullName']=$_COOKIE['recordar'];
+              }
+              if(isset($_SESSION['fullName']))
+                $_fullName = (string)$_SESSION['fullName'];
+              ?>
+ <div id="wrap">
 
-
-
-
-  <div id="wrap">
 			    <?php include("navBar.php") ?>
 <br>
-
-
-
-
   <!-- Begin page content -->
 <div class="col-md-8 col-md-offset-2">
           <table class="table table-striped table-hover text-center">
@@ -160,14 +153,7 @@
         </div>
     </div>
 </div>
-
-
-
-
     </div><!-- Wrap Div end -->
-
-
-
 		    <script src="jquery-1.10.2.min.js"></script>
 		    <script src="bootstrap.min.js"></script>
 		    <script src="bootswatch.js"></script>
@@ -198,7 +184,9 @@
         });
         </script>
 
-<?php include("footer.php") ?>
-		</body>
-
+      <?php include("footer.php") ?>
+		 <script src="jquery-1.10.2.min.js"></script>
+     <script src="bootstrap.min.js"></script>
+     <script src="bootswatch.js"></script>
+    </body>
 	</html>
