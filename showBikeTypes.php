@@ -45,7 +45,6 @@
 
 
 
-
   <div id="wrap">
 			    <?php include("navBar.php") ?>
 <br>
@@ -59,9 +58,9 @@
             <thead>
               <tr class="success">
                 <th class="text-center"><p>Codigo</p></th>
-                <th class="text-center"><p>Tipo de Bici</p></th>
+                <th class="text-center"><p>Descripcion</p></th>
                 <th class="text-center"><p>Precio</p></th>
-                <th class="text-center"><p>Imagen</p></th>
+                <th class="text-center"><p>Imagenes</p></th>
                 <th class="text-center"><p>Modificar</p></th>
               </tr>
             </thead>
@@ -94,13 +93,13 @@
                     <tr class="active">
                       <td><p>' . $fila['id'] . '</p></td>
                       <td><p>' . $fila['description'] . '</p></td>
-                      <td><p>' . $fila['price'] . '</p></td>
+                      <td><p>$' . $fila['price'] . '</p></td>
                       <td>
-                        <img src='. $fila['image1'] .' alt="" title="image"/>
-                        <img src='. $fila['image2'] .' alt="" title="image"/>
-                        <img src='. $fila['image3'] .' alt="" title="image"/>
-                        <img src='. $fila['image4'] .' alt="" title=""/>
-                        <img src='. $fila['image5'] .' alt="" title="image"/>
+                        <img src='. $fila['image1'] .' onclick="viewImage('.$fila['image1'].')" />
+                        <img src='. $fila['image2'] .' onclick="viewImage('.$fila['image2'].')" />
+                        <img src='. $fila['image3'] .' onclick="viewImage('.$fila['image3'].')" />
+                        <img src='. $fila['image4'] .' onclick="viewImage('.$fila['image4'].')" />
+                        <img src='. $fila['image5'] .' onclick="viewImage('.$fila['image5'].')"   />
                       </td>
                       <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
                     </tr>
@@ -176,7 +175,11 @@
 
         <script type="text/javascript">
         function modifiedRow(id) {
-            window.location.href = "modifyBykeType.php?id=" + id;
+            window.location.href = "modifyBikeType.php?id=" + id;
+        }
+        function viewImage(dir){
+          alert(dir);
+          window.location.href =dir;
         }
         </script>
 
