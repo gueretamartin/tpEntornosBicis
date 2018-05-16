@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8
+  <!-- <link rel="stylesheet" type="text/css" href="footer.css"">
 	<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="bootstrap.css" media="screen">
-  <link rel="stylesheet" href="bootswatch.min.css">
-  <!-- <link rel="stylesheet" type="text/css" href="footer.css">-->
+  <link rel="stylesheet" href="bootswatch.min.css">>-->
 	
 	<style type="text/css">
 		@media only screen and (min-device-width : 100px){
@@ -65,7 +65,7 @@
                 <th class="text-center"><p>Apelido y Nombre</p></th>
                 <th class="text-center"><p>Email</p></th>
                 <th class="text-center"><p>Tipo Usuario</p></th>
-								<th class="text-center"><p>Estado</p></th>
+				<th class="text-center"><p>Estado</p></th>
                 <th class="text-center"><p></p></th>
               </tr>
             </thead>
@@ -90,7 +90,7 @@
 								
 								if (isset($_fullName)){
 									while ($fila = $resultados->fetch_assoc()){
-                    echo '
+                						echo '
 											<tr class="active">
 												<td><p>' . $fila['dni'] . '</p></td>
 												<td><p>' . $fila['fullName'] . '</p></td>
@@ -102,7 +102,7 @@
 													echo '<td><p>CLIENTE</p></td>';
 												}
 												
-												if($fila['status']=='1'){
+												if($fila['status'] == '1'){
 													echo '<td><p>HABILITADO</p></td>';
 												}else{
 													echo '<td><p>INHABILITADO</p></td>';

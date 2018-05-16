@@ -79,7 +79,7 @@
 
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-        <p class="lead well well-sm booking"><a href="addBooking.php">RESERVA TU BICI AHORA</a></p>
+        <p class="lead well well-sm booking"><a href="addBooking.php">RESERVA TU BICI AHORA</a></>
         o
 <p  class="lead well well-sm booking"><a href="newUser.php"> REGISTRATE</a></>
 
