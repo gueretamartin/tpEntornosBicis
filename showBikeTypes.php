@@ -42,6 +42,7 @@
                 $_fullName = (string)$_SESSION['fullName'];
               ?>
  <div id="wrap">
+
 			    <?php include("navBar.php") ?>
 <br>
   <!-- Begin page content -->
@@ -59,7 +60,7 @@
               <tbody>
 
               <?php
-include ("connection.inc");
+							include ("connection.inc");
               $registros = 6;
               $contador = 1;
 
