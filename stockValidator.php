@@ -4,7 +4,6 @@ class StockValidator {
     private $dateFrom;
     private $dateTo;
     private $stock;
-    // insert into booking (idUser, dateFrom, dateTo, idTypeBike, status, totalPrice) values (37333984, '2018-05-18', '2018-05-22', 1, 1, 150)
 
     function __construct($bikeType, $dateFrom, $dateTo) {
         $this->bikeType = $bikeType;
@@ -24,7 +23,7 @@ class StockValidator {
 
     function countBookings() {
         include ("connection.inc");
-        $preparedStatement = $link->prepare("SELECT count(*) FROM booking WHERE (dateFrom between ? and ? ) or (dateTo between ? and ?) group_by id ");
+        $preparedStatement = $link->prepare("SELECT count(*) FROM booking WHERE (dateFrom between ? and ? ) or (dateTo between ? and ?) and (status = 1 or status = 2) group_by id ");
         $preparedStatement->bind_param('ssss', $dateTo, $dateFrom, $dateTo, $dateFrom);
         $result = $preparedStatement->execute();
         $preparedStatement->close();

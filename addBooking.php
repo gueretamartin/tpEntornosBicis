@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/biciamiga.css" >
   </head>
 		<body>
-             
+
               <?php
 
               session_start();
@@ -62,6 +62,19 @@
                 else {
                   $totalPrice = 0;
                 }
+
+                require_once("stockValidator.php");
+
+                $validator = new StockValidator($typeBike, $dateFrom, $dateTo);
+                echo $validator->getStock($typeBike);
+                if ($validator.isAvailable()) {
+                    $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status,totalPrice) VALUES ($_dni, '$dateFrom', '$dateTo', '$typeBike',1,$totalPrice);";
+                    mysqli_query($link, $query) or die (mysqli_error($link));
+                    $_errorValidacion = 0;
+                } else {
+                    $_errorValidacion = 3;
+                }
+
                 $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status,totalPrice) VALUES ($_dni, '$dateFrom', '$dateTo', '$typeBike',1,$totalPrice);";
                 mysqli_query($link, $query) or die (mysqli_error($link));
                 $_errorValidacion = 0;
@@ -158,19 +171,21 @@ elseif (!isset($_POST['id'])){
                             <option  value="3">Finalizada</option>
                         </select>
                     </div>
-                  <?php } 
-                  
+                  <?php }
+
                      if (isset($_errorValidacion))
                     {
                        if ($_errorValidacion == 1)
                        echo '<h4 class="alert alert-danger text-center">Ingrese todos los campos</h1>';
                        if ($_errorValidacion == 2)
                        echo '<h4 class="alert alert-danger text-center">El Número de Reserva ingresado no es valido</h1>';
+                       if ($_errorValidacion == 3)
+                       echo '<h4 class="alert alert-danger text-center">No hay stock disponible para esas fechas.</h1>';
                        if ($_errorValidacion == 0)
                        echo '<h4 class="alert alert-success text-center">La reserva se almacenó correctamente</h4>';
                     }
                      ?>
-                         
+
                           <button type="submit" name="submit" class="btn btn-primary col-lg-12 col-xs-12">Guardar</button>
 
 
