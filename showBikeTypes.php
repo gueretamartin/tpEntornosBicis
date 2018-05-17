@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="bootstrap.css" media="screen">
     <link rel="stylesheet" href="bootswatch.min.css">
-   <!-- <link rel="stylesheet" type="text/css" href="footer.css">-->
+   
 
     <style type="text/css">
     @media only screen
@@ -37,8 +37,10 @@
               session_start();
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
-              if(isset($_SESSION['type']))
+              if(isset($_SESSION['type'])){
                 $_type = $_SESSION['type'];
+              }
+              else {header("Location:index.php");}
               ?>
  <div id="wrap">
 
@@ -46,13 +48,14 @@
 <br>
   <!-- Begin page content -->
 <div class="col-md-8 col-md-offset-2">
+      <div class="table-responsive">
           <table class="table table-striped table-hover text-center">
             <thead>
               <tr class="success">
                 <th class="text-center"><p>Nombre</p></th>
                 <th class="text-center"><p>Descripcion</p></th>
                 <th class="text-center"><p>Precio</p></th>
-                <th class="text-center"><p>Imagenes</p></th>
+               <!-- <th class="text-center"><p>Imagenes</p></th>-->
                 <th class="text-center"><p>Modificar</p></th>
               </tr>
             </thead>
@@ -86,13 +89,13 @@
                       <td><p>' . $fila['name'] . '</p></td>
                       <td><p>' . $fila['description'] . '</p></td>
                       <td><p>$' . $fila['price'] . '</p></td>
-                      <td>
+                      <!--<td>
                         <img src='. $fila['image1'] .' onclick="viewImage(\''. $fila['image1'] . '\')" />
                         <img src='. $fila['image2'] .' onclick="viewImage(\''. $fila['image2'] . '\')" />
                         <img src='. $fila['image3'] .' onclick="viewImage(\''. $fila['image3'] . '\')" />
                         <img src='. $fila['image4'] .' onclick="viewImage(\''. $fila['image4'] . '\')" />
                         <img src='. $fila['image5'] .' onclick="viewImage(\''. $fila['image5'] . '\')" />
-                      </td>
+                      </td>-->
                       <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
                     </tr>
                     ';
@@ -100,13 +103,13 @@
                   }
 
                   mysqli_close($link);
+                   
                 }
-                else{
-
-                }
-                  echo '</tbody></table>
-                  <div class="col-lg-10 col-lg-offset-5 col-md-10 col-md-offset-5 col-xs-10 col-xs-offset-2">
-                  <ul class="pagination col-xs-10 col-md-10 col-lg-10">';
+                 echo '</tbody></table></div>';
+                 echo '
+                  <div class="container col-lg-12 text-center">
+                  <div class="row text-center">
+                  <ul class="pagination">';
 
                   if (($pagina - 1) > 0) {
                       echo "<li><a href='showBikeTypes.php?pagina=".($pagina-1)."'>«</a></li>";
@@ -126,7 +129,7 @@
                   } else {
                   echo '<li><a>»</a></li>';
                   }
-                  echo '</ul></div>';
+                  echo '</ul></div></div>';
 
 
               ?>
@@ -156,12 +159,7 @@
     </div>
 </div>
     </div><!-- Wrap Div end -->
-		    <script src="jquery-1.10.2.min.js"></script>
-		    <script src="bootstrap.min.js"></script>
-		    <script src="bootswatch.js"></script>
-
-
-        <script type="text/javascript">
+		    <script type="text/javascript">
         function modifiedRow(id) {
             window.location.href = "modifyBikeType.php?id=" + id;
         }
