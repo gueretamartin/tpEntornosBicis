@@ -45,7 +45,7 @@ echo '
 								 <li><a href="closeSession.php" >Cerrar Sesión</a></li>';
          else{
            echo '<li><a href="newUser.php">Registrarse</a></li>
-         <li><a href="startSession.php" >Iniciar Sesion</a></li>';
+         <li><a href="startSession.php" >Iniciar Sesión</a></li>';
          }
 
 echo'
