@@ -9,7 +9,7 @@
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<script type="text/javascript">
-	function keyhit(e)
+	/* function keyhit(e)
 		{
 			thisKey = e ? e.which : window.event.keyCode
 			switch (thisKey) {
@@ -18,7 +18,7 @@
 				default: key = null
 			}
 
-		}
+		}*/
 	</script>
 </head>
 <body>
@@ -31,30 +31,33 @@
 		$vSql = "SELECT * FROM user WHERE dni ='$vUsu' AND password ='$vPass' ";
 		$vResultado = mysqli_query($link, $vSql) or die (mysqli_error($link));;
 		$fila = mysqli_fetch_array($vResultado);
+		if($fila['status']==1) {header("Location:error.php");mysqli_close($link);$rdo=1;};
 		if(mysqli_num_rows($vResultado) == 0) {
 			$_errorAutenticacion = 1;
 		}
-		else {
+		else if(!isset($rdo)) {
 			$_fullName = $fila['fullName'];
 			$_type = $fila['type'];
 			$_dni = $fila['dni'];
 			$_phone = $fila['phone'];
 			$_email = $fila['email'];
-
+			$_status = $status['status'];
+	
 			session_start();
-
+	
 			$_SESSION['fullName'] = $_fullName;
 			$_SESSION['type'] = $_type;
 			$_SESSION['dni'] = $_dni;
 			$_SESSION['phone'] = $_phone;
 			$_SESSION['email'] = $_email;
+			$_SESSION['status'] = $_status;
 
 			if ($_POST['recordar'])
 				setcookie("recordar", $_fullName, time() + 30*24*60*60);
 
 			session_write_close();
-			header("Location:index.php");
 
+			header("Location:index.php");
 		}
 		mysqli_close($link);
 	} ?>

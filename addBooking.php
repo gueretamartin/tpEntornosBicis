@@ -8,15 +8,18 @@
     <link rel="stylesheet" href="css/biciamiga.css" >
   </head>
 		<body>
-
+             
               <?php
+
               session_start();
               if(isset($_SESSION['type']))
                 $_type = (string)$_SESSION['type'];
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
-              if(isset($_SESSION['dni']))
+              if(isset($_SESSION['dni'])){
                 $_dni  = (int)$_SESSION['dni'];
+              }
+              else {header("Location:index.php");}
               ?>
 
               <?php

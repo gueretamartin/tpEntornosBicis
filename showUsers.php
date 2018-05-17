@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8
-  <!-- <link rel="stylesheet" type="text/css" href="footer.css"">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  	<link rel="stylesheet" type="text/css" href="footer.css"">
 	<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="bootstrap.css" media="screen">
-  <link rel="stylesheet" href="bootswatch.min.css">>-->
+  <link rel="stylesheet" href="bootswatch.min.css">
 	
 	<style type="text/css">
 		@media only screen and (min-device-width : 100px){
@@ -42,22 +42,17 @@
 					{ 
 			?>
 				
-			<div id="wrap">
-				<br>
-					<h2 class="text-center">Administrador de Usuarios</h2>					
-				<br>
-				<?php include("navBar.php") ?>				
-							
-				<!-- Begin page content -->
+<div id="wrap">
+	<br>
+		<h2 class="text-center">Administrador de Usuarios</h2>					
+	<br>
+		<?php include("navBar.php") ?>				
+			<!-- Begin page content -->
 				
-				
-				<div class="col-md-8 col-md-offset-2 text-right" >					
-					<img src="img/nuevo.gif" alt="Nuevo" title="Nuevo"  onclick="newUser()" />
-				</div>
-				
-				<br>	
-				<br>
-				<div class="col-md-8 col-md-offset-2">		
+	<div class="col-md-8 col-md-offset-2" >					
+					<img  class="pull-right" src="img/nuevo.gif" alt="Nuevo" title="Nuevo"  onclick="newUser()" />
+				<br><br>
+				<div class="table-responsive">
 				<table class="table table-striped table-hover text-center">
 						<thead>
               <tr class="success">
@@ -66,7 +61,9 @@
                 <th class="text-center"><p>Email</p></th>
                 <th class="text-center"><p>Tipo Usuario</p></th>
 				<th class="text-center"><p>Estado</p></th>
-                <th class="text-center"><p></p></th>
+                <th class="text-center"><p>Consultar</p></th>
+                <th class="text-center"><p>Modificar</p></th>
+                <th class="text-center"><p>Eliminar</p></th>
               </tr>
             </thead>
 						<tbody>
@@ -109,20 +106,21 @@
 												}
 												
 												echo '<td>
-																<img src="img/nuevo.gif" alt="Consultar" title="Consultar"  onclick="showUser(' . $fila['dni'] .  ')" />
-																<img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedUser(' . $fila['dni'] .  ')" />
-																<img src="img/eliminar.gif" alt="Eliminar" title="Eliminar"  onclick="deleteUser(' . $fila['dni'] .  ',)"/>
-															</td>
+																<img src="img/nuevo.gif" alt="Consultar" title="Consultar"  onclick="showUser(' . $fila['dni'] .  ')" /></td>
+																<td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedUser(' . $fila['dni'] .  ')" /></td>
+																<td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar"  onclick="deleteUser(' . $fila['dni'] .  ',)"/></td>
+															
 														</tr>';
 										$contador++;
                   }
                   mysqli_close($link);
                 }
 								
-								echo '</tbody></table>';
+								echo '</tbody></table></div>';
 								
-								echo '<div class="col-lg-10 col-lg-offset-5 col-md-10 col-md-offset-5 col-xs-10 col-xs-offset-2">
-												<ul class="pagination col-xs-10 col-md-10 col-lg-10">';
+								echo '    <div class="container col-lg-12 text-center">
+                            <div class="row text-center">
+												<ul class="pagination">';
 
                 if (($pagina - 1) > 0){
 									echo "<li><a href='showUsers.php?pagina=".($pagina-1)."'>«</a></li>";
@@ -143,10 +141,10 @@
 								} else {
 									echo '<li><a>»</a></li>';
 								}
-								echo '</ul></div>';
+								echo '</ul></div></div></div>';
               ?>
 						
-				</div>
+				
 										
 			<?php 
 					} else {

@@ -28,8 +28,8 @@ echo '
     }
       elseif (isset($_fullName)){
         echo
-        '<li><a href="showBooking.php">Ver reservas</a></li>
-        <li><a  href="addBooking.php">Reservar</a></li>';
+        '<li><a class="booking" href="showBooking.php">Ver reservas</a></li>
+        <li><a  class="buttonAddBooking" href="addBooking.php">Reservar</a></li>';
 
       }
 // all users
@@ -41,11 +41,11 @@ echo '
        <!-- <li><a href="about.php">¿Quienes somos?</a></li>-->';
 
          if(isset($_fullName))
-           echo '<li><a  href="myProfile.php">'.$_fullName.'</a></li>
-								 <li><a href="closeSession.php" >Cerrar Sesión</a></li>';
+           echo '<li><a class="profile" href="myProfile.php">'.$_fullName.'</a></li>
+								 <li><a class="buttonCloseSession" href="closeSession.php" >Cerrar Sesión</a></li>';
          else{
-           echo '<li><a href="newUser.php">Registrarse</a></li>
-         <li><a href="startSession.php" >Iniciar Sesion</a></li>';
+           echo '<li><a class="registrarse" href="newUser.php">Registrarse</a></li>
+         <li><a class="iniciar" href="startSession.php" >Iniciar Sesion</a></li>';
          }
 
 echo'

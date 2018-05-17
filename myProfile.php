@@ -18,6 +18,7 @@
 			if (isset($_COOKIE['recordar'])){
 				$_SESSION['fullName']=$_COOKIE['recordar'];
 			}
+			else { header("Location: index.php");}
 			if(isset($_SESSION['fullName']))
 				$_fullName = (string)$_SESSION['fullName'];
 

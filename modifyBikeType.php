@@ -14,7 +14,7 @@
         $_fullName = (string)$_SESSION['fullName'];
         $_type = (int)$_SESSION['type'];
     } else {
-        $_errorValidacion = 1;
+        header("Location:index.php");
     }
 ?>
 
@@ -203,7 +203,7 @@
             <br>
             <div class="container-fluid ">
                 <div class= "col-lg-12 text-center">
-                    <h3>Editar tipo de bicicleta</h3>
+                    <h3>Editar Precio de Bicicleta</h3>
                 </div>
                 <div class = "col-lg-3"></div>
                 <div class = "col-lg-6">
@@ -253,7 +253,7 @@
                             <label class="control-label">Imagen 5</label>
                             <input type="file" name="image5" id="image5">
                             <img alt="image" name="image5" class="image" height="200px" <?php echo 'src="'.$image5.'"'?>/> -->
-                            <div class="row">
+                         <!--   <div class="row">
                               <div class="col-lg-4">
                                     <div class="row" style="margin:30px 0;">
                                         <div class="thumbnail">
@@ -305,10 +305,10 @@
                                     <p><input type="file" name="image5" id="image5"></p>
                                   </div>
                                 </div>
-                              </div>
-                            </div>                          
+                              </div>   
+                            </div>                        
                                   </div>
-                              </div>
+                              </div>-->
                             
                                                                                          
 
