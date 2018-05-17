@@ -35,11 +35,10 @@
 		<body>
               <?php
               session_start();
-              if (isset($_COOKIE['recordar'])){
-                $_SESSION['fullName']=$_COOKIE['recordar'];
-              }
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
+              if(isset($_SESSION['type']))
+                $_type = $_SESSION['type'];
               ?>
  <div id="wrap">
 
@@ -50,7 +49,7 @@
           <table class="table table-striped table-hover text-center">
             <thead>
               <tr class="success">
-                <th class="text-center"><p>Codigo</p></th>
+                <th class="text-center"><p>Nombre</p></th>
                 <th class="text-center"><p>Descripcion</p></th>
                 <th class="text-center"><p>Precio</p></th>
                 <th class="text-center"><p>Imagenes</p></th>
@@ -79,20 +78,20 @@
 
 
 
-                if (isset($_fullName)){
+                if (isset($_type)){
 
                     while ($fila = $resultados->fetch_assoc()) {
                     echo '
                     <tr class="active">
-                      <td><p>' . $fila['id'] . '</p></td>
+                      <td><p>' . $fila['name'] . '</p></td>
                       <td><p>' . $fila['description'] . '</p></td>
                       <td><p>$' . $fila['price'] . '</p></td>
                       <td>
-                        <img src='. $fila['image1'] .' onclick="viewImage('.$fila['image1'].')" />
-                        <img src='. $fila['image2'] .' onclick="viewImage('.$fila['image2'].')" />
-                        <img src='. $fila['image3'] .' onclick="viewImage('.$fila['image3'].')" />
-                        <img src='. $fila['image4'] .' onclick="viewImage('.$fila['image4'].')" />
-                        <img src='. $fila['image5'] .' onclick="viewImage('.$fila['image5'].')"   />
+                        <img src='. $fila['image1'] .' onclick="viewImage(\''. $fila['image1'] . '\')" />
+                        <img src='. $fila['image2'] .' onclick="viewImage(\''. $fila['image2'] . '\')" />
+                        <img src='. $fila['image3'] .' onclick="viewImage(\''. $fila['image3'] . '\')" />
+                        <img src='. $fila['image4'] .' onclick="viewImage(\''. $fila['image4'] . '\')" />
+                        <img src='. $fila['image5'] .' onclick="viewImage(\''. $fila['image5'] . '\')" />
                       </td>
                       <td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedRow(' . $fila['id'] .  ')" /></td>
                     </tr>
@@ -101,6 +100,9 @@
                   }
 
                   mysqli_close($link);
+                }
+                else{
+
                 }
                   echo '</tbody></table>
                   <div class="col-lg-10 col-lg-offset-5 col-md-10 col-md-offset-5 col-xs-10 col-xs-offset-2">
@@ -162,27 +164,13 @@
         <script type="text/javascript">
         function modifiedRow(id) {
             window.location.href = "modifyBikeType.php?id=" + id;
-
         }
+
         function viewImage(dir){
-          window.location.href =dir;
+          var imgWindows = window.open(dir,"_parent", "width=200,height=200");
+         // imgWindows.document.write("<button text='Volver'/>")
 
         }
-        </script>
-
-        <script type="text/javascript">
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            $cadena =  $(this).find('.btn-ok').attr('href') + "*";
-
-            $numberBooking = $cadena.substring($cadena.indexOf("numberBooking=")+5, $cadena.indexOf("&date"));
-            $date = $cadena.substring($cadena.indexOf("date=")+6, $cadena.indexOf("&typeBike"));
-            $typeBike = $cadena.substring($cadena.indexOf("&typeBike=")+8, $cadena.indexOf("*"));
-
-            $('.numberBooking').html($numberBooking);
-            $('.date').html('¿Desea eliminar el edificio ' + $date + ' ' + $typeBike + '?');
-
-        });
         </script>
 
       <?php include("footer.php") ?>
