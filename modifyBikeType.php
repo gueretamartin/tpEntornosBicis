@@ -175,7 +175,7 @@
             if(isset($_GET['id'])) {
                 include ("connection.inc");
 
-                $query = "select * from bikeType where id = ".$_GET["id"];
+                $query = "select * from biketype where id = ".$_GET["id"];
 
                 $vResultado = mysqli_query($link, $query) or die (mysqli_error($link));;
                 $fila = mysqli_fetch_array($vResultado);
