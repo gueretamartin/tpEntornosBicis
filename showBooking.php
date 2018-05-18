@@ -4,6 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="bootstrap.css" media="screen">
     <link rel="stylesheet" href="bootswatch.min.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
    
     <style type="text/css">
     @media only screen
@@ -135,11 +137,12 @@ include ("connection.inc");
                   mysqli_close($link);
                 }
                   echo '</tbody></table></div>';
-                  echo '<div class="container col-lg-12 text-center">
-                    <div class="row text-center">
-                    <a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a>
-                            </div>
-
+                  if(isset($_type) && $_type <> 1 )
+                    echo '<div class="container col-lg-12 text-center">
+                        <div class="row text-center">
+                        <a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a>
+                                </div>';
+                    echo '
                   <div class="row text-center">
                   <ul class="pagination">';
 
@@ -164,8 +167,10 @@ include ("connection.inc");
                   echo '</ul></div></div>'; }
                   else echo '<div class="container col-lg-12 text-center">
                     <div class="row text-center">  </div><h1>No hay reservas disponibles</h1></div>
-                    <div class="row text-center"> 
-                    <a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a> </div>'
+                    <div class="row text-center"> ';
+
+                    if(isset($_type) && $_type <> 1)
+                      echo '<a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a> </div>'
 
               ?>
 </div>
