@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8">
 	<title>BiciAmiga Rosario - Iniciar Sesión</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +16,6 @@
 				break;
 				default: key = null
 			}
-
 		}*/
 	</script>
 </head>
@@ -51,12 +49,9 @@
 			$_SESSION['phone'] = $_phone;
 			$_SESSION['email'] = $_email;
 			$_SESSION['status'] = $_status;
-
 			if ($_POST['recordar'])
 				setcookie("recordar", $_fullName, time() + 30*24*60*60);
-
 			session_write_close();
-
 			header("Location:index.php");
 		}
 		mysqli_close($link);

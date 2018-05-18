@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
     <title>BiciAmiga Rosario - Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="bootstrap.css" media="screen">
-
-      <link rel="stylesheet" href="biciamiga.css" media="screen">
-
     <link rel="stylesheet" href="bootswatch.min.css">
-    <link rel="stylesheet" type="text/css" href="footer.css">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -31,7 +26,7 @@
 <br>
 <?php
 
-	echo '<div><img src="img\BiciAmigaPortada.jpg" alt="BiciAmigaRosario"></div>';
+	echo '<div><img src="img/BiciAmigaPortada.jpg" alt="BiciAmigaRosario"></div>';
   if (!isset($_fullName)) echo '
   <!-- Begin page content -->
       <div class="container text-center">
@@ -82,10 +77,7 @@
 
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-        <p class="lead well well-sm booking"><a href="newUser.php">REGISTRATE Y RESERVA TU BICI AHORA</a></>
-        
-<!--<p  class="lead well well-sm booking registrate"><a href="newUser.php"> REGISTRATE</a></>-->
-
+        <p class="lead well well-sm booking"><a href="newUser.php">REGISTRATE Y RESERVA TU BICI AHORA</a></p>
 
 </div>
 <div class="col-lg-4"></div>';
