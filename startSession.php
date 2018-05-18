@@ -31,7 +31,7 @@
 		$vSql = "SELECT * FROM user WHERE dni ='$vUsu' AND password ='$vPass' ";
 		$vResultado = mysqli_query($link, $vSql) or die (mysqli_error($link));;
 		$fila = mysqli_fetch_array($vResultado);
-		if($fila['status']==1) {header("Location:error.php");mysqli_close($link);$rdo=1;};
+		if($fila['status']==0) {header("Location:error.php");mysqli_close($link);$rdo=1;};
 		if(mysqli_num_rows($vResultado) == 0) {
 			$_errorAutenticacion = 1;
 		}

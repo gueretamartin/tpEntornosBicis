@@ -66,14 +66,22 @@ include ("connection.inc");
               $inicio = ($pagina - 1) * $registros;
               }
 
-              $resultados = mysqli_query($link,"select * from booking");
-              $total_registros = mysqli_num_rows($resultados);
               $where = '';
-              if($_type==0){$where=" where u.dni = " . $_SESSION['dni'] . " ";}
+              if($_type==0){$where=" where booking.idUser = " . $_SESSION['dni'] . " ";}
+
+
+              $resultados = mysqli_query($link,"select * from booking ".$where);
+              $total_registros = mysqli_num_rows($resultados);
+              
+              
               $query = "select booking.*,biketype.name,u.fullName from booking inner join biketype on booking.idTypeBike = biketype.id inner join user as u on u.dni = booking.idUser " . $where . " LIMIT $inicio , $registros";
               $resultados = mysqli_query($link,$query);
-              $total_registros = mysqli_num_rows($resultados);
-              $total_paginas = ceil($total_registros / $registros);
+
+              $registros = mysqli_num_rows($resultados);
+              if($registros == 0)
+                $total_paginas = 1;
+              else
+                $total_paginas = ceil($total_registros / $registros);
 
               if($total_registros!=0){
                 echo '<div class="col-md-8 col-md-offset-2">
@@ -90,8 +98,7 @@ include ("connection.inc");
                 <th class="text-center"><p>Estado</p></th>';
                 
                 if(isset($_type) && $_type == 1){
-                echo '<th class="text-center"><p>Modificar</p></th>
-                <th class="text-center"><p>Eliminar</p></th>';
+                echo '<th class="text-center"><p>Modificar</p></th>';
                 }
 
                        echo'       </tr>
@@ -119,7 +126,7 @@ include ("connection.inc");
                             if(isset($_type) && $_type == 1)
                       echo '<td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedBooking(' . $fila['id'] .  ')" /></td>
 
-                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?id=' . $fila['id']. '" data-toggle="modal" data-target="#confirm-delete")"/></td>
+                   
                     </tr>
                     ';
                   $contador++;
@@ -187,8 +194,7 @@ include ("connection.inc");
     </div>
 </div>
     </div><!-- Wrap Div end -->
-		   
-
+		  
 
         <script type="text/javascript">
         function modifiedBooking(id) {
@@ -196,21 +202,7 @@ include ("connection.inc");
         }
         </script>
 
-        <script type="text/javascript">
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            $cadena =  $(this).find('.btn-ok').attr('href') + "*";
-
-            $id = $cadena.substring($cadena.indexOf("id=")+5, $cadena.indexOf("&date"));
-            $date = $cadena.substring($cadena.indexOf("date=")+6, $cadena.indexOf("&idTypeBike"));
-            $idTypeBike = $cadena.substring($cadena.indexOf("&idTypeBike=")+8, $cadena.indexOf("*"));
-
-            $('.id').html($id);
-            $('.date').html('¿Desea eliminar el edificio ' + $date + ' ' + $idTypeBike + '?');
-
-        });
-        </script>
-
+      
       <?php include("footer.php") ?>
 		    <script src="jquery-1.10.2.min.js"></script>
         <script src="bootstrap.min.js"></script>
