@@ -75,7 +75,7 @@
 						if($edit)
 						{ echo 'Modifica'; } 
 						else { echo 'Consulta'; }
-						?> Usuario - D.N.I. <?php echo $_dni?></h3>
+						?> Usuario</h3>
 					</div>
 					<div class = "col-lg-3"></div>
 					<div class = "col-lg-6">
@@ -111,7 +111,7 @@
 									}
 								?>>
 								<label class="control-label">Tipo de Usuario:</label>
-								<select id="type" name="type" class="col-lg-12" style="color:red;margin-bottom:1rem;"
+								<select id="type" name="type" class="col-lg-12 selection"
 								<?php
 									if($edit){
 										echo 'required';
@@ -131,7 +131,7 @@
 									?>>CLIENTE</option>
 								</select><br>																
 								<label class="control-label">Estado:</label>
-								<select id="status" name="status" class="col-lg-12" style="color:red;margin-bottom:1rem;"
+								<select id="status" name="status" class="col-lg-12 selection" 
 								<?php
 									if($edit){
 										echo 'required';
@@ -152,12 +152,11 @@
 								</select>
 							</div>
 							<div class="form-group row" style="margin-top: 0;">
-								<button type="button" class="btn btn-warning col-lg-5 col-md-5 col-xs-12 pull" onclick="window.open('showUsers.php','_self')">Volver</button>
 								<?php
 									if($edit){
-										echo '<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right">Modificar</button>';
+										echo '<button type="submit" name="submit" id="submit" class="btn btn-primary col-lg-12 col-md-12 col-xs-12 pull-right">Modificar</button>';
 									} else {
-										echo '<button type="button" name="button" id="button" class="btn btn-primary col-lg-5 col-md-5 col-xs-12 pull-right" onclick="volver()">Aceptar</button>';
+										echo '<button type="button" name="button" id="button" class="btn btn-primary col-lg-12 col-md-12 col-xs-12 pull-right" onclick="volver()">Aceptar</button>';
 									}
 								?>
 								
@@ -171,7 +170,8 @@
 			<?php include("footer.php") ?>
 			<script src="jquery-1.10.2.min.js"></script>
 			<script src="bootstrap.min.js"></script>
-			<script src="bootswatch.js"></script>
+			<script src="bootswatch.js"></script>    
+			<link rel="stylesheet" href="css/biciamiga.css" >
 			<script>
 			function volver(){
 				window.open("showUsers.php","_self");
