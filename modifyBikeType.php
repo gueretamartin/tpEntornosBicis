@@ -34,7 +34,7 @@
             //$image4 = $_POST['image4'];
             //$image5 = $_POST['image5'];
 
-            $target_dir = "img/portfolio/".str_replace(' ','',strtolower($_POST['name']))."/";
+            $target_dir = "img/portfolio/".str_replace(' ','',strtolower($_POST['name']))."_";
 
             $imgColumn="";
             $imgvalue="";
@@ -205,7 +205,7 @@
             <br>
             <div class="container-fluid ">
                 <div class= "col-lg-12 text-center">
-                    <h3>Editar Precio de Bicicleta</h3>
+                    <h3>Editar Tipo de Bicicleta</h3>
                 </div>
                 <div class = "col-lg-3"></div>
                 <div class = "col-lg-6">
