@@ -4,8 +4,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="bootstrap.css" media="screen">
     <link rel="stylesheet" href="bootswatch.min.css">
-   <!-- <link rel="stylesheet" type="text/css" href="footer.css">-->
-
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+   
     <style type="text/css">
     @media only screen
     and (min-device-width : 100px) {
@@ -40,35 +41,19 @@
               }
               if(isset($_SESSION['fullName']))
                 $_fullName = (string)$_SESSION['fullName'];
-              if(isset($_SESSION['type']))
+              if(isset($_SESSION['type'])){
                 $_type = $_SESSION['type'];
+              } 
+              else {
+                header("Location: index.php");
+              }
               
               ?>
   <div id="wrap">
 			    <?php include("navBar.php") ?>
 <br>
   <!-- Begin page content -->
-<div class="col-md-8 col-md-offset-2">
-          <table class="table table-striped table-hover text-center">
-            <thead>
-              <tr class="success">
-                <th class="text-center"><p>Número de Reserva</p></th>
-                <th class="text-center"><p>Usuario</p></th>
-                <th class="text-center"><p>Fecha Desde</p></th>
-                <th class="text-center"><p>Fecha Hasta</p></th>
-                <th class="text-center"><p>Tipo de Bicicleta</p></th>
-                <th class="text-center"><p>Precio</p></th>
-                <th class="text-center"><p>Estado</p></th>
-                <?php
-                if(isset($_type) && $_type == 1){
-                echo '<th class="text-center"><p>Modificar</p></th>
-                <th class="text-center"><p>Eliminar</p></th>';
-                }
 
-                ?>
-              </tr>
-            </thead>
-              <tbody>
 
               <?php
 include ("connection.inc");
@@ -83,15 +68,44 @@ include ("connection.inc");
               $inicio = ($pagina - 1) * $registros;
               }
 
-              $resultados = mysqli_query($link,"select * from booking");
-              $total_registros = mysqli_num_rows($resultados);
               $where = '';
-              if($_type==0){$where=" where u.dni = " . $_SESSION['dni'] . " ";}
+              if($_type==0){$where=" where booking.idUser = " . $_SESSION['dni'] . " ";}
+
+
+              $resultados = mysqli_query($link,"select * from booking ".$where);
+              $total_registros = mysqli_num_rows($resultados);
+              
+              
               $query = "select booking.*,biketype.name,u.fullName from booking inner join biketype on booking.idTypeBike = biketype.id inner join user as u on u.dni = booking.idUser " . $where . " LIMIT $inicio , $registros";
               $resultados = mysqli_query($link,$query);
-              $total_paginas = ceil($total_registros / $registros);
 
+              $registros = mysqli_num_rows($resultados);
+              if($registros == 0)
+                $total_paginas = 1;
+              else
+                $total_paginas = ceil($total_registros / $registros);
 
+              if($total_registros!=0){
+                echo '<div class="col-md-8 col-md-offset-2">
+          <div class="table-responsive">
+          <table class="table table-striped table-hover text-center">
+            <thead>
+              <tr class="success">
+                <th class="text-center"><p>Número de Reserva</p></th>
+                <th class="text-center"><p>Usuario</p></th>
+                <th class="text-center"><p>Fecha Desde</p></th>
+                <th class="text-center"><p>Fecha Hasta</p></th>
+                <th class="text-center"><p>Tipo de Bicicleta</p></th>
+                <th class="text-center"><p>Precio</p></th>
+                <th class="text-center"><p>Estado</p></th>';
+                
+                if(isset($_type) && $_type == 1){
+                echo '<th class="text-center"><p>Modificar</p></th>';
+                }
+
+                       echo'       </tr>
+            </thead>
+              <tbody>';
 
                 if (isset($_fullName)){
 
@@ -103,7 +117,7 @@ include ("connection.inc");
                       <td><p>' . $fila['dateFrom'] . '</p></td>
                       <td><p>' . $fila['dateTo'] . '</p></td>
                       <td><p>' . $fila['name'] . '</p></td>
-                      <td><p>' . $fila['totalPrice'] . '</p></td>';
+                      <td><p>$' . $fila['totalPrice'] . '</p></td>';
 
                       if($fila['status'] == 1)
                         echo '<td><p>Solicitada</p></td>';
@@ -113,7 +127,8 @@ include ("connection.inc");
                         echo '<td><p>Finalizada</p></td>';
                             if(isset($_type) && $_type == 1)
                       echo '<td><img src="img/modificar.gif" alt="Modificar" title="Modificar"  onclick="modifiedBooking(' . $fila['id'] .  ')" /></td>
-                      <td><img src="img/eliminar.gif" alt="Eliminar" title="Eliminar" data-href="deleteBooking.php?id=' . $fila["id"]. '" data-toggle="modal" data-target="#confirm-delete")"/></td>
+
+                   
                     </tr>
                     ';
                   $contador++;
@@ -121,16 +136,15 @@ include ("connection.inc");
 
                   mysqli_close($link);
                 }
-                  echo '</tbody></table>';
-
-
-
-                  echo '<div class="container col-lg-12 text-center">
-                            <a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a>
-                  </div>
-
-                  <div class="col-lg-10 col-lg-offset-5 col-md-10 col-md-offset-5 col-xs-10 col-xs-offset-2">
-                  <ul class="pagination col-xs-10 col-md-10 col-lg-10">';
+                  echo '</tbody></table></div>';
+                  if(isset($_type) && $_type <> 1 )
+                    echo '<div class="container col-lg-12 text-center">
+                        <div class="row text-center">
+                        <a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a>
+                                </div>';
+                    echo '
+                  <div class="row text-center">
+                  <ul class="pagination">';
 
                   if (($pagina - 1) > 0) {
                       echo "<li><a href='showBooking.php?pagina=".($pagina-1)."'>«</a></li>";
@@ -150,8 +164,13 @@ include ("connection.inc");
                   } else {
                   echo '<li><a>»</a></li>';
                   }
-                  echo '</ul></div>';
+                  echo '</ul></div></div>'; }
+                  else echo '<div class="container col-lg-12 text-center">
+                    <div class="row text-center">  </div><h1>No hay reservas disponibles</h1></div>
+                    <div class="row text-center"> ';
 
+                    if(isset($_type) && $_type <> 1)
+                      echo '<a href="addBooking.php" class="btn btn-primary">Nueva Reserva</a> </div>'
 
               ?>
 </div>
@@ -180,8 +199,7 @@ include ("connection.inc");
     </div>
 </div>
     </div><!-- Wrap Div end -->
-		   
-
+		  
 
         <script type="text/javascript">
         function modifiedBooking(id) {
@@ -189,21 +207,7 @@ include ("connection.inc");
         }
         </script>
 
-        <script type="text/javascript">
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            $cadena =  $(this).find('.btn-ok').attr('href') + "*";
-
-            $id = $cadena.substring($cadena.indexOf("id=")+5, $cadena.indexOf("&date"));
-            $date = $cadena.substring($cadena.indexOf("date=")+6, $cadena.indexOf("&idTypeBike"));
-            $idTypeBike = $cadena.substring($cadena.indexOf("&idTypeBike=")+8, $cadena.indexOf("*"));
-
-            $('.id').html($id);
-            $('.date').html('¿Desea eliminar el edificio ' + $date + ' ' + $idTypeBike + '?');
-
-        });
-        </script>
-
+      
       <?php include("footer.php") ?>
 		    <script src="jquery-1.10.2.min.js"></script>
         <script src="bootstrap.min.js"></script>

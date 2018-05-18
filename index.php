@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="bootstrap.css" media="screen">
+
+      <link rel="stylesheet" href="biciamiga.css" media="screen">
+
     <link rel="stylesheet" href="bootswatch.min.css">
     <link rel="stylesheet" type="text/css" href="footer.css">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -79,9 +82,10 @@
 
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-        <p class="lead well well-sm booking btn-primary"><a href="startSession.php">RESERVA TU BICI AHORA</a></p>
+        <p class="lead well well-sm booking"><a href="newUser.php">REGISTRATE Y RESERVA TU BICI AHORA</a></>
+        
+<!--<p  class="lead well well-sm booking registrate"><a href="newUser.php"> REGISTRATE</a></>-->
 
-<p  class="lead well well-sm booking"><a href="newUser.php"> REGISTRATE</a></p>
 
 </div>
 <div class="col-lg-4"></div>';
