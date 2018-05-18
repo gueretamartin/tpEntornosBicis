@@ -48,39 +48,49 @@
                  $query = "UPDATE booking SET dateFrom='" . $dateFrom . "', dateTo='" . $dateTo . "', idTypeBike=" . $typeBike . ", status=" . $status. " where id=" . $_GET['id'];
 
                 mysqli_query($link, $query) or die (mysqli_error($link));
+                mysqli_close($link);
+
                 $_errorValidacion = 0;
               }
               else {
                 include ("connection.inc");
-                $resultado = mysqli_query($link,"select price FROM biketype WHERE id = ".$typeBike);
-                $fila = $resultado->fetch_assoc();
-                if(isset($fila['price'])){
-                  $bikePrice = $fila['price'];
-                  $diff=date_diff(date_create($dateFrom),date_create($dateTo));
-                    $totalPrice = ($diff->format("%a")+1) * $bikePrice;
-                }
-                else {
-                  $totalPrice = 0;
-                }
+                
 
                 require_once("stockValidator.php");
 
-                $validator = new StockValidator($typeBike, $dateFrom, $dateTo);
-                echo $validator->getStock($typeBike);
-                if ($validator.isAvailable()) {
-                    $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status,totalPrice) VALUES ($_dni, '$dateFrom', '$dateTo', '$typeBike',1,$totalPrice);";
-                    mysqli_query($link, $query) or die (mysqli_error($link));
-                    $_errorValidacion = 0;
-                } else {
-                    $_errorValidacion = 3;
-                }
+                if($dateTo < $dateFrom)
+                    $_errorValidacion = 4;
 
-                $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status,totalPrice) VALUES ($_dni, '$dateFrom', '$dateTo', '$typeBike',1,$totalPrice);";
-                mysqli_query($link, $query) or die (mysqli_error($link));
-                $_errorValidacion = 0;
+                if(!isset($_errorValidacion) || $_errorValidacion == 0){
+                    $validator = new StockValidator($typeBike, $dateFrom, $dateTo);
+
+                    if ($validator->isAvailable()) {
+                      $resultado = mysqli_query($link,"select price FROM biketype WHERE id = ".$typeBike);
+                      $fila = $resultado->fetch_assoc();
+                      if(isset($fila['price'])){
+                        $bikePrice = $fila['price'];
+                        $diff=date_diff(date_create($dateFrom),date_create($dateTo));
+                          $totalPrice = ($diff->format("%a")+1) * $bikePrice;
+                      }
+                      else {
+                        $totalPrice = 0;
+                      }
+
+                      $query = "INSERT INTO booking (idUser, dateFrom, dateTo, idTypeBike, status,totalPrice) VALUES ($_dni, '$dateFrom', '$dateTo', '$typeBike',1,$totalPrice);";
+                      mysqli_query($link, $query) or die (mysqli_error($link));
+                      mysqli_close($link);
+                      $_errorValidacion = 0;
+
+                    } else {
+                        $_errorValidacion = 3;
+                    }
               }
-              mysqli_close($link);
-              header("location:showBooking.php");
+
+}
+  
+                     
+              if(isset($_errorValidacion) &&  $_errorValidacion == 0)
+                header("location:showBooking.php");
 
            }
         }
@@ -106,21 +116,22 @@
   if (isset($_GET['id'])) {
     include ("connection.inc");
     $id = $_GET['id'];
-    if ($resultado = $link->query('select * from booking where id =' . $id )) {
+    if ($resultado = $link->query('select booking.*, user.fullName as userName from booking  INNER JOIN user ON booking.idUser = user.dni where id =' . $id )) {
       $fila = $resultado->fetch_assoc();
 
        $dateFrom = $fila['dateFrom'];
        $dateTo = $fila['dateTo'];
        $typeBike = $fila['idTypeBike'];
        $status = $fila['status'];
+       $userName = $fila['userName'];
 
        $modifica=1;
 
        if($status == 1){
-         echo 'Confirmar reserva';
+         echo '<div class= "col-lg-12 text-center"><h3>Confirmar reserva</h3></div>';
        }
        elseif ($status == 2){
-         echo 'Finalizar reserva';
+         echo '<div class= "col-lg-12 text-center"><h3>Finalizar reserva</h3></div>';
        }
     }
 }
@@ -140,7 +151,11 @@ elseif (!isset($_POST['id'])){
 
             <label class="control-label">Número de Reserva</label>
                     <input type="text" class="form-control" id="id" name="id" readonly   <?php  echo ' value="' . $id . '"'; ?>>
-
+                    <?php 
+                    if(isset($_type) && $_type == 1)
+                    echo '<label  class="control-label">Usuario</label>
+                    <input class="form-control" id="userName" name="userName" readonly value="' . $userName . '"; >';
+                    ?>
                     <label  class="control-label">Fecha Desde</label>
                     <input type="date" class="form-control" id="dateFrom" name="dateFrom" <?php  echo 'value="' . $dateFrom . '"'; ?>>
 
@@ -173,17 +188,19 @@ elseif (!isset($_POST['id'])){
                     </div>
                   <?php }
 
-                     if (isset($_errorValidacion))
-                    {
-                       if ($_errorValidacion == 1)
-                       echo '<h4 class="alert alert-danger text-center">Ingrese todos los campos</h1>';
-                       if ($_errorValidacion == 2)
-                       echo '<h4 class="alert alert-danger text-center">El Número de Reserva ingresado no es valido</h1>';
-                       if ($_errorValidacion == 3)
-                       echo '<h4 class="alert alert-danger text-center">No hay stock disponible para esas fechas.</h1>';
-                       if ($_errorValidacion == 0)
-                       echo '<h4 class="alert alert-success text-center">La reserva se almacenó correctamente</h4>';
-                    }
+                     if (isset($_errorValidacion)){
+                         if ($_errorValidacion == 1)
+                           echo '<h4 class="alert alert-danger text-center">Ingrese todos los campos</h1>';
+                         if ($_errorValidacion == 2)
+                           echo '<h4 class="alert alert-danger text-center">El Número de Reserva ingresado no es valido</h1>';
+                         if ($_errorValidacion == 3)
+                           echo '<h4 class="alert alert-danger text-center">No hay stock disponible para esas fechas.</h1>';
+                          if ($_errorValidacion == 4)
+                           echo '<h4 class="alert alert-danger text-center">La fecha desde no puede ser mayor a la fecha hasta.</h1>';
+                         if ($_errorValidacion == 0)
+                           echo '<h4 class="alert alert-success text-center">La reserva se almacenó correctamente</h4>';
+                      }
+
                      ?>
 
                           <button type="submit" name="submit" class="btn btn-primary col-lg-12 col-xs-12">Guardar</button>
