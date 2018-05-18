@@ -27,6 +27,7 @@
             $name = $_POST['name'];
             $description = $_POST['description'];
             $price = $_POST['price'];
+            $stock = $_POST['stock'];
             //$image1 = $_POST['image1'];
             //$image2 = $_POST['image2'];
             //$image3 = $_POST['image3'];
@@ -39,106 +40,106 @@
             $imgvalue="";
 
 
-            if(isset($_FILES["image1"]["tmp_name"]) && !empty($_FILES["image1"]["tmp_name"])){
-                $target_file = $target_dir . basename($_FILES["image1"]["name"]);
-                $uploadOk = 1;
+            // if(isset($_FILES["image1"]["tmp_name"]) && !empty($_FILES["image1"]["tmp_name"])){
+            //     $target_file = $target_dir . basename($_FILES["image1"]["name"]);
+            //     $uploadOk = 1;
 
-                // Check if image file is a actual image or fake image
-                $check = getimagesize($_FILES["image1"]["tmp_name"]);
-                if($check !== false) {
-                    // echo "File is an image - " . $check["mime"] . ".";
-                    $image1 = $target_dir.$_FILES["image1"]["name"];
-                    $file_data = file_get_contents($_FILES["image1"]["tmp_name"]);
-                    file_put_contents($target_file,$file_data);
+            //     // Check if image file is a actual image or fake image
+            //     $check = getimagesize($_FILES["image1"]["tmp_name"]);
+            //     if($check !== false) {
+            //         // echo "File is an image - " . $check["mime"] . ".";
+            //         $image1 = $target_dir.$_FILES["image1"]["name"];
+            //         $file_data = file_get_contents($_FILES["image1"]["tmp_name"]);
+            //         file_put_contents($target_file,$file_data);
 
-                    $imgvalue = $imgvalue . ", image1='".$image1."'";
+            //         $imgvalue = $imgvalue . ", image1='".$image1."'";
 
-                    $uploadOk = 1;
-                } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-                }    
-            }
+            //         $uploadOk = 1;
+            //     } else {
+            //         echo "File is not an image.";
+            //         $uploadOk = 0;
+            //     }    
+            // }
 
 
-            if(isset($_FILES["image2"]) && !empty($_FILES["image2"]["tmp_name"])){
-                $target_file = $target_dir . basename($_FILES["image2"]["name"]);
-                $uploadOk = 1;
-                $check = getimagesize($_FILES["image2"]["tmp_name"]);
-                if($check !== false) {
-                    $image2 = $target_dir.$_FILES["image2"]["name"];
-                    $file_data = file_get_contents($_FILES["image2"]["tmp_name"]);
-                    file_put_contents($target_file,$file_data);
+            // if(isset($_FILES["image2"]) && !empty($_FILES["image2"]["tmp_name"])){
+            //     $target_file = $target_dir . basename($_FILES["image2"]["name"]);
+            //     $uploadOk = 1;
+            //     $check = getimagesize($_FILES["image2"]["tmp_name"]);
+            //     if($check !== false) {
+            //         $image2 = $target_dir.$_FILES["image2"]["name"];
+            //         $file_data = file_get_contents($_FILES["image2"]["tmp_name"]);
+            //         file_put_contents($target_file,$file_data);
 
-                    $imgvalue = $imgvalue . ", image2= '".$image2."'";
+            //         $imgvalue = $imgvalue . ", image2= '".$image2."'";
 
-                    $uploadOk = 1;
-                } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-                }    
-            } 
+            //         $uploadOk = 1;
+            //     } else {
+            //         echo "File is not an image.";
+            //         $uploadOk = 0;
+            //     }    
+            // } 
 
-            if(isset($_FILES["image3"]) && !empty($_FILES["image3"]["tmp_name"])){
-                $target_file = $target_dir . basename($_FILES["image3"]["name"]);
-                $uploadOk = 1;
+            // if(isset($_FILES["image3"]) && !empty($_FILES["image3"]["tmp_name"])){
+            //     $target_file = $target_dir . basename($_FILES["image3"]["name"]);
+            //     $uploadOk = 1;
 
-                // Check if image file is a actual image or fake image
-                $check = getimagesize($_FILES["image3"]["tmp_name"]);
-                if($check !== false) {
-                    // echo "File is an image - " . $check["mime"] . ".";
-                    $image3 = $target_dir.$_FILES["image3"]["name"];
-                    $file_data = file_get_contents($_FILES["image3"]["tmp_name"]);
-                    file_put_contents($target_file,$file_data);
+            //     // Check if image file is a actual image or fake image
+            //     $check = getimagesize($_FILES["image3"]["tmp_name"]);
+            //     if($check !== false) {
+            //         // echo "File is an image - " . $check["mime"] . ".";
+            //         $image3 = $target_dir.$_FILES["image3"]["name"];
+            //         $file_data = file_get_contents($_FILES["image3"]["tmp_name"]);
+            //         file_put_contents($target_file,$file_data);
 
-                    $imgvalue = $imgvalue . ", image3='".$image3."'";
+            //         $imgvalue = $imgvalue . ", image3='".$image3."'";
 
-                    $uploadOk = 1;
-                } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-                }    
-            }           
+            //         $uploadOk = 1;
+            //     } else {
+            //         echo "File is not an image.";
+            //         $uploadOk = 0;
+            //     }    
+            // }           
             
-            if(isset($_FILES["image4"]) && !empty($_FILES["image4"]["tmp_name"])){
-                $target_file = $target_dir . basename($_FILES["image4"]["name"]);
-                $uploadOk = 1;
+            // if(isset($_FILES["image4"]) && !empty($_FILES["image4"]["tmp_name"])){
+            //     $target_file = $target_dir . basename($_FILES["image4"]["name"]);
+            //     $uploadOk = 1;
 
-                // Check if image file is a actual image or fake image
-                $check = getimagesize($_FILES["image4"]["tmp_name"]);
-                if($check !== false) {
-                    // echo "File is an image - " . $check["mime"] . ".";
-                    $image4 = $target_dir.$_FILES["image4"]["name"];
-                    $file_data = file_get_contents($_FILES["image4"]["tmp_name"]);
-                    file_put_contents($target_file,$file_data);
+            //     // Check if image file is a actual image or fake image
+            //     $check = getimagesize($_FILES["image4"]["tmp_name"]);
+            //     if($check !== false) {
+            //         // echo "File is an image - " . $check["mime"] . ".";
+            //         $image4 = $target_dir.$_FILES["image4"]["name"];
+            //         $file_data = file_get_contents($_FILES["image4"]["tmp_name"]);
+            //         file_put_contents($target_file,$file_data);
 
-                    $imgvalue = $imgvalue . ", image4= '".$image4."'";
+            //         $imgvalue = $imgvalue . ", image4= '".$image4."'";
 
-                    $uploadOk = 1;
-                } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-                }    
-            }
+            //         $uploadOk = 1;
+            //     } else {
+            //         echo "File is not an image.";
+            //         $uploadOk = 0;
+            //     }    
+            // }
 
-            if(isset($_FILES["image5"]) && !empty($_FILES["image5"]["tmp_name"])){
-                $target_file = $target_dir . basename($_FILES["image5"]["name"]);
-                $uploadOk = 1;
+            // if(isset($_FILES["image5"]) && !empty($_FILES["image5"]["tmp_name"])){
+            //     $target_file = $target_dir . basename($_FILES["image5"]["name"]);
+            //     $uploadOk = 1;
 
-                // Check if image file is a actual image or fake image
-                $check = getimagesize($_FILES["image5"]["tmp_name"]);
-                if($check !== false) {
-                    // echo "File is an image - " . $check["mime"] . ".";
-                    $image5 = $target_dir.$_FILES["image5"]["name"];
-                    $file_data = file_get_contents($_FILES["image5"]["tmp_name"]);
-                    file_put_contents($target_file,$file_data);
-                    $imgvalue = $imgvalue . ", image5 = '".$image5."'";
-                    $uploadOk = 1;
-                } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-                }    
-            }
+            //     // Check if image file is a actual image or fake image
+            //     $check = getimagesize($_FILES["image5"]["tmp_name"]);
+            //     if($check !== false) {
+            //         // echo "File is an image - " . $check["mime"] . ".";
+            //         $image5 = $target_dir.$_FILES["image5"]["name"];
+            //         $file_data = file_get_contents($_FILES["image5"]["tmp_name"]);
+            //         file_put_contents($target_file,$file_data);
+            //         $imgvalue = $imgvalue . ", image5 = '".$image5."'";
+            //         $uploadOk = 1;
+            //     } else {
+            //         echo "File is not an image.";
+            //         $uploadOk = 0;
+            //     }    
+            // }
 
 
 
@@ -155,7 +156,7 @@
                 //$preparedStatement->execute();
                 //$preparedStatement->close();
 
-                 $query = "UPDATE biketype SET name='" . $name . "', description='" . $description . "', price=" . $price . $imgvalue . " where id=" . $id;
+                 $query = "UPDATE biketype SET name='" . $name . "', description='" . $description . "', price=" . $price .', stock='. $stock . " where id=" . $id;
  
 
                 mysqli_query($link, $query) or die (mysqli_error($link));
@@ -182,6 +183,7 @@
                     $name = $fila['name'];
                     $description = $fila['description'];
                     $price = $fila['price'];
+                    $stock = $fila['stock'];
                     $image1 = $fila['image1'];
                      $image2 = $fila['image2'];
                      $image3 = $fila['image3'];
@@ -233,6 +235,8 @@
                             <input type="text" class="form-control" id="description" name="description" required value="<?php echo $description ;?>" >
                             <label class="control-label">Precio</label>
                             <input type="number" max="999999999999" min="1" class="form-control" id="price" name="price" value="<?php echo $price ;?>" required>
+                            <label class="control-label">Cantidad</label>
+                            <input type="number" max="999999999999" min="1" class="form-control" id="stock" name="stock" value="<?php echo $stock ;?>" required>
 
 <!--                             <label class="control-label">Imagen 1</label>
                             <input type="file" name="image1" id="image1">

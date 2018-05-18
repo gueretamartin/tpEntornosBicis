@@ -54,8 +54,10 @@
               <tr class="success">
                 <th class="text-center"><p>Nombre</p></th>
                 <th class="text-center"><p>Descripcion</p></th>
+                 <th class="text-center"><p>Cantidad</p></th>
                 <th class="text-center"><p>Precio</p></th>
                <!-- <th class="text-center"><p>Imagenes</p></th>-->
+
                 <th class="text-center"><p>Modificar</p></th>
               </tr>
             </thead>
@@ -88,6 +90,7 @@
                     <tr class="active">
                       <td><p>' . $fila['name'] . '</p></td>
                       <td><p>' . $fila['description'] . '</p></td>
+                      <td><p>' . $fila['stock'] . '</p></td>
                       <td><p>$' . $fila['price'] . '</p></td>
                       <!--<td>
                         <img src='. $fila['image1'] .' onclick="viewImage(\''. $fila['image1'] . '\')" />

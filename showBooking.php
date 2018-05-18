@@ -115,7 +115,7 @@ include ("connection.inc");
                       <td><p>' . $fila['dateFrom'] . '</p></td>
                       <td><p>' . $fila['dateTo'] . '</p></td>
                       <td><p>' . $fila['name'] . '</p></td>
-                      <td><p>' . $fila['totalPrice'] . '</p></td>';
+                      <td><p>$' . $fila['totalPrice'] . '</p></td>';
 
                       if($fila['status'] == 1)
                         echo '<td><p>Solicitada</p></td>';
