@@ -57,7 +57,7 @@
 		mysqli_close($link);
 	} ?>
 	<div id="wrap">
-		<?php include("navbar.php") ?>
+		<?php include("navBar.php") ?>
 		<br>
 		<br>
 		<div class="container-fluid ">
