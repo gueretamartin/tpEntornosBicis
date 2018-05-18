@@ -63,6 +63,7 @@ else
   { 
     echo 'href="startSession.php"' ;
   }?> >RESERVA TU BICI AHORA</a></p>
+
 </div>
 <div class="col-lg-4"></div>
  </div>

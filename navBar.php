@@ -46,6 +46,7 @@ echo '
          else{
            echo '<li><a class="registrarse" href="newUser.php">Registrarse</a></li>
          <li><a class="iniciar" href="startSession.php" >Iniciar Sesion</a></li>';
+
          }
 
 echo'

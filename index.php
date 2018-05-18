@@ -86,6 +86,7 @@
         
 <!--<p  class="lead well well-sm booking registrate"><a href="newUser.php"> REGISTRATE</a></>-->
 
+
 </div>
 <div class="col-lg-4"></div>';
 
