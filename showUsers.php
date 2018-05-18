@@ -50,7 +50,7 @@
 		<?php include("navBar.php") ?>				
 			<!-- Begin page content -->
 				
-	<div class="col-md-10 col-md-offset-2" >					
+	<div class="col-md-10 col-md-offset-1" >					
 					<img  class="pull-right" src="img/nuevo.gif" alt="Nuevo" title="Nuevo"  onclick="newUser()" />
 				<br><br>
 				<div class="table-responsive">
